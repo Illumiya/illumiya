@@ -33,14 +33,25 @@ body {
 --------------------------------------------------*/
 /* Typograpy */
 .h1-w { font-size: 40px; color: #ffffff; font-weight: 700; line-height: 50px; padding: 0; margin: 0;}
+.h1-b { font-size: 40px; color: #3f4451; font-weight: 700; line-height: 50px; padding: 0; margin: 0;}
 .h2 { font-size: 30px; color: #3f4451; font-weight: 600; line-height: 40px; margin: 0; padding: 0;}
 .h2-w { font-size: 25px; font-weight: 700; margin: 0; padding: 0; color: #ffffff;}
 .p-17-w { font-size: 17px; font-weight: 400; margin: 0; padding: 0; color: #ffffff;}
-.h3-bk { font-size: 17px; font-weight: 700; color: #222d39; margin: 0; padding: 0;}
+.h3-bk { font-size: 17px; font-weight: 600; color: #3f4451; margin: 0; padding: 0;}
 .h3-blk-sb { font-size: 18px; font-weight: 600; color: #222d39; margin: 0; padding: 0;}
 .p-w { font-size: 15px; font-weight: 400; color: #ffffff; line-height: 30px; margin: 0; padding: 0;}
+.p-b { font-size: 15px; font-weight: 400; color: #3f4451; line-height: 30px; margin: 0; padding: 0;}
 .p-bk { font-size: 15px; font-weight: 400; color: #677294; line-height: 30px; margin: 0; padding: 0;}
 .span-sm { font-size: 14px; font-weight: 300; color: #677294; margin: 0; padding: 0;}
+.p-re{
+    font-size: 24px;
+    font-weight: 400;
+    color: #ffffff;
+    line-height: 30px;
+    margin: 0;
+    padding: 0;
+    letter-spacing: 1px;
+}
 /* Padding & Margin */
 .mb-20 { margin-bottom: 20px;}
 .mb-30 { margin-bottom: 30px;}
@@ -51,16 +62,62 @@ body {
 .mt-100 { margin-top: 100px;}
 .mt-30 { margin-top: 30px;}
 .mb-15 { margin-bottom: 15px;}
+.mb-10{ margin-bottom: 10px;}
+.mb-20{ margin-bottom: 20px;}
 .mt-20 { margin-top: 20px;}
-.mt-15 { margin-top: 25px;}
+.mt-25 { margin-top: 25px;}
+.mt-15 { margin-top: 15px;}
+.pr-100{
+    padding-right: 100px;
+}
 .mb-40 { margin-bottom: 40px;}
 .mb-60 { margin-bottom: 60px;}
 .w-80 { width: 200px;}
+.w-70 { width: 70px;}
+.t-w{
+    color: #fff !important;
+}
+.hide{
+    display: none;
+}
+.show{
+    display: block;
+}
+.pb-60{
+    padding-bottom: 60px;
+}
+.pt-180{
+    padding-top: 180px !important;
+}
+.box-padding{
+    padding: 0px 25px;
+}
+.philo-padding{
+    padding: 30px 0px;
+}
+.txt-Left{
+    text-align: left;
+}
+.gold{
+    color:#FFC107 !important;
+}
+.platinum{
+    color:#ddd !important;
+}
+.silver{
+    color:#c0c0c0 !important;
+}
+.violet{
+    color:#673AB7 !important;
+}
+.red{
+    color:rgb(228, 0, 68) !important;
+}
 /* Box Shadow */
 .bx-shw { box-shadow: 0px 2px 25px 0px rgba(0,0,0,0.15); }
 /* Buttons */
 .btn-white {
-    background: #fda727;
+    background: #ffcb57;
     padding: 12px 35px;
     border-radius: 3px;
     font-size: 15px;
@@ -68,6 +125,23 @@ body {
     color: #ffffff;
     text-decoration: none;
     transition: all .4s ease-in-out;
+}
+.btn-green{
+    background: #70cc06;
+    box-shadow: 1px 1px 25px 0px rgba(182,147,199,0.17);
+    padding: 12px 35px;
+    border-radius: 3px;
+    font-size: 15px;
+    font-weight: 400;
+    color: #ffffff;
+    text-decoration: none;
+    transition: all .4s ease-in-out;
+}
+.h3-new{
+    font-size: 18px;
+    color: #222d39;
+    padding: 0;
+    letter-spacing: 1px;
 }
 .btn-white:hover {
     transform: translateY(-10px);
@@ -124,16 +198,27 @@ a {
     font-weight: 400;
     margin-left: 30px;
 }
-
+.footer-nav >.navbar {
+    padding: 20px 0;
+    background: #fff !important;
+}
+.footer-nav .navbar .nav-item .nav-link {
+    color: #222d39 !important;
+   
+}
 /*--------------------------------------------------
 [2. Start Slider]
 --------------------------------------------------*/
 .slider {
-    background: -webkit-linear-gradient(top,#8066dc 0%,#5040a0 100%);
-    height: 100vh;
+    background: url(../img/slider_bg.png) center center no-repeat;
+    height: 108vh;
     position: relative;
 }
-
+.philosophy_img{
+    background: url(../img/philo_img.png) center center no-repeat;
+    height: 75vh;
+    position: relative;
+}
 #particles-js{
     position: absolute;
     top: 0;
@@ -148,7 +233,7 @@ a {
 --------------------------------------------------*/
 .features {
     background: #f6f5fb;
-    padding: 120px 0;
+    padding: 30px 0;
 }
 
   /*--------------------------------------------------
@@ -320,14 +405,75 @@ opacity: .99;
     padding: 25px 0;
 }
 
+.philosophy {
+  background-color:  #ccf0fd;
+}
+
+.philosophy .carousel-item h3 {
+        font-size: 18px;
+        font-weight: 400;
+        margin-bottom: 20px;
+        color: #6d799a;
+}
+.philosophy .carousel-item h4 {
+    font-size: 13px;
+    font-weight: 300;
+    margin: 0;
+    padding: 0;
+}
+.philosophy .carousel-item p {
+    font-size: 15px;
+    font-weight: 400;
+    color: #677294;
+    line-height: 30px;
+    margin: 0;
+    padding: 0;
+}
+.phil-col-padd{
+    padding: 0px 50px;
+}
+.philosophy .carousel-indicators {
+    bottom: -40px;
+}
+.philosophy .carousel-indicators li {
+    background-color: transparent;
+    border: 2px solid #ffffff;
+    border-radius: 30px;
+    height: 12px;
+    width: 12px;
+    margin: 0 6px;
+}
+.philosophy .carousel-indicators .active {
+    background-color: #2e2e2e;
+    border: 2px solid #2e2e2e;
+    box-shadow: 1px 1px 6px #6a83eb;
+}
+.philosophy .carousel-indicators {
+    position: absolute;
+    right: 0;
+    
+    left: 0;
+    z-index: 15;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+    justify-content: left !important;
+    padding-left: 0;
+    margin-right: 15%;
+    margin-left: 0 !important;
+    list-style: none;
+    margin-top: 30px;
+}
+
+
 /*--------------------------------------------------
 [8. Start Testimonials]
 --------------------------------------------------*/
 .testimonials {
-    padding: 120px 0 150px;
-    background: url("../img/bg/testimonials.png") center center no-repeat;
+    padding: 100px 0 100px;
+    background: #fffbe8;
     background-size: cover;
-    color: #ffffff;
+    color: #3f4451;
 }
 .testimonials .carousel-item h3 {
     font-size: 20px;
@@ -350,15 +496,17 @@ opacity: .99;
     bottom: -40px;
 }
 .testimonials .carousel-indicators li {
-    background-color: transparent;
-    border: 2px solid #ffffff;
+    background-color: #ddd;
     border-radius: 30px;
+    border: 2px solid #ddd;
     height: 12px;
     width: 12px;
     margin: 0 6px;
 }
 .testimonials .carousel-indicators .active {
-    background-color: #ffffff;
+    background-color: #2e2e2e;
+    border: 2px solid #2e2e2e;
+    box-shadow: 1px 1px 6px #6a83eb;
 }
 .testimonials .control span {
     cursor: pointer;
@@ -448,7 +596,8 @@ opacity: .99;
     margin-top: 15px;
     border: none;
     z-index: 1;
-    margin-left: -30px;
+    margin-left: -20px;
+    margin-right: -20px;
     outline: none !important;
 }
 .inactive_btn{
@@ -459,30 +608,65 @@ opacity: .99;
     margin-bottom: 30px;
     margin-top: 15px;
     border: 0;
-    margin-left: -30px;
+    margin-left: -20px;
+    margin-right: -20px;
     outline: none !important;
 }
-.price .box {
+.boost_section{
+    background: url("../img/philo_bg.png") center center no-repeat;
+    background-size: cover;
+}
+.boost_section .box {
     border-radius: 15px;
-    padding: 50px 0;
+    padding: 50px 25px;
+    margin-top: 15px;
+
 }
 
-.price .box h4 {
-    font-size: 60px;
+.boost_section .box h4 {
+    font-size: 30px;
     font-weight: 700;
     margin: 0;
     padding: 0;
-    margin-top: 30px;
+   
+}
+.boost_section .box h4 span {
+    font-size: 16px;
+}
+.boost_section .box h5 {
+    font-size: 15px;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: #757575;
+    padding: 0;
+}
+
+.price .box {
+    border-radius: 15px;
+    padding: 50px 25px;
+}
+
+.price .box h4 {
+    font-size: 30px;
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+   
 }
 .price .box h4 span {
     font-size: 16px;
 }
 .price .box h5 {
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 400;
     text-transform: uppercase;
     color: #757575;
-    margin: 0;
+    padding: 0;
+}
+.price .box h3{
+    font-size: 21px;
+    font-weight: 600;
+    color: #3f4451;
     padding: 0;
 }
 .price .box ul {
@@ -505,7 +689,7 @@ opacity: .99;
 [10. Start Contact]
 --------------------------------------------------*/
 .contact {
-    background: url('../img/bg/contact.png') center center no-repeat;
+    background: #fff;
     background-size: cover;
     padding: 120px 0;
 }
@@ -527,28 +711,119 @@ opacity: .99;
     margin: 0;
 }
 .contact .form-control {
-    padding: 25px;
-    font-size: 13px;
-    margin-bottom: 10px;
+    padding: 30px;
+    font-size: 16px;
+    margin-bottom: 15px;
     background: #ffffff;
-    border: 0;
+    border: 1px solid #ebebeb;
     border-radius: 10px;
 }
 
 .contact button.btn {
-    box-shadow: 0px 15px 51px 0px rgba(0,0,0,0.24);
     padding: 10px 45px;
     border-radius: 45px;
     text-decoration: none;
     display: inline-block;
     transition: all .4s ease-in-out;
-    padding: 10px;
+    padding: 20px;
     border-radius: 10px;
     font-size: 15px;
-    background: -webkit-linear-gradient(top left,#8066dc 0%,#5040a0 100%);
+    background: #ce1b31;
     color: #ffffff;
 }
 
+.ribbon {
+    width: 10%;
+    height: 10%;
+    position: relative;
+    float: left;
+    margin-bottom: 30px;
+    /* background: url(https://html5book.ru/wp-content/uploads/2015/10/snow-road.jpg); */
+    background-size: cover;
+    text-transform: uppercase;
+}
+
+.ribbon2{
+    background: #c0c0c0;
+}
+.ribbon3{
+    background: #FFC107;
+}
+.ribbon4{
+    background: #ddd;
+}
+.ribbon2, .ribbon3,.ribbon4{
+    width: 50px;
+    padding: 10px 0;
+    position: absolute;
+    top: -10px;
+    left: 0px;
+    text-align: center;
+    border-top-left-radius: 3px;
+}
+.ribbon2:after {
+    content: "";
+    position: absolute;
+    height: 0;
+    width: 0;
+    bottom: -29.5px;
+    left: 0;
+    border-left: 25px solid #c0c0c0;
+    border-right: 25px solid #c0c0c0;
+    border-bottom: 30px solid transparent;
+}
+.ribbon2:before {
+    height: 0;
+    width: 0;
+    right: -10.5px;
+    top: 0.1px;
+    border-bottom: 10px solid rgb(173, 173, 173);
+    border-right: 10px solid transparent;
+    content: "";
+    position: absolute;
+}
+.ribbon3:after {
+    content: "";
+    position: absolute;
+    height: 0;
+    width: 0;
+    bottom: -29.5px;
+    left: 0;
+    border-left: 25px solid #FFC107;
+    border-right: 25px solid #FFC107;
+    border-bottom: 30px solid transparent;
+}
+.ribbon3:before {
+    height: 0;
+    width: 0;
+    right: -10.5px;
+    top: 0.1px;
+    border-bottom: 10px solid rgb(238, 184, 22);
+    border-right: 10px solid transparent;
+    content: "";
+    position: absolute;
+}
+.ribbon4:after {
+    content: "";
+    position: absolute;
+    height: 0;
+    width: 0;
+    bottom: -29.5px;
+    left: 0;
+    border-left: 25px solid #ddd;
+    border-right: 25px solid #ddd;
+    border-bottom: 30px solid transparent;
+}
+.ribbon4:before {
+    height: 0;
+    width: 0;
+    right: -10.5px;
+    top: 0.1px;
+    border-bottom: 10px solid rgb(194, 194, 194);
+    border-right: 10px solid transparent;
+    content: "";
+    position: absolute;
+}
 /*--------------------------------------------------
 [11. Start Footer]
 --------------------------------------------------*/

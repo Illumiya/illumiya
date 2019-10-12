@@ -2,6 +2,10 @@
 
 {% load staticfiles %}
 
+{% block extra-css %}
+    <link rel="stylesheet" href="{% static 'css/newcss.css' %}">
+{% endblock extra-css %}
+
 {% block content %}
     <section style="margin: 150px 0px;">
         <div class="container">
@@ -15,7 +19,7 @@
                             <!-- SIDEBAR USER TITLE -->
                             <div class="profile-usertitle">
                             <div class="profile-usertitle-name">
-                                Jason Davis
+                                {{ user.get_full_name|title }}
                             </div>
                             <!--<div class="profile-usertitle-job">
                                 Developer

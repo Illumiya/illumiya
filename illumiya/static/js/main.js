@@ -27,18 +27,28 @@ $(document).ready(function(){
      });
 });
 
+$('.school_account').hide();
+$('.school_text').hide();
 // Account switcher start
 $('.student_btn').on('click', function(){
     $(this).addClass('active_btn');
-    $(this).removeClass('.inactive_btn');
-    $('.schools_btn').removeClass('.active_btn');
-    $('.schools_btn').addClass('.inactive_btn');
-  });
+    $(this).removeClass('inactive_btn');
+    $('.schools_btn').removeClass('active_btn');
+    $('.schools_btn').addClass('inactive_btn');
+    $('.student_account').show();
+    $('.school_account').hide();
+    $('.student_text').show();
+    $('.school_text').hide();
+});
 
-  $('.schools_btn').on('click', function(){
+$('.schools_btn').on('click', function(){
     $(this).addClass('active_btn');
-    $(this).removeClass('.inactive_btn');
-    $('.student_btn').removeClass('.active_btn');
-    $('.student_btn').addClass('.inactive_btn');
-  });
-  // Account switcher end
+    $(this).removeClass('inactive_btn');
+    $('.student_btn').removeClass('active_btn');
+    $('.student_btn').addClass('inactive_btn');
+    $('.student_account').hide();
+    $('.school_account').show();
+    $('.student_text').hide();
+    $('.school_text').show();
+});
+// Account switcher end
