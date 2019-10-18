@@ -52,3 +52,4 @@ $('.schools_btn').on('click', function(){
     $('.school_text').show();
 });
 // Account switcher end
+

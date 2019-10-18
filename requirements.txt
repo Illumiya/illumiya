@@ -3,3 +3,11 @@ psycopg2
 django-registration==3.0.1
 pillow==6.2.0
 gunicorn==19.9.0
+#django-cors-headers==3.1.1
+#djangorestframework==3.10.3
+django-ckeditor==5.7.1
+sorl-thumbnail==12.5.0
+
+#sudo apt install npm
+#sudo apt install cmdtest
+#npm install axios --save

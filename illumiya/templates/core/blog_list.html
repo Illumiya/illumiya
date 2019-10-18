@@ -1,0 +1,369 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block extra-css %}
+    <link rel="stylesheet" href="{% static 'css/nestable.css' %}">
+{% endblock extra-css %}
+
+{% block nav-style %}
+style="background: -webkit-linear-gradient(top,#8066dc 0%,#5040a0 100%);"
+{% endblock nav-style %}
+
+{% block content %}
+      <!-- ========== Start Slider ========== -->
+      <section class="slider d-flex align-items-center" id="slider" style="background: #fff;">
+        <div class="container">
+            <div class="row d-flex align-items-center mt-60">
+                <div class="col-lg-6">
+                        <div class="image d-flex ">
+                            <img src="{% static 'img/blog/blog-slider.png' %}" alt="slider-phone" class="img-fluid upDown">
+                        </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="text">
+                        <h2 class="h2-b mb-20">Our Blog</h2>
+                        <h6 class="mb-30">It is a long established fact that a reader will be distracted by the readable
+                            content of a page when looking at its layout.</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ========== End Slider ========== -->
+
+        <!-- ========== Start blog========== -->
+        <section class="blog mb-60 " id="blog">
+                <div class="container">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-lg-12">
+                            <div class="row mb-30">
+                                {% for blog in blogs %}
+                                    <div class="col-lg-3 col-md-3">
+                                        <div class="card">
+                                            <a href="{% url 'blog-detail' pk=blog.id %}"><img class="card-img-top" src="{{ blog.main_image.url }}" alt="{{ blog.title }}"/></a>
+                                                <div class="card-body">
+                                                        <small>Top Rated</small>
+                                                    <a href="{% url 'blog-detail' pk=blog.id %}"><h5 class="card-title pb-60">{{ blog.title }}</h5></a>
+                                                        <p class="p-new p-0"> <small>{{ blog.created_date|date:"F d, Y" }}</small></p>
+                                                        <div class="img-square-wrapper">
+                                                                <p class="p-new card-text p-0"><img class="" src="{% static 'img/our_courses/star_rating.png' %}" alt="Card image cap"/>
+                                                                    &nbsp;{{ blog.average_rating }} {% if blog.comments_count %}({{ blog.comments_count }}){% endif %}</p>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <!-- row 2 -->
+                            {% comment %}
+                            <div class="row mb-30">
+                                    <div class="col-lg-3 col-md-3">
+                                        <div class="card">
+                                                <img class="card-img-top" src="img/blog/blog5.png" alt="Card image">
+                                                <div class="card-body">
+                                                        <h5 class="card-title pb-60">Lorem Ipsum</h5>
+                                                        <p class="p-new p-0"> <small>September 14, 2019</small></p>
+                                                        <div class="img-square-wrapper">
+                                                                <p class="p-new card-text p-0"><img class="" src="img/our_courses/star_rating.png" alt="Card image cap">
+                                                                    &nbsp;5 &nbsp; (14,842)</p>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                    </div>
+                                        <div class="col-lg-3 col-md-3">
+                                                <div class="card">
+                                                        <img class="card-img-top" src="img/blog/blog6.png" alt="Card image">
+                                                        <div class="card-body">
+                                                                <h5 class="card-title pb-60">Lorem Ipsum</h5>
+                                                                <p class="p-new p-0"> <small>September 14, 2019</small></p>
+                                                                <div class="img-square-wrapper">
+                                                                        <p class="p-new card-text p-0"><img class="" src="img/our_courses/star_rating.png" alt="Card image cap">
+                                                                            &nbsp;5 &nbsp; (14,842)</p>
+                                                                </div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6">
+                                                <div class="card">
+                                                        <img class="card-img-top" src="img/blog/blog7.png" alt="Card image">
+                                                        <div class="card-img-overlay d-flex flex-column justify-content-end">
+                                                            <h4 class="card-title t-w pt-60">Lorem Ipsum</h4>
+                                                            <div class="img-square-wrapper">
+                                                                    <p class="p-new card-text"><img class="" src="img/our_courses/star_rating.png" alt="Card image cap">
+                                                                        &nbsp; &nbsp; 3148 Ratings</p>
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                            </div>
+                            <!-- row 3 -->
+                            <div class="row mb-30">
+                                <div class="col-lg-6 col-md-6">
+                                        <div class="card">
+                                                <img class="card-img-top" src="img/blog/blog7.png" alt="Card image">
+                                                <div class="card-img-overlay d-flex flex-column justify-content-end">
+                                                    <h4 class="card-title t-w pt-60">Lorem Ipsum</h4>
+                                                    <div class="img-square-wrapper">
+                                                            <p class="p-new card-text"><img class="" src="img/our_courses/star_rating.png" alt="Card image cap">
+                                                                &nbsp; &nbsp; 3148 Ratings</p>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3">
+                                        <div class="card">
+                                                <img class="card-img-top" src="img/blog/blog5.png" alt="Card image">
+                                                <div class="card-body">
+                                                        <h5 class="card-title pb-60">Lorem Ipsum</h5>
+                                                        <p class="p-new p-0"> <small>September 14, 2019</small></p>
+                                                        <div class="img-square-wrapper">
+                                                                <p class="p-new card-text p-0"><img class="" src="img/our_courses/star_rating.png" alt="Card image cap">
+                                                                    &nbsp;5 &nbsp; (14,842)</p>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3">
+                                            <div class="card">
+                                                    <img class="card-img-top" src="img/blog/blog6.png" alt="Card image">
+                                                    <div class="card-body">
+                                                            <h5 class="card-title pb-60">Lorem Ipsum</h5>
+                                                            <p class="p-new p-0"> <small>September 14, 2019</small></p>
+                                                            <div class="img-square-wrapper">
+                                                                    <p class="p-new card-text p-0"><img class="" src="img/our_courses/star_rating.png" alt="Card image cap">
+                                                                        &nbsp;5 &nbsp; (14,842)</p>
+                                                            </div>
+                                                    </div>
+                                            </div>
+                                    </div>
+                            </div>
+                            <!-- row 4 -->
+                            <div class="row mb-30">
+                                    <div class="col-lg-3 col-md-3">
+                                        <div class="card">
+                                                <img class="card-img-top" src="img/blog/blog1.png" alt="Card image">
+                                                <div class="card-body">
+                                                        <small>Top Rated</small>
+                                                        <h5 class="card-title pb-60">Lorem Ipsum</h5>
+                                                        <p class="p-new p-0"> <small>September 14, 2019</small></p>
+                                                        <div class="img-square-wrapper">
+                                                                <p class="p-new card-text p-0"><img class="" src="img/our_courses/star_rating.png" alt="Card image cap">
+                                                                    &nbsp;5 &nbsp; (14,842)</p>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                    </div>
+                                        <div class="col-lg-3 col-md-3">
+                                                <div class="card">
+                                                        <img class="card-img-top" src="img/blog/blog2.png" alt="Card image">
+                                                        <div class="card-body">
+                                                                <small>Top Viewed</small>
+                                                                <h5 class="card-title pb-60">Lorem Ipsum</h5>
+                                                                <p class="p-new p-0"> <small>September 14, 2019</small></p>
+                                                                <div class="img-square-wrapper">
+                                                                        <p class="p-new card-text p-0"><img class="" src="img/our_courses/star_rating.png" alt="Card image cap">
+                                                                            &nbsp;5 &nbsp; (14,842)</p>
+                                                                </div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3">
+                                                <div class="card">
+                                                        <img class="card-img-top" src="img/blog/blog3.png" alt="Card image">
+                                                        <div class="card-body">
+                                                                <small>Top Viewed</small>
+                                                                <h5 class="card-title pb-60">Lorem Ipsum</h5>
+                                                                <p class="p-new p-0"> <small>September 14, 2019</small></p>
+                                                                <div class="img-square-wrapper">
+                                                                        <p class="p-new card-text p-0"><img class="" src="img/our_courses/star_rating.png" alt="Card image cap">
+                                                                            &nbsp;5 &nbsp; (14,842)</p>
+                                                                </div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3">
+                                                <div class="card">
+                                                        <img class="card-img-top" src="img/blog/blog4.png" alt="Card image">
+                                                        <div class="card-body">
+                                                                <small>Top Viewed</small>
+                                                                <h5 class="card-title pb-60">Lorem Ipsum</h5>
+                                                                <p class="p-new p-0"> <small>September 14, 2019</small></p>
+                                                                <div class="img-square-wrapper">
+                                                                        <p class="p-new card-text p-0"><img class="" src="img/our_courses/star_rating.png" alt="Card image cap">
+                                                                            &nbsp;5 &nbsp; (14,842)</p>
+                                                                </div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                            </div>
+                             <!-- row 5 -->
+                             <div class="row mb-30">
+                                    <div class="col-lg-3 col-md-3">
+                                        <div class="card">
+                                                <img class="card-img-top" src="img/blog/blog1.png" alt="Card image">
+                                                <div class="card-body">
+                                                        <small>Top Rated</small>
+                                                        <h5 class="card-title pb-60">Lorem Ipsum</h5>
+                                                        <p class="p-new p-0"> <small>September 14, 2019</small></p>
+                                                        <div class="img-square-wrapper">
+                                                                <p class="p-new card-text p-0"><img class="" src="img/our_courses/star_rating.png" alt="Card image cap">
+                                                                    &nbsp;5 &nbsp; (14,842)</p>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                    </div>
+                                        <div class="col-lg-3 col-md-3">
+                                                <div class="card">
+                                                        <img class="card-img-top" src="img/blog/blog2.png" alt="Card image">
+                                                        <div class="card-body">
+                                                                <small>Top Viewed</small>
+                                                                <h5 class="card-title pb-60">Lorem Ipsum</h5>
+                                                                <p class="p-new p-0"> <small>September 14, 2019</small></p>
+                                                                <div class="img-square-wrapper">
+                                                                        <p class="p-new card-text p-0"><img class="" src="img/our_courses/star_rating.png" alt="Card image cap">
+                                                                            &nbsp;5 &nbsp; (14,842)</p>
+                                                                </div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3">
+                                                <div class="card">
+                                                        <img class="card-img-top" src="img/blog/blog3.png" alt="Card image">
+                                                        <div class="card-body">
+                                                                <small>Top Viewed</small>
+                                                                <h5 class="card-title pb-60">Lorem Ipsum</h5>
+                                                                <p class="p-new p-0"> <small>September 14, 2019</small></p>
+                                                                <div class="img-square-wrapper">
+                                                                        <p class="p-new card-text p-0"><img class="" src="img/our_courses/star_rating.png" alt="Card image cap">
+                                                                            &nbsp;5 &nbsp; (14,842)</p>
+                                                                </div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3">
+                                                <div class="card">
+                                                        <img class="card-img-top" src="img/blog/blog4.png" alt="Card image">
+                                                        <div class="card-body">
+                                                                <small>Top Viewed</small>
+                                                                <h5 class="card-title pb-60">Lorem Ipsum</h5>
+                                                                <p class="p-new p-0"> <small>September 14, 2019</small></p>
+                                                                <div class="img-square-wrapper">
+                                                                        <p class="p-new card-text p-0"><img class="" src="img/our_courses/star_rating.png" alt="Card image cap">
+                                                                            &nbsp;5 &nbsp; (14,842)</p>
+                                                                </div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                            </div>
+                            {% endcomment %}
+                            <span class="text-center">
+                                <p class="p-bk p-20 pl-60">
+                                {% if blogs.has_previous %}
+                                    <a class="btn btn-outline-info mb-4" href="?page={{ blogs.previous_page_number }}">« Prev</a>
+                                    {% if blogs.number > 3 %}
+                                        <a class="btn btn-outline-info mb-4" href="?page=1">1</a>
+                                    {% if blogs.number > 4 %}
+                                    <button class="btn btn-outline-info mb-4" disabled="">...</button>
+                                    {% endif %}
+                                    {% endif %}
+                                    {% endif %}
+
+                                    {% for num in blogs.paginator.page_range %}
+                                    {% if blogs.number == num %}
+                                        <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                                    {% elif num > blogs.number|add:'-3' and num < blogs.number|add:'3' %}
+                                        <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                                    {% endif %}
+                                    {% endfor %}
+
+                                    {% if blogs.has_next %}
+                                    {% if blogs.number < blogs.paginator.num_pages|add:'-3' %}
+                                    <button class="btn btn-outline-info mb-4" disabled="">...</button>
+                                        <a class="btn btn-outline-info mb-4" href="?page={{ blogs.paginator.num_pages }}">{{ blogs.paginator.num_pages }}</a>
+                                    {% elif blogs.number < blogs.paginator.num_pages|add:'-2' %}
+                                        <a class="btn btn-outline-info mb-4" href="?page={{ blogs.paginator.num_pages }}">{{ blogs.paginator.num_pages }}</a>
+                                    {% endif %}
+                                        <a class="btn btn-outline-info mb-4" href="?page={{ blogs.next_page_number }}">Next »</a>
+                                {% endif %}
+                                </p>
+                                <!--<p class="p-bk p-20 pl-60">Prev <a href="#" class="yes-btn d-inline-block">1</a> <a href="#" class="no-btn d-inline-block">2</a> <a href="#" class="no-btn d-inline-block">3</a>Next </p>-->
+                            </span>
+                        </div>
+                    </div>
+                </div>
+        </section>
+        <!-- ========== End blog========== -->
+
+        <!-- ========== start top-rated ========== -->
+        <section class="top-rated mb-30  pt-60 pb-60" id="top-rated">
+            <div class="container text-center">
+                <h2 class="h2 mb-15 txt-r">Top Rated</h2>
+                <p class="p-bk mb-60">It is a long established fact that a reader will be distracted
+                     by the readable content of a <br>
+                        page when looking at its layout.
+                </p>
+                <div class="row d-flex align-items-center">
+                        <div class="col-lg-6 pr-100 " style="text-align: justify;">
+                            <h4 class="h4 mb-20">
+                                    How you can shape the future
+                                    with a career in teaching
+                            </h4>
+                            <p class="p-bk mb-30">It is a long established fact that a
+                                reader will be distracted <br> by the readable content of
+                                 a page when looking at its <br> layout.
+                            </p>
+                            <a href="#" class="rounded-btn d-inline-block">Know More</a>
+                        </div>
+                        <div class="col-lg-6">
+                                <div class="image">
+                                    <img src="{% static 'img/blog/top-rated.png' %}" alt="about" class="img-fluid">
+                                </div>
+                        </div>
+                    </div>
+            </div>
+        </section>
+        <!-- ========== End top-rated ========== -->
+{% endblock content %}
+
+{% block extra-js %}
+        <script src="{% static 'js/page.js' %}"></script>
+        <script src="{% static 'js/nestable.js' %}"></script>
+        <script>
+            $(document).ready(function() {
+                // Nestable
+                var updateOutput = function(e) {
+                    var list = e.length ? e : $(e.target),
+                        output = list.data('output');
+                    if (window.JSON) {
+                        output.val(window.JSON.stringify(list.nestable('serialize'))); //, null, 2));
+                    } else {
+                        output.val('JSON browser support required for this demo.');
+                    }
+                };
+
+                $('#nestable').nestable({
+                    group: 1
+                }).on('change', updateOutput);
+
+                $('#nestable2').nestable({
+                    group: 1
+                }).on('change', updateOutput);
+
+                updateOutput($('#nestable').data('output', $('#nestable-output')));
+                updateOutput($('#nestable2').data('output', $('#nestable2-output')));
+
+                $('#nestable-menu').on('click', function(e) {
+                    var target = $(e.target),
+                        action = target.data('action');
+                    if (action === 'expand-all') {
+                        $('.dd').nestable('expandAll');
+                    }
+                    if (action === 'collapse-all') {
+                        $('.dd').nestable('collapseAll');
+                    }
+                });
+
+                $('#nestable-menu').nestable();
+            });
+            </script>
+{% endblock extra-js %}

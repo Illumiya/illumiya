@@ -24,7 +24,7 @@ Table of contents
 */
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Gotham Rounded";
     background: #fff;
 }
 
@@ -41,7 +41,10 @@ body {
 .h3-blk-sb { font-size: 18px; font-weight: 600; color: #222d39; margin: 0; padding: 0;}
 .p-w { font-size: 15px; font-weight: 400; color: #ffffff; line-height: 30px; margin: 0; padding: 0;}
 .p-b { font-size: 15px; font-weight: 400; color: #3f4451; line-height: 30px; margin: 0; padding: 0;}
-.p-bk { font-size: 15px; font-weight: 400; color: #677294; line-height: 30px; margin: 0; padding: 0;}
+.p-bk { font-size: 15px; font-weight: 300; color: #677294; line-height: 30px; margin: 0; padding: 0;}
+.pb-Q{font-size: 15px; font-weight: 400; color: #37416f; line-height: 30px; margin: 0; padding: 0;}
+.p-acrd{font-size: 1rem;background: #815ee8; color: white;border: 1px solid rgba(120, 130, 140, 0.13);height: auto;font-family: 'Poppins', sans-serif;font-weight: 400;margin: 0 !important;border-radius: 0;padding: 10px 5px;}
+.p-new { font-size: 15px; font-weight: 300; color: #677294; line-height: 24px; margin: 0; padding: 0; padding-bottom: 20px;}
 .span-sm { font-size: 14px; font-weight: 300; color: #677294; margin: 0; padding: 0;}
 .p-re{
     font-size: 24px;
@@ -64,18 +67,41 @@ body {
 .mb-15 { margin-bottom: 15px;}
 .mb-10{ margin-bottom: 10px;}
 .mb-20{ margin-bottom: 20px;}
+.pb-20{ padding-bottom: 20px;}
+.pb-60{ padding-bottom: 60px;}
+.pb-30{ padding-bottom: 30px;}
+.pt-20 { padding-top: 20px;}
+.p-20{ padding: 20px;;}
+.pr-10 { padding-right: 10px;}
+.pl-60 { padding-left: 60px;}
+.pt-60 { padding-top: 60px;}
 .mt-20 { margin-top: 20px;}
 .mt-25 { margin-top: 25px;}
 .mt-15 { margin-top: 15px;}
-.pr-100{
-    padding-right: 100px;
-}
+.pr-2{padding-right: 2px;}
+.pr-100{padding-right: 100px;}
 .mb-40 { margin-bottom: 40px;}
 .mb-60 { margin-bottom: 60px;}
 .w-80 { width: 200px;}
 .w-70 { width: 70px;}
+.fnt-w-600{font-weight: 600 !important;}
+.fnt-w-500{font-weight: 500 !important;}
+.bor-0{border: none !important;}
+
 .t-w{
     color: #fff !important;
+}
+.t-v{
+    color: #815ee8 !important;
+}
+.txt-gy{
+    color: #d5d5d5 !important;
+}
+.txt-r{
+    color: #ce1b31 !important;
+}
+.star_checked{
+    color: orange;
 }
 .hide{
     display: none;
@@ -97,6 +123,15 @@ body {
 }
 .txt-Left{
     text-align: left;
+}
+.txt-right{
+    text-align: right;
+}
+.float-right{
+    float: right;
+}
+.float-left{
+    float: left;
 }
 .gold{
     color:#FFC107 !important;
@@ -137,6 +172,31 @@ body {
     text-decoration: none;
     transition: all .4s ease-in-out;
 }
+.rounded-btn{
+    background: #815ee8;
+    box-shadow: 1px 1px 25px 0px rgba(182,147,199,0.17);
+    padding: 12px 20px;
+    border-radius: 100px;
+    font-size: 15px;
+    font-weight: 400;
+    color: #ffffff;
+    text-decoration: none;
+    transition: all .4s ease-in-out;
+}
+.yes-btn, .no-btn{
+    background: #ffffff;
+    box-shadow: 1px 1px 25px 0px rgba(182,147,199,0.17);
+    padding: 0px 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border: 1px solid #677294 ;
+    font-size: 15px;
+    font-weight: 400;
+    color: #677294;
+    text-decoration: none;
+    transition: all .4s ease-in-out;
+}
+
 .h3-new{
     font-size: 18px;
     color: #222d39;
@@ -213,6 +273,7 @@ a {
     background: url(../img/slider_bg.png) center center no-repeat;
     height: 108vh;
     position: relative;
+    background-size: cover;
 }
 .philosophy_img{
     background: url(../img/philo_img.png) center center no-repeat;
@@ -529,11 +590,17 @@ opacity: .99;
     border-radius: 80px 0px 0px 80px;
     padding: 20px 0;
     border: 1px solid #ddd;
+    -webkit-flex: 1; /* Safari */
+    -ms-flex: 1; /* IE 10 */
+    flex: 1; /* Standard syntax */
  }
  .Participating .right-bx{
     border-radius: 0px 80px 80px 0px;
     padding: 20px 0;
     border: 1px solid #ddd;
+    -webkit-flex: 1; /* Safari */
+    -ms-flex: 1; /* IE 10 */
+    flex: 1; /* Standard syntax */
  }
  .Participating .left-bx h4 {
     font-size: 50px;
@@ -1063,3 +1130,64 @@ opacity: .99;
 
 /* Large devices (desktops, less than 1200px) */
 @media (max-width: 1199.98px) { }
+
+
+.card-horizontal {
+    display: flex;
+    flex: 1 1 auto;
+    padding: 15px;
+}
+
+.card-bg-grey{
+    background: #f8f8f8;
+    min-height: 390px;
+    max-height: 390px;
+}
+
+.news-ribbon{
+    height: 35px;
+    line-height: 35px;
+    padding-left: 20px;
+    padding-right: 20px;
+    position: absolute;
+    left: 0px;
+    top: 20px;
+    color: #000000;
+    font-weight: 600;
+    font-size: 18px;
+    background: #fff200;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    
+}
+
+.you_will_learn{
+        margin: 0;
+        padding: 0;
+}
+.you_will_learn > li{
+    list-style: none;
+    display: inline-block;
+    vertical-align: top;
+ }
+.you_will_learn > .fa-check{
+    color: #ddd;
+}
+
+.ebook-card{
+    border: 0 !important;
+}
+
+.ebook-card > .card-footer{
+    border: 0 !important;
+    background: #fff !important;
+}
+
+.card-h{
+    max-height: 76px;
+    min-height: 76px;
+}
+
+.top-rated{
+    background-color: #f8f8f8;
+}

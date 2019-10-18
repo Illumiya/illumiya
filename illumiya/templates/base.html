@@ -8,9 +8,7 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>{% block title %}{% endblock title %}</title>
         <!-- Google Font -->
-        <link
-            href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900"
-            rel="stylesheet">
+        <link href="//db.onlinewebfonts.com/c/d31d488d2171c1668c15962fc6cf1ef7?family=Gotham+Rounded" rel="stylesheet" type="text/css"/>
         <!-- Bootstrap 4.2.1 -->
         <link rel="stylesheet" href="{% static 'css/plugins/bootstrap.min.css' %}">
         <!-- Magnific Popup -->
@@ -20,7 +18,7 @@
             href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
             rel="stylesheet">
         <!-- Main CSS -->
-        <link rel="stylesheet" href="{% static 'css/main.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}"/>
         {% block extra-css %}{% endblock extra-css %}
     </head>
     <body>
@@ -28,7 +26,7 @@
         <div class="se-pre-con"></div>
 
         <!-- ========== Start Navbar ========== -->
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" {% block nav-style %}{% endblock nav-style %}>
             <div class="container">
                 <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'img/logo.png' %}" alt=""></a>
                 <button
@@ -141,5 +139,6 @@
         <!-- Magnific Popup -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
         <script src="{% static 'js/main.js' %}"></script>
+        {% block extra-js %}{% endblock extra-js %}
     </body>
 </html>

@@ -1,3 +1,6 @@
 */local_settings.py
 *.pyc
+frontend/*
+media/*
+static_files/*
 

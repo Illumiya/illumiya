@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block extra-css %}
+    <link rel="stylesheet" href="{% static 'css/nestable.css' %}">
+{% endblock extra-css %}
+
+{% block nav-style %}
+style="background: -webkit-linear-gradient(top,#8066dc 0%,#5040a0 100%);"
+{% endblock nav-style %}
+
+{% block content %}
+
+
+        <!-- ========== blogslider ========== -->
+        <section class="blogslider m-section-120 pt-20 mb-60" id="blogslider">
+            <div class="container text-center">
+                <small>Knowledge</small>
+                <h2 class="">{{ blog.title }}</h2>
+                <div class="img-square-wrapper">
+                        <p class="p-new card-text"><img class="" src="{% static 'img/our_courses/star_rating.png' %}" alt="{{ blog.title }}">
+                            &nbsp;&nbsp; {% if blog.rating_count %}{{ blog.rating_count }} Ratings |{% endif %} {{ blog.created_date|date:"F d, Y" }} </p>
+                </div>
+            </div>
+        </section>
+        <!-- ========== End blogslider ========== -->
+
+
+        <!-- ========== Start paragraph========== -->
+    <section class="paragraph mb-60" id="paragraph">
+            <div class="container">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-12">
+                        <p class="p-bk pb-60"></p>
+                        {{ blog.content|safe }}
+                    </div>
+                </div>
+            </div>
+    </section>
+    <!-- ========== End paragraph========== -->
+
+    <!-- ========== Start comments========== -->
+    <section class="comments mb-60" id="comments">
+            <div class="container">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-12">
+                        <hr>
+                        <div class="text-center">
+                                <p class="p-bk">
+                                    <i class='far fa-comment-alt p-2'></i> Comments &nbsp; | &nbsp;
+                                   <a href="#" target="_blank" rel="noopener noreferrer"><i class='fa fa-heart-o p-2'></i> 61 &nbsp;| &nbsp;</a>
+                                  <a href="#" target="_blank" rel="noopener noreferrer"><i class="fa fa-facebook" aria-hidden="true"></i>&nbsp;</a>
+                                  <a href="#" target="_blank" rel="noopener noreferrer"><i class="fa fa-twitter" aria-hidden="true"></i>&nbsp;</a>
+                                  <a href="#" target="_blank" rel="noopener noreferrer"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                                </p>
+                        </div>
+                        <hr>
+                        <div class="text-center p-20">
+                                <div class="pb-3"><img src="{% static 'img/mini_courses/user.png" alt="user" class="img-circle" width="100"></div>
+                                <h5 class="font-medium m-0">Fotis Tsakiris</h5>
+                        </div>
+                        <p class="text-center p-bk">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                Lorem <br> Ipsum has been the industry's standard dummy text ever since the 1500s,
+                        </p>
+                        <div class="text-center pb-3">
+                                <p class="p-bk">
+                                    <a href="#" target="_blank" rel="noopener noreferrer"><i class="fa fa-facebook" aria-hidden="true"></i>&nbsp;</a>
+                                    <a href="#" target="_blank" rel="noopener noreferrer"><i class="fa fa-twitter" aria-hidden="true"></i>&nbsp;</a>
+                                    <a href="#" target="_blank" rel="noopener noreferrer"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                                </p>
+                        </div>
+                        <hr>
+                        <span class="">
+                                <a href="#" target="_blank" class="txt-Left" rel="noopener noreferrer">Previous Post</a>
+                                <a href="#" target="_blank"  class="float-right" rel="noopener noreferrer">Next Post</a>
+                        </span>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+    </section>
+    <!-- ========== End comments========== -->
+
+        <!-- ========== Start you may also like========== -->
+        <section class="you-may mb-60" id="you-may">
+                <div class="container">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-lg-12">
+                            <h4 class="h4 mb-30 text-center">
+                                You may also like
+                            </h4>
+                            <div class="blg-readd-card-slider">
+                                {% for i in recommended_blogs %}
+                                    <div class="card m-2">
+                                            <a href="{% url 'blog-detail' pk=i.id %}">
+                                                <img class="card-img-top" src="{{ i.main_image.url }}" alt="{{ i.title }}"/>
+                                            </a>
+                                            <div class="card-body text-center">
+                                                <a href="{% url 'blog-detail' pk=i.id %}">
+                                                    <p class="p-new card-text">{{ blog.title }}</p>
+                                                </a>
+                                                <small>{{ blog.created_date|date:"F d, Y" }}</small>
+                                            </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </section>
+        <!-- ========== End you may also like========== -->
+
+{% endblock content %}
+
+{% block extra-js %}
+    <script src="{% static 'js/page.js' %}"></script>
+    <script src="{% static 'js/nestable.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/slick.min.js' %}"></script>
+    <script>
+        // blog reading pagr card slider start
+        $('.blg-readd-card-slider').slick({
+            dots: true,
+            infinite: false,
+            speed: 300,
+            slidesToShow: 4,
+            slidesToScroll: 4,
+            autoplay: true,
+            autoplaySpeed: 2000,
+            responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                slidesToShow: 3,
+                slidesToScroll: 3,
+                autoplay: true,
+                autoplaySpeed: 2000,
+                infinite: true,
+                dots: true
+                }
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                slidesToShow: 2,
+                slidesToScroll: 2,
+                autoplay: true,
+                autoplaySpeed: 2000
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 2000
+                }
+            }
+            ]
+        });
+//end
+    </script>
+{% endblock extra-js %}
