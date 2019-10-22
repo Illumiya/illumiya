@@ -13,5 +13,7 @@ class BlogAdmin(admin.ModelAdmin):
 admin.site.register(Blog, BlogAdmin)
 admin.site.register(Gallery)
 admin.site.register(Rating)
-#admin.site.register(BlogGalleryIntermediate)
+admin.site.register(Like)
+admin.site.register(BlogTopic)
 admin.site.register(BlogRatingIntermediate)
+admin.site.register(BlogLikeIntermediate)
