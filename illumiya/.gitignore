@@ -3,4 +3,5 @@
 frontend/*
 media/*
 static_files/*
+illumiya/local_settings.py
 

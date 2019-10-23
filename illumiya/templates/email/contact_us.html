@@ -1,0 +1,23 @@
+{% extends 'email/email_base.html' %}
+
+{% block content %}
+    <div>
+        <p>Hi Admin,</p>
+        <p>The contact details are,</p>
+        <p>
+            Name: {{ contact_name }}
+        </p>
+        <p>
+            Email: {{ contact_email }}
+        </p>
+        <p>
+            Message:<br /> {{ contact_message }}
+        </p>
+
+        <p>
+            Regards,
+            <br />
+            Illumiya Admin
+        </p>
+    </div>
+{% endblock content %}

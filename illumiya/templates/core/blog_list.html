@@ -45,11 +45,11 @@ style="background: -webkit-linear-gradient(top,#8066dc 0%,#5040a0 100%);"
                                         <div class="col-lg-6 col-md-6">
                                             <div class="card">
                                                     <a href="{% url 'blog-detail' pk=blog.id %}">
-                                                        <img class="card-img-top" src="{{ blog.main_image.url }}" alt="{{ blog.title }}">
+                                                        <img class="card-img-top" src="{{ blog.main_image.url }}" alt="{{ blog.title }}" height="403px">
                                                     </a>
                                                     <div class="card-img-overlay d-flex flex-column justify-content-end">
                                                         <a href="{% url 'blog-detail' pk=blog.id %}">
-                                                            <h4 class="card-title t-w pt-60">{{ blog.title }}</h4>
+                                                            <h4 class="card-title t-w pt-60">{{ blog.title|truncatechars:17 }}</h4>
                                                         </a>
                                                         <div class="img-square-wrapper">
                                                                 <p class="p-new card-text"><img class="" src="{% static 'img/our_courses/star_rating.png' %}" alt="Star">
@@ -61,19 +61,23 @@ style="background: -webkit-linear-gradient(top,#8066dc 0%,#5040a0 100%);"
                                     {% else %}
                                         <div class="col-lg-3 col-md-3">
                                             <div class="card">
-                                                <a href="{% url 'blog-detail' pk=blog.id %}"><img class="card-img-top" src="{{ blog.main_image.url }}" alt="{{ blog.title }}"/></a>
+                                                <a href="{% url 'blog-detail' pk=blog.id %}">
+                                                    <img class="card-img-top" src="{{ blog.main_image.url }}" alt="{{ blog.title }}" height="213px"/>
+                                                </a>
                                                     <div class="card-body">
                                                             {% if counter == 1 %}
-                                                                <small>Top Rated</small>
+                                                                {% if blogs.number == 1 %}
+                                                                    <small>Top Rated</small>
+                                                                {% endif %}
                                                             {% endif %}
-                                                            {% if counter in top_viewed_loop_counter %}
+                                                            {% if blogs.number == 1 and counter in top_viewed_loop_counter %}
                                                                 <small>Top Viewed</small>
                                                             {% endif %}
-                                                        <a href="{% url 'blog-detail' pk=blog.id %}"><h5 class="card-title pb-60">{{ blog.title }}</h5></a>
+                                                        <a href="{% url 'blog-detail' pk=blog.id %}"><h5 class="card-title pb-60">{{ blog.title|truncatechars:17 }}</h5></a>
                                                             <p class="p-new p-0"> <small>{{ blog.created_date|date:"F d, Y" }}</small></p>
                                                             <div class="img-square-wrapper">
                                                                     <p class="p-new card-text p-0"><img class="" src="{% static 'img/our_courses/star_rating.png' %}" alt="Card image cap"/>
-                                                                        &nbsp;{{ blog.average_rating }} {% if blog.comments_count %}({{ blog.comments_count }}){% endif %}</p>
+                                                                        &nbsp;{{ blog.average_rating }} {% if blog.rating.all.count %}({{ blog.rating.all.count }}){% endif %}</p>
                                                             </div>
                                                     </div>
                                             </div>

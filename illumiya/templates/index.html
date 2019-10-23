@@ -5,7 +5,7 @@
 {% block title %}Illumiya - Home{% endblock title %}
 
 {% block extra-css %}
-
+    <link rel="stylesheet" href="{% static 'css/parsley.css' %}">
 {% endblock extra-css %}
 
 {% block content %}
@@ -661,27 +661,54 @@
                         <div class="row">
                             <div class="col-md-2"></div>
                             <div class="col-md-8 text-center">
-                                <form>
+                                <form action="{% url 'contact-us' %}" method="POST" id="contact-us-form" data-parsley-validate="">
+                                    {% csrf_token %}
                                     <div class="row">
                                         <div class="col-lg-6">
-                                            <input type="text" class="form-control" placeholder="Name">
+                                            <input type="text" class="form-control" placeholder="Name" name="name" required>
                                         </div>
                                         <div class="col-lg-6">
-                                            <input type="email" class="form-control" placeholder="Email">
+                                            <input type="email" class="form-control" placeholder="Email" name="email" required>
                                         </div>
                                     </div>
                                     <div class="row">
                                             <div class="col-md-12 form-group">
-                                                    <textarea class="form-control" rows="5" id="comment" placeholder="Message"></textarea>
+                                                <textarea class="form-control" rows="5" id="comment" placeholder="Message" name="message" required></textarea>
                                             </div>
                                     </div>
-                                    <button class="btn btn-block" type="submit">Send Message</button>
+                                    <button class="btn btn-block" onclick="contact_submit();return false;" type="button">Send Message</button>
                                 </form>
                             </div>
                             <div class="col-md-2"></div>
+                        </div>
+                        <div class="row contact-us-success-msg hide" style="margin-top: 20px;">
+                            <div class="col-md-12 text-center">
+                                <p class="text-success">Thanks for contacting us. We will reach you soon.</p>
+                            </div>
                         </div>
                     </div>
                 </section>
             <!-- ========== End Contact ========== -->
 
         {% endblock content %}
+
+{% block extra-js %}
+    <script src="{% static 'js/parsley-2.9.1.min.js' %}"></script>
+
+    <script type="text/javascript">
+        function contact_submit() {
+            console.log("create");
+            var contact_form = $('#contact-us-form');
+            if(contact_form.parsley().validate()) {
+                $.post(
+                    "{% url 'contact-us' %}",
+                    contact_form.serializeArray(),
+                    function(output) {
+                        $('.contact-us-success-msg').removeClass('hide').addClass('show');
+                    },
+                    'json'
+                );
+            }
+        }
+    </script>
+{% endblock extra-js %}
