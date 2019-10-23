@@ -19,7 +19,6 @@ class BlogListView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        DEFAULT_PAGE_SIZE = 5
         blogs = []
         page = int(self.request.GET.get('page', 1))
         blog_list = Blog.objects.all().order_by('-id')
@@ -28,6 +27,7 @@ class BlogListView(TemplateView):
         end_blog_row_counter = []
 
         if page == 1 and blog_list.exists():
+            DEFAULT_PAGE_SIZE = 18
             top_rate_blogs = sorted(blog_list, key=lambda i: i.get_rating, reverse=True)
             exclude_ids.append(top_rate_blogs[0].id)
             blogs.append(top_rate_blogs[0])
@@ -48,6 +48,7 @@ class BlogListView(TemplateView):
             end_blog_row_counter = [4, 7, 10, 14, 18]
             context.update(top_viewed_loop_counter=top_viewed_loop_counter)
         else:
+            DEFAULT_PAGE_SIZE = 20
             blogs = blog_list
             add_blog_row_counter = [1, 5, 9, 13, 17]
             end_blog_row_counter = [4, 8, 12, 16, 18]
