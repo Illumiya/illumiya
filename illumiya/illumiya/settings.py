@@ -25,8 +25,7 @@ SECRET_KEY = 'joa-&o_i_o3&$@lwy4zqn%62%-@0t8c+mc#+46s^-(ywclx+3='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['13.235.2.48']
-
+ALLOWED_HOSTS = ['illumiya.in', 'www.illumiya.in']
 
 # Application definition
 
@@ -150,6 +149,19 @@ CKEDITOR_ALLOW_NONIMAGE_FILES = False
 #    'localhost:3000/'
 #)
 
+# ######### EMAIL CONFIGURATION
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'contact@animate.education'
+EMAIL_HOST_PASSWORD = 'IllumiyaNK2020'
+
+DEFAULT_FROM_EMAIL = 'info@illumiya.in'
+ADMIN_EMAIL = ['namitk77@gmail.com', 'ugkarthikgk@gmail.com']
+# ######### END EMAIL CONFIGURATION
+
+#
 try:
     from .local_settings import *
 except ImportError:
