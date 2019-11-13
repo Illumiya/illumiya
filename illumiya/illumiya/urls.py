@@ -23,7 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     #path(r'accounts/', include('django_registration.backends.activation.urls')),
     #path(r'accounts/', include('django.contrib.auth.urls')),
-    path('', include('core.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('users/', include('users.urls')),
+    path(r'comments/', include('django_comments_xtd.urls')),
+    path('', include('core.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

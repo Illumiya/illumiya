@@ -61,6 +61,9 @@ class Blog(models.Model):
         average_rating = result['average_rating'] if result['average_rating'] else 0
         return average_rating
 
+    def get_absolute_url(self):
+        return "/blog/detail/{0}/".format(self.id)
+
 class BlogRatingIntermediate(models.Model):
     blog = models.ForeignKey(Blog, on_delete=True)
     rating = models.ForeignKey(Rating, on_delete=True)

@@ -11,3 +11,8 @@ sorl-thumbnail==12.5.0
 #sudo apt install npm
 #sudo apt install cmdtest
 #npm install axios --save
+
+django-comments-xtd==2.4.1
+#django-contrib-comments==1.9.1
+#docutils==0.15.2
+#six==1.12.0

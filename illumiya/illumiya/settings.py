@@ -37,11 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django.contrib.sites',
+
     #'corsheaders',
-    #'rest_framework',
+    'rest_framework',
     'ckeditor',
     'ckeditor_uploader',
     'sorl.thumbnail',
+    'django_comments_xtd',
+    'django_comments',
 
     'core',
     'users',
@@ -160,6 +164,14 @@ EMAIL_HOST_PASSWORD = 'IllumiyaNK2020'
 DEFAULT_FROM_EMAIL = 'info@illumiya.in'
 ADMIN_EMAIL = ['namitk77@gmail.com', 'ugkarthikgk@gmail.com']
 # ######### END EMAIL CONFIGURATION
+
+## Comments
+COMMENTS_APP = 'django_comments_xtd'
+COMMENTS_XTD_FORM_CLASS = 'core.forms.CommentCustomForm'
+COMMENTS_XTD_MAX_THREAD_LEVEL = 20
+COMMENTS_XTD_LIST_ORDER = ('-thread_id', 'order')
+COMMENTS_XTD_CONFIRM_EMAIL = False
+COMMENTS_XTD_THREADED_EMAILS = False
 
 #
 try:

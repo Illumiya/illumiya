@@ -1,0 +1,56 @@
+{% load i18n %}
+{% load comments %}
+{% load comments_xtd %}
+
+<div id="comments" class="media-list">
+    {% for comment in comment_list %}
+    <div class="media pb-2 d-flex flex-row comment-row">
+        <a name="c{{ comment.id }}"></a>
+        <div class="p-2">
+            <span class="round">
+                <!--<img src="img/users/1.jpg" alt="user" width="50">-->
+                {{ comment.user_email|xtd_comment_gravatar }}
+            </span>
+        </div>
+
+        <div class="media-body comment-text w-100">
+            <div class="comment pb-3">
+                <h6 class="mb-1 small d-flex">
+                    <p class="pb-Q pb-2">{{ comment.name }}<span class="p-bk text-muted float-right">{{ comment.submit_date|date:"m d, Y" }}</span></p>
+                    <!--<div class="mr-auto">{{ comment.submit_date }}&nbsp;-&nbsp;{% if comment.url and not comment.is_removed %}<a href="{{ comment.url }}" target="_new">{% endif %}{{ comment.name }}{% if comment.url %}</a>{% endif %}&nbsp;&nbsp;<a class="permalink" title="comment permalink" href="{% get_comment_permalink comment %}">¶</a></div>-->
+                </h6>
+                <p class="content">
+                    {% if comment.is_removed %}
+                    <p class="text-muted">{% trans "This comment has been removed." %}</p>
+                    {% else %}
+                    <p class="p-bk mb-2">
+                        {% include "includes/django_comments_xtd/comment_content.html" with content=comment.comment %}
+                    </p>
+                    {% endif %}
+                    <div class="comment-footer mb-2">
+                        <span class="action-icons">
+                                <a href="javascript:void(0)" class="rep">
+                                        <i class="fa fa-reply" aria-hidden="true"></i>Reply
+                                </a>
+                                <a href="javascript:void(0)">
+                                        <i class="fa  fa-share-alt" aria-hidden="true"></i>Share
+                                </a>
+                                <a href="javascript:void(0)">
+                                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                                </a>
+                                <a href="javascript:void(0)">
+                                    <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+                                </a>
+                        </span>
+                    </div>
+                    {% if comment.allow_thread and not comment.is_removed %}
+                    <a class="small mutedlink" href="{{ comment.get_reply_url }}">
+                        {% trans "Reply" %}
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
