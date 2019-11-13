@@ -1,0 +1,24 @@
+{% load comments i18n %}
+<form action="{% url 'comments-xtd-api-create' %}" method="post" id="id-new-post-form">{% csrf_token %}
+  {{ form.errors }}
+  {% if next %}
+    <div><input type="hidden" name="next" value="{{ next }}"/></div>{% endif %}
+  {% for field in form %}
+    {% if field.is_hidden %}
+      <div>{{ field }}</div>
+    {% else %}
+      {% if field.errors %}{{ field.errors }}{% endif %}
+      <div class="show">
+        <p
+                {% if field.errors %} class="error"{% endif %}
+                {% if field.name == "name" or field.name == "email" or field.name == "url" or field.name == "followup" or field.name == "honeypot" %} style="display:none;"{% endif %}>
+        {% if field.name != "comment" %}
+          {{ field.label_tag }} {{ field }}
+        {% endif %}
+        </p>
+      </div>
+    {% endif %}
+  {% endfor %}
+    <textarea name="comment" id="id_comment" class="autoExpand forumPost form-control required" required="required" rows="4" data-min-rows="4" placeholder="Enter your message here"></textarea>
+    <button class="blogPostButton btn btn-default" type="submit">Post</button>
+</form>

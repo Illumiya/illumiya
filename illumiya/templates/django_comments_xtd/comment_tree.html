@@ -1,0 +1,8 @@
+{% load l10n %}
+{% load i18n %}
+{% load comments %}
+{% load comments_xtd %}
+
+{% for item in comments %}
+    {% include 'comments/includes/comment_detail.html' with item=item %}
+{% endfor %}

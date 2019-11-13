@@ -1,8 +1,28 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load comments %}
+{% load comments_xtd %}
 
 {% block extra-css %}
     <link rel="stylesheet" href="{% static 'css/nestable.css' %}">
+    <style>
+        .hljs { white-space: nowrap; max-height: 300px;}
+        pre {padding:0}.forumDivOuter {padding:10px 10px;}
+        .forumTagline {padding:10px 0;}
+        .forumvote:hover {color:orange; cursor: pointer;}
+        .forumText { font-weight:500; font-size:1.2em;}
+        .forumName { font-weight:200; font-size:1em;}
+        .forumTime { font-size:1em;}
+        .forumKey {
+            border-radius: 4px;
+            border: 2px solid #555;
+            width: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 20px; margin: 0 2px;
+        }
+    </style>
 {% endblock extra-css %}
 
 {% block nav-style %}
@@ -47,11 +67,11 @@ style="background: -webkit-linear-gradient(top,#8066dc 0%,#5040a0 100%);"
                         <hr>
                         <div class="text-center">
                                 <p class="p-bk">
-                                    <i class='far fa-comment-alt p-2'></i> Comments &nbsp; | &nbsp;
+                                   <a href="#comment-form" target="_blank" rel="noopener noreferrer"><i class='far fa-comment-alt p-2'></i> Comments &nbsp; | &nbsp; </a>
                                    <a href="#" target="_blank" rel="noopener noreferrer"><i class='fa fa-heart-o p-2'></i> 61 &nbsp;| &nbsp;</a>
-                                  <a href="#" target="_blank" rel="noopener noreferrer"><i class="fa fa-facebook" aria-hidden="true"></i>&nbsp;</a>
-                                  <a href="#" target="_blank" rel="noopener noreferrer"><i class="fa fa-twitter" aria-hidden="true"></i>&nbsp;</a>
-                                  <a href="#" target="_blank" rel="noopener noreferrer"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                                   <a href="#" target="_blank" rel="noopener noreferrer"><i class="fa fa-facebook" aria-hidden="true"></i>&nbsp;</a>
+                                   <a href="#" target="_blank" rel="noopener noreferrer"><i class="fa fa-twitter" aria-hidden="true"></i>&nbsp;</a>
+                                   <a href="#" target="_blank" rel="noopener noreferrer"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
                                 </p>
                         </div>
                         <hr>
@@ -81,6 +101,168 @@ style="background: -webkit-linear-gradient(top,#8066dc 0%,#5040a0 100%);"
             </div>
     </section>
     <!-- ========== End comments========== -->
+
+    <!-- ========== start comment-form========== -->
+    <section class="comment-form  mb-60" id="comment-form">
+            <div class="container">
+                    <div class="col-md-8" style="height: auto !important; min-height: 0px !important;">
+                            <a name="comments"></a>
+                            <h2 id="comments">Questions / Comments: </h2>
+                            <input type="hidden" id="forumIdHash" value="M5obX">
+
+                      <div class="newPost">
+                        <div class="forumDivOuter">
+                            <!--<form method="post" action="{% url 'create-comment' %}" id="id-new-post-form">
+                                {% csrf_token %}-->
+                                <div id="forumDiv">
+                                        {% render_comment_form for blog %}
+                                        <!--<input type="hidden" name="content_type" value="core.blog" id="id_content_type">
+                                        <input type="hidden" name="object_pk" value="{{ blog.id }}" id="id_object_pk">
+                                        <input type="hidden" name="reply_to" value="0" id="id_reply_to">
+                                        <input type="text" name="name" placeholder="name" class="form-control" required="" id="id_name" value="{{ request.user.get_full_name|title }}">
+                                        <input type="text" name="email" placeholder="mail address" class="form-control" required="" id="id_email" value="{{ request.user.email }}">
+                                        <input type="checkbox" name="followup" id="id_followup" class="custom-control-input">-->
+                                </div>
+                            <!--</form>-->
+                        </div>
+                        <hr>
+                        </div>
+                        <div class="comment-widgets">
+                                {% get_comment_count for blog as comment_count %}
+                                <!--<div class="py-4 text-center">
+                                  &nbsp;&sdot;&nbsp;
+                                  {{ comment_count }} comment{{ comment_count|pluralize }}
+                                  ha{{ comment_count|pluralize:"s,ve"}} been posted.
+                                </div>-->
+
+                                {% if comment_count %}
+                                  {% render_xtdcomment_tree for blog %}
+                                {% endif %}
+
+                                <!-- Comment Row -->
+                                <div class="d-flex flex-row comment-row">
+                                    <div class="p-2"><span class="round"><img src="img/users/1.jpg" alt="user" width="50"></span></div>
+                                    <div class="comment-text w-100">
+                                        <p class="pb-Q pb-2">James Anderson<span class="p-bk text-muted float-right">April 14, 2016</span></p>
+                                        <p class="p-bk mb-2">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has beenorem Ipsum is simply dummy text of the printing and type setting industry.</p>
+                                        <div class="comment-footer mb-2">
+                                            <span class="action-icons">
+                                                    <a href="javascript:void(0)" class="rep">
+                                                            <i class="fa fa-reply" aria-hidden="true"></i>Reply
+                                                    </a>
+                                                    <a href="javascript:void(0)">
+                                                            <i class="fa  fa-share-alt" aria-hidden="true"></i>Share
+                                                    </a>
+                                                    <a href="javascript:void(0)">
+                                                        <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                                                    </a>
+                                                    <a href="javascript:void(0)">
+                                                        <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+                                                    </a>
+                                            </span>
+                                        </div>
+                                        <form class="comment_reply" data-id="" method="post" action="">
+                                            <div class="d-flex flex-row comment-row">
+                                                <input type="hidden" class="hidden" value="" class="post_id">
+                                                <div class="p-2"><span class="round"><img src="img/users/default-user.png" alt="user" width="50"></span></div>
+                                                <textarea class="form-control" rows="3" name="post_rep" class="post_rep" placeholder="Enter your message here"></textarea>
+                                                <div style="margin: 0 10px;">
+                                                        <button type="submit" class="blogPostButton btn" class="post_rep_sub">Post</button>
+                                                </div>
+                                                <div>
+                                                        <button type="button" class="btn btn-light rep-cancel" class="post_rep_sub">cancel</button>
+                                                </div>
+
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <hr>
+                                <!-- Comment Row -->
+                                <div class="d-flex flex-row comment-row active">
+                                    <div class="p-2"><span class="round"><img src="{% static 'img/users/2.jpg' %}" alt="user" width="50"></span></div>
+                                    <div class="comment-text active w-100">
+                                        <p class="pb-Q pb-2">Michael Jorden<span class="p-bk text-muted float-right">April 14, 2016</span></p>
+                                        <p class="p-bk mb-2">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has beenorem Ipsum is simply dummy text of the printing and type setting industry..</p>
+                                        <div class="comment-footer  mb-2">
+                                            <span class="action-icons">
+                                                    <a href="javascript:void(0)" class="rep">
+                                                            <i class="fa fa-reply" aria-hidden="true"></i>Reply
+                                                    </a>
+                                                    <a href="javascript:void(0)">
+                                                            <i class="fa  fa-share-alt" aria-hidden="true"></i>Share
+                                                    </a>
+                                                    <a href="javascript:void(0)">
+                                                        <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                                                    </a>
+                                                    <a href="javascript:void(0)">
+                                                        <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+                                                    </a>
+                                            </span>
+                                        </div>
+                                        <form class="comment_reply" data-id="" method="post" action="">
+                                                <div class="d-flex flex-row comment-row">
+                                                    <input type="hidden" class="hidden" value="" class="post_id">
+                                                    <div class="p-2"><span class="round"><img src="img/users/default-user.png" alt="user" width="50"></span></div>
+                                                    <textarea class="form-control" rows="3" name="post_rep" class="post_rep" placeholder="Enter your message here" ></textarea>
+                                                    <div style="margin: 0 10px;">
+                                                            <button type="submit" class="blogPostButton btn" class="post_rep_sub">Post</button>
+                                                    </div>
+                                                    <div>
+                                                            <button type="button" class="btn btn-light rep-cancel" class="post_rep_sub">cancel</button>
+                                                    </div>
+
+                                                </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <hr>
+                                <!-- Comment Row -->
+                                <div class="d-flex flex-row comment-row">
+                                    <div class="p-2"><span class="round"><img src="img/users/3.jpg" alt="user" width="50"></span></div>
+                                    <div class="comment-text w-100">
+                                        <p class="pb-Q pb-2">Johnathan Doeting<span class="p-bk text-muted float-right">April 14, 2016</span></p>
+                                        <p class="p-bk mb-2">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has beenorem Ipsum is simply dummy text of the printing and type setting industry.</p>
+                                        <div class="comment-footer  mb-2">
+                                            <span class="action-icons">
+                                                    <a href="javascript:void(0)" class="rep">
+                                                            <i class="fa fa-reply" aria-hidden="true"></i>Reply
+                                                    </a>
+                                                    <a href="javascript:void(0)">
+                                                            <i class="fa  fa-share-alt" aria-hidden="true"></i>Share
+                                                    </a>
+                                                    <a href="javascript:void(0)">
+                                                        <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                                                    </a>
+                                                    <a href="javascript:void(0)">
+                                                        <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+                                                    </a>
+                                            </span>
+                                        </div>
+                                        <form class="comment_reply" data-id="" method="post" action="">
+                                                <div class="d-flex flex-row comment-row">
+                                                    <input type="hidden" class="hidden" value="" class="post_id">
+                                                    <div class="p-2"><span class="round"><img src="img/users/default-user.png" alt="user" width="50"></span></div>
+                                                    <textarea class="form-control" rows="3" name="post_rep" class="post_rep" placeholder="Enter your message here"></textarea>
+                                                    <div style="margin: 0 10px;">
+                                                            <button type="submit" class="blogPostButton btn" class="post_rep_sub">Post</button>
+                                                    </div>
+                                                    <div>
+                                                            <button type="button" class="btn btn-light rep-cancel" class="post_rep_sub">cancel</button>
+                                                    </div>
+
+                                                </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <hr>
+                            </div>
+                    </div>
+            </div>
+    </section>
+
+     <!-- ========== End comment-form========== -->
+
 
         <!-- ========== Start you may also like========== -->
         <section class="you-may mb-60" id="you-may">
@@ -114,51 +296,116 @@ style="background: -webkit-linear-gradient(top,#8066dc 0%,#5040a0 100%);"
 {% endblock content %}
 
 {% block extra-js %}
+    <script src="{% static 'js/jquery.form-4.2.2.min.js' %}"></script>
+    <script type="text/javascript">
+        $(function() {
+            $('#id-new-post-form #id_name').val("{{ user.get_full_name}}");
+            $('#id-new-post-form #id_email').val("{{ user.email}}");
+
+            $('#id-new-post-form').on('submit', function(e) {
+                console.log("TTT");
+                e.preventDefault(); // prevent native submit
+                var comment_form = $('#id-new-post-form').ajaxSubmit({clearForm: true});
+                var xhr = comment_form.data('jqxhr');
+                xhr.done(function(data) {
+                    console.log(data);
+                    window.location.reload(true);
+                })
+            });
+
+
+        });
+    </script>
     <script src="{% static 'js/page.js' %}"></script>
     <script src="{% static 'js/nestable.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/slick.min.js' %}"></script>
-    <script>
+
+    <script type="text/javascript">
+        function create_comment() {
+            //console.log("TTT");
+
+                /*$.post(
+                    "{% url 'create-comment' %}",
+                    $('#id-new-post-form').serializeArray(),
+                    function(output) {
+                        console.log(output);
+                    },
+                    'json'
+                );*/
+            }
         // blog reading pagr card slider start
-        $('.blg-readd-card-slider').slick({
-            dots: true,
-            infinite: false,
-            speed: 300,
-            slidesToShow: 4,
-            slidesToScroll: 4,
-            autoplay: true,
-            autoplaySpeed: 2000,
-            responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                slidesToShow: 3,
-                slidesToScroll: 3,
+            $('.blg-readd-card-slider').slick({
+                dots: true,
+                infinite: false,
+                speed: 300,
+                slidesToShow: 4,
+                slidesToScroll: 4,
                 autoplay: true,
                 autoplaySpeed: 2000,
-                infinite: true,
-                dots: true
+                responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3,
+                    autoplay: true,
+                    autoplaySpeed: 2000,
+                    infinite: true,
+                    dots: true
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                    autoplay: true,
+                    autoplaySpeed: 2000
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    autoplay: true,
+                    autoplaySpeed: 2000
+                    }
                 }
-            },
-            {
-                breakpoint: 600,
-                settings: {
-                slidesToShow: 2,
-                slidesToScroll: 2,
-                autoplay: true,
-                autoplaySpeed: 2000
-                }
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                autoplay: true,
-                autoplaySpeed: 2000
-                }
-            }
-            ]
-        });
-//end
+                ]
+            });
+    //end
+    $(document).on('click' , '.rep' , function(){
+     var closestDiv = $(this).closest('div'); // also you can use $(this).parent()
+     //closestDiv.fadeOut();
+     $('.comment_reply').not(closestDiv.next('.comment_reply')).hide();
+     //$('.rep').closest('div').not(closestDiv).show()
+     closestDiv.next('form.comment_reply').slideToggle(100);
+  });
+  $(document).on('click' , '.rep-cancel' , function(){
+    $('.comment_reply').hide();
+  });
+
+    var defaultHeight = 550;
+    var text = $(".text");
+    /*var textHeight = text[0].scrollHeight;
+    var button = $(".button");
+    text.css({"max-height": defaultHeight, "overflow": "hidden"});
+
+    $(document).on("click",'.read-more', function(){
+        var newHeight = 0;
+        if (text.hasClass("active")) {
+            newHeight = defaultHeight;
+            text.removeClass("active");
+        } else {
+            newHeight = textHeight;
+            text.addClass("active");
+        }
+        text.animate({
+            "max-height": newHeight
+        },1000);
+        return false;
+    });
+    */
     </script>
 {% endblock extra-js %}
