@@ -2,6 +2,7 @@ from django.views.generic.base import TemplateView, View
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
 
 from django_comments_xtd.api.views import CommentCreate
 from rest_framework.response import Response
@@ -9,6 +10,7 @@ from django_comments.signals import comment_was_posted
 from django_comments_xtd import views as comments_views
 from django_comments_xtd import django_comments
 from django_comments import get_form
+from django_comments_xtd.models import XtdComment
 
 
 from django.conf import settings
@@ -155,4 +157,34 @@ class CreateCommentView(View):
                     #views.notify_comment_followers(new_comment)
                 else:
                     resp['code'] = 202
+        return JsonResponse(result)
+
+class AjaxCommentDetailView(View):
+    '''
+        Returns sub comment detail after reply
+        Always show the comment action menu as we show the latest one!
+    '''
+
+    def get(self, request, *args, **kwargs):
+        context = {}
+        result = {}
+        print(args)
+        print(kwargs)
+        parent_comment_id = kwargs.get('pk', 0)
+        object_id = kwargs.get('object_pk', 0)
+        if parent_comment_id:
+            template_name = 'comments/includes/sub_comment_detail.html'
+            context.update(comment=XtdComment.objects.filter(parent_id=parent_comment_id).latest('id'),
+                           comment_id=parent_comment_id,
+                           include_action_menu=True)
+            #result.update(status='success',
+            #             new_comment=render_to_string(template_name, context))
+        if object_id:
+            template_name = 'comments/includes/comment_detail.html'
+            context.update(item={'comment': XtdComment.objects.filter(object_pk=object_id).latest('id')},
+                           #Change this in future for other than blog objects for the sub comments form
+                           blog=Blog.objects.get(id=object_id))
+
+        result.update(status='success',
+                      new_comment=render_to_string(template_name, context, request=request))
         return JsonResponse(result)

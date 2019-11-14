@@ -38,7 +38,8 @@ style="background: -webkit-linear-gradient(top,#8066dc 0%,#5040a0 100%);"
                 <small>Knowledge</small>
                 <h2 class="">{{ blog.title }}</h2>
                 <div class="img-square-wrapper">
-                        <p class="p-new card-text"><img class="" src="{% static 'img/our_courses/star_rating.png' %}" alt="{{ blog.title }}">
+                        <p class="p-new card-text">
+                            <!--<img class="" src="{% static 'img/our_courses/star_rating.png' %}" alt="{{ blog.title }}">-->
                             &nbsp;&nbsp; {% if blog.rating_count %}{{ blog.rating_count }} Ratings |{% endif %} {{ blog.created_date|date:"F d, Y" }} </p>
                 </div>
             </div>
@@ -79,10 +80,10 @@ style="background: -webkit-linear-gradient(top,#8066dc 0%,#5040a0 100%);"
                                 <div class="pb-3"><img src="{% static 'img/mini_courses/user.png' %}" alt="user" class="img-circle" width="100"></div>
                                 <h5 class="font-medium m-0">{{ blog.user.get_full_name|title }}</h5>
                         </div>
-                        <p class="text-center p-bk">
+                        <!--<p class="text-center p-bk">
                                 Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                                 Lorem <br> Ipsum has been the industry's standard dummy text ever since the 1500s,
-                        </p>
+                        </p>-->
                         <div class="text-center pb-3">
                                 <p class="p-bk">
                                     <a href="#" target="_blank" rel="noopener noreferrer"><i class="fa fa-facebook" aria-hidden="true"></i>&nbsp;</a>
@@ -134,10 +135,11 @@ style="background: -webkit-linear-gradient(top,#8066dc 0%,#5040a0 100%);"
                                   {{ comment_count }} comment{{ comment_count|pluralize }}
                                   ha{{ comment_count|pluralize:"s,ve"}} been posted.
                                 </div>-->
-
-                                {% if comment_count %}
-                                  {% render_xtdcomment_tree for blog %}
-                                {% endif %}
+                                <div id="main-sub-comments-block">
+                                    {% if comment_count %}
+                                      {% render_xtdcomment_tree for blog %}
+                                    {% endif %}
+                                </div>
 
                                 {% comment %}
                                 <!-- Comment Row -->
@@ -302,19 +304,55 @@ style="background: -webkit-linear-gradient(top,#8066dc 0%,#5040a0 100%);"
     <script type="text/javascript">
         $(function() {
             $('#id-new-post-form #id_name').val("{{ user.get_full_name}}");
-            $('#id-new-post-form #id_email').val("{{ user.email}}");
+            $('#id-new-post-form #id_email').val("{{ user.email }}");
 
             $('#id-new-post-form').on('submit', function(e) {
                 console.log("TTT");
                 e.preventDefault(); // prevent native submit
-                var comment_form = $('#id-new-post-form').ajaxSubmit({clearForm: true});
+                var comment_form = $('#id-new-post-form').ajaxSubmit({delegation: true});
                 var xhr = comment_form.data('jqxhr');
-                xhr.done(function(data) {
+                $('#id-new-post-form #id_comment').val('');
+                xhr.done(function(data, textStatus, jqXHR) {
                     console.log(data);
-                    window.location.reload(true);
+                    //window.location.reload(true);
+                    $.get('/main-comment/{{ blog.id }}/',
+                        function(response) {
+                            console.log(response);
+                            if(response['status'] == 'success') {
+                                //$('#main-sub-comments-block .comment-action').remove();
+                                $(response['new_comment']).prependTo('#main-sub-comments-block');
+                            }
+                    });
                 })
             });
 
+            $(document).on('submit', '.comment_reply_form', function(e) {
+                console.log("Repl");
+                e.preventDefault(); // prevent native submit
+                var comment_form = $(this).ajaxSubmit({clearForm: true,delegation: true});
+                var xhr = comment_form.data('jqxhr');
+                //data = $(this).serializeArray();
+                comment_id = this.id.split('-')[2];
+                console.log(comment_id);
+                /*console.log($(this).formSerialize());*/
+                xhr.done(function(data, textStatus, jqXHR) {
+                    //console.log(data);
+                    //console.log(data.redirect);
+                    //console.log(jqXHR);
+                    console.log(comment_id);
+                    //console.log(new_reply_comment);
+                    //$('#sub-comments-' + comment_id);
+                    //window.location.reload(true);
+                    $.get('/sub-comment/' + comment_id,
+                        function(response) {
+                            console.log(response);
+                            if(response['status'] == 'success') {
+                                $('#main-comment-' + comment_id + ' .comment-action').remove();
+                                $(response['new_comment']).appendTo('#sub-comments-' + comment_id);
+                            }
+                    });
+                })
+            });
 
         });
     </script>
@@ -378,11 +416,14 @@ style="background: -webkit-linear-gradient(top,#8066dc 0%,#5040a0 100%);"
             });
     //end
     $(document).on('click' , '.rep' , function(){
-     var closestDiv = $(this).closest('div'); // also you can use $(this).parent()
+     var action_id = this.id.split('-')[1]; // also you can use $(this).parent()
+     console.log(action_id);
+     main_comment = $('#main-comment-' + action_id);
      //closestDiv.fadeOut();
-     $('.comment_reply').not(closestDiv.next('.comment_reply')).hide();
+     //$('.comment_reply').not(closestDiv.next('.comment_reply')).hide();
      //$('.rep').closest('div').not(closestDiv).show()
-     closestDiv.next('form.comment_reply').slideToggle(100);
+     $('.comment_reply').hide();
+     $('#main-comment-' + action_id + ' form.comment_reply').slideToggle(100);
   });
   $(document).on('click' , '.rep-cancel' , function(){
     $('.comment_reply').hide();
