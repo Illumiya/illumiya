@@ -1,5 +1,5 @@
 {% load comments i18n %}
-<form action="{% url 'comments-xtd-api-create' %}" method="post" id="id-new-post-form" class="new-post-form">{% csrf_token %}
+<form action="{% url 'comments-xtd-api-create' %}" method="post" id="id-new-post-form">{% csrf_token %}
   {{ form.errors }}
   {% if next %}
     <div><input type="hidden" name="next" value="{{ next }}"/></div>{% endif %}
@@ -11,7 +11,7 @@
       <div class="show">
         <p
                 {% if field.errors %} class="error"{% endif %}
-                {% if field.name == "name" or field.name == "email" or field.name == "url" or field.name == "followup" or field.name == "honeypot" %} style="display:none;"{% endif %}>
+                {% if field.name == "name" or field.name == "email" or field.name == "url" or field.name == "followup" or field.name == "honeypot" %} style="display:block;"{% endif %}>
         {% if field.name != "comment" %}
           {{ field.label_tag }} {{ field }}
         {% endif %}
