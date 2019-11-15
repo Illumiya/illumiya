@@ -5,6 +5,7 @@
 
 {% block extra-css %}
     <link rel="stylesheet" href="{% static 'css/nestable.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/slick.css' %}"/>
     <style>
         .hljs { white-space: nowrap; max-height: 300px;}
         pre {padding:0}.forumDivOuter {padding:10px 10px;}
@@ -321,6 +322,8 @@ style="background: -webkit-linear-gradient(top,#8066dc 0%,#5040a0 100%);"
                             if(response['status'] == 'success') {
                                 //$('#main-sub-comments-block .comment-action').remove();
                                 $(response['new_comment']).prependTo('#main-sub-comments-block');
+                                $('span.post-success-msg').show();
+                                $('span.post-success-msg').delay(3000).fadeOut();
                             }
                     });
                 })
