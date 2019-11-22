@@ -219,8 +219,14 @@ class MyVideosView(FormView):
 
     def form_valid(self, form):
         print("VALID #####")
+        youtube_video_base_url = 'https://www.youtube.com'
         form = form.save(commit=False)
         form.user = self.request.user
+        if form.url.find('?v=') == -1:
+            video_id = form.url.rsplit('/', 1)[1]
+            url = "{}/watch?v={}".format(youtube_video_base_url,
+                                         video_id)
+            form.url = url
         form.save()
         print("SAVED ......")
         return HttpResponseRedirect(reverse('my-videos'))
