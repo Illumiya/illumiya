@@ -3,16 +3,86 @@
 {% load staticfiles %}
 
 {% block extra-css %}
+    <link rel="stylesheet" href="{% static 'css/nestable.css' %}">
     <link rel="stylesheet" href="{% static 'css/newcss.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dropify.min.css' %}">
+    <style>
+        .profile-sidebar {
+        margin: 0;
+        padding: 0px;
+        background-color: #f1f1f1;
+        position: inherit;
+        height: 100%;
+        overflow: auto;
+        }
+
+        .profile-sidebar a {
+        display: block;
+        color: black;
+        padding: 10px;
+        text-decoration: none;
+        }
+
+        .profile-sidebar a.active {
+        background-color: #4CAF50;
+        color: white;
+        }
+
+        .profile-sidebar a:hover:not(.active) {
+        background-color: #555;
+        color: white;
+        }
+
+        div.content {
+        margin-left: 200px;
+        padding: 1px 16px;
+        height: 1000px;
+        }
+
+        @media screen and (max-width: 700px) {
+        .profile-sidebar {
+            width: 100%;
+            height: auto;
+            position: relative;
+        }
+        .profile-sidebar a {float: left;}
+        div.content {margin-left: 0;}
+        }
+
+        @media screen and (max-width: 400px) {
+        .profile-sidebar a {
+            text-align: center;
+            float: none;
+        }
+        }
+
+
+            .modal-body {
+            position:relative;
+            padding:0px;
+            }
+            .close {
+            position:absolute;
+            right:-30px;
+            top:0;
+            z-index:999;
+            font-size:2rem;
+            font-weight: normal;
+            color:#fff;
+            opacity:1;
+            }
+     </style>
+    {% block extra-sub-css %}{% endblock extra-sub-css %}
 {% endblock extra-css %}
 
 {% block content %}
-    <section style="margin: 150px 0px;">
-        <div class="container">
+    <script>var shopcartSettings = {"shopcart_top_offset":120,"side_offset":20,"site_width":1150,"shopcart_icon_color":"#FFFFFF","shopcart_back_color":"#2969b0","shopcart_icon_size":48,"sc_count_color":"#FFFFFF","sc_count_back_color":"#fc26ae","sc_count_size":12,"checkout_button":"Check Out with"};</script>
+    <section style="margin: 104px 0px 0px  0px;">
+        <div class="container-fluid">
             <div class="row my-2">
-                <div class="col-lg-3 profile-sidebar order-lg-1 text-center">
+                <div class="col-lg-2 col-md-2 col-sm-12 profile-sidebar text-center">
                     <!-- SIDEBAR USERPIC -->
-                            <div class="profile-userpic">
+                            <div class="profile-userpic" style="margin-top: 30px;">
                             <img src="https://media.rockstargames.com/chinatownwars/global/downloads/avatars/zhou_256x256.jpg" class="img-responsive" alt="">
                             </div>
                             <!-- END SIDEBAR USERPIC -->
@@ -35,125 +105,17 @@
                             {% endcomment %}
                             <!-- END SIDEBAR BUTTONS -->
                             <div class="nav-menu pt-3">
-                                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                    <div class="nav flex-column nav-pills" id="v-pills-tab1" role="tablist" aria-orientation="vertical">
                                             <!--<a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>-->
-                                            <a class="nav-link active" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</a>
+                                            <a class="nav-link{% if page == 'profile' %} active{% endif %}" id="v-pills-profile-tab" href="{% url 'profile' %}">Profile</a>
+                                            <a class="nav-link{% if page == 'videos' %} active{% endif %}" id="v-pills-videos-tab" href="{% url 'my-videos' %}">Videos</a>
                                             <a class="nav-link" id="v-pills-profile-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a>
                                     </div>
                             </div>
                 </div>
-                <div class="col-lg-9 order-lg-2">
+                <div class="col-lg-10 col-md-10 col-sm-12">
                     <div class="tab-content" id="v-pills-tabContent">
-                            {% comment %}
-                            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                                    <h5 class="mb-3">About</h5>
-                                    <div class="row">
-                                        <div class="col-md-6">
-
-                                            <p>
-                                                Web Designer, UI/UX Engineer
-                                            </p>
-                                            <h6>Hobbies</h6>
-                                            <p>
-                                                Indie music, skiing and hiking. I love the great outdoors.
-                                            </p>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <h6>Recent badges</h6>
-                                            <a href="#" class="badge badge-dark badge-pill">html5</a>
-                                            <a href="#" class="badge badge-dark badge-pill">react</a>
-                                            <a href="#" class="badge badge-dark badge-pill">codeply</a>
-                                            <a href="#" class="badge badge-dark badge-pill">angularjs</a>
-                                            <a href="#" class="badge badge-dark badge-pill">css3</a>
-                                            <a href="#" class="badge badge-dark badge-pill">jquery</a>
-                                            <a href="#" class="badge badge-dark badge-pill">bootstrap</a>
-                                            <a href="#" class="badge badge-dark badge-pill">responsive-design</a>
-                                            <hr>
-                                            <span class="badge badge-primary"><i class="fa fa-user"></i> 900 Followers</span>
-                                            <span class="badge badge-success"><i class="fa fa-cog"></i> 43 Forks</span>
-                                            <span class="badge badge-danger"><i class="fa fa-eye"></i> 245 Views</span>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <h5 class="mt-2"><span class="fa fa-clock-o ion-clock float-right"></span> Recent Activity</h5>
-                                            <table class="table table-sm table-hover table-striped">
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <strong>Abby</strong> joined ACME Project Team in <strong>`Collaboration`</strong>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <strong>Gary</strong> deleted My Board1 in <strong>`Discussions`</strong>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <strong>Kensington</strong> deleted MyBoard3 in <strong>`Discussions`</strong>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <strong>John</strong> deleted My Board1 in <strong>`Discussions`</strong>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <strong>Skell</strong> deleted his post Look at Why this is.. in <strong>`Discussions`</strong>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                            <td>
-                                                                <strong>Gary</strong> deleted My Board1 in <strong>`Discussions`</strong>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>Kensington</strong> deleted MyBoard3 in <strong>`Discussions`</strong>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>John</strong> deleted My Board1 in <strong>`Discussions`</strong>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>Skell</strong> deleted his post Look at Why this is.. in <strong>`Discussions`</strong>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                                <td>
-                                                                    <strong>Abby</strong> joined ACME Project Team in <strong>`Collaboration`</strong>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <strong>Gary</strong> deleted My Board1 in <strong>`Discussions`</strong>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <strong>Kensington</strong> deleted MyBoard3 in <strong>`Discussions`</strong>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <strong>John</strong> deleted My Board1 in <strong>`Discussions`</strong>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <strong>Skell</strong> deleted his post Look at Why this is.. in <strong>`Discussions`</strong>
-                                                                </td>
-                                                            </tr>
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                            </div>
-                            {% endcomment %}
+                            {% block tab-content %}
                             <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                                     <h5 class="mb-3">Your Profile</h5>
                                     <form role="form" action="." method="post">
@@ -241,6 +203,7 @@
                                             </div>
                                         </form>
                             </div>
+                            {% endblock tab-content %}
 
                             <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-profile-settings-tab">
                                 <h5 class="mb-3">Settings</h5>
@@ -280,3 +243,87 @@
         </div>
     </section>
 {% endblock content %}
+
+{% block extra-js %}
+    <script src="{% static 'js/page.js' %}"></script>
+    <script src="{% static 'js/nestable.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/slick.min.js' %}"></script>
+    <!-- jQuery file upload -->
+    <script src="{% static 'js/dropify.min.js' %}"></script>
+
+
+    <script>
+    $(document).ready(function() {
+        // Basic
+        $('.dropify').dropify();
+        // Translated
+        $('.dropify-fr').dropify({
+            messages: {
+                default: 'Glissez-déposez un fichier ici ou cliquez',
+                replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+                remove: 'Supprimer',
+                error: 'Désolé, le fichier trop volumineux'
+            }
+        });
+        // Used events
+        var drEvent = $('#input-file-events').dropify();
+        drEvent.on('dropify.beforeClear', function(event, element) {
+            return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+        });
+        drEvent.on('dropify.afterClear', function(event, element) {
+            alert('File deleted');
+        });
+        drEvent.on('dropify.errors', function(event, element) {
+            console.log('Has Errors');
+        });
+        var drDestroy = $('#input-file-to-destroy').dropify();
+        drDestroy = drDestroy.data('dropify')
+        $('#toggleDropify').on('click', function(e) {
+            e.preventDefault();
+            if (drDestroy.isDropified()) {
+                drDestroy.destroy();
+            } else {
+                drDestroy.init();
+            }
+        })
+    });
+    $(".add-videos-btn").click(function(){
+        $("#latest-videos").hide();
+        $("#most-viewed").hide();
+        $(".add-videos-btn").hide();
+        $(".back-videos-btn").show();
+        $("#add-videos-form").show();
+    });
+    $(".back-videos-btn").click(function(){
+        $("#latest-videos").show();
+        $("#most-viewed").show();
+        $(".add-videos-btn").show();
+        $(".back-videos-btn").hide();
+        $("#add-videos-form").hide();
+    });
+
+        // Gets the video src from the data-src on each button
+        var $videoSrc;
+        $('.video-btn').click(function() {
+            $videoSrc = $(this).data( "src" );
+        });
+        console.log($videoSrc);
+
+
+        // when the modal is opened autoplay it
+        $('#myModal').on('shown.bs.modal', function (e) {
+
+        // set the video src to autoplay and not to show related video. Youtube related video is like a box of chocolates... you never know what you're gonna get
+        $("#video").attr('src',$videoSrc + "?autoplay=1&amp;modestbranding=1&amp;showinfo=0" );
+        })
+
+        // stop playing the youtube video when I close the modal
+        $('#myModal').on('hide.bs.modal', function (e) {
+            // a poor man's stop video
+            $("#video").attr('src',$videoSrc);
+        })
+
+    </script>
+
+    {% block extra-sub-js %}{% endblock extra-sub-js %}
+{% endblock extra-js %}

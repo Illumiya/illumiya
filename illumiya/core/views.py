@@ -1,8 +1,13 @@
 from django.views.generic.base import TemplateView, View
+from django.views.generic.edit import FormView
 from django.core.paginator import Paginator
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.shortcuts import render
+from django.urls import reverse
 
 from django_comments_xtd.api.views import CommentCreate
 from rest_framework.response import Response
@@ -14,8 +19,9 @@ from django_comments_xtd.models import XtdComment
 
 
 from django.conf import settings
-from .models import Blog
+from .models import Blog, Video
 from .utils import send_email
+from .forms import VideoUploadForm
 
 class HomeView(TemplateView):
     template_name = 'index.html'
@@ -188,3 +194,46 @@ class AjaxCommentDetailView(View):
         result.update(status='success',
                       new_comment=render_to_string(template_name, context, request=request))
         return JsonResponse(result)
+
+class MyVideosView(FormView):
+    template_name = 'core/my_videos.html'
+    form_class = VideoUploadForm
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(page='videos',
+                       my_videos=Video.objects.filter(user=self.request.user).order_by('-updated_date'))
+        return context
+
+    """def get(self, request):
+        template_name = 'core/my_videos.html'
+        return render(request, template_name, self.get_context_data())"""
+
+    def form_invalid(self, form):
+        print(form.errors, "ERRORS!!")
+        return HttpResponseRedirect(reverse('my-videos'))
+
+    def form_valid(self, form):
+        print("VALID #####")
+        form = form.save(commit=False)
+        form.user = self.request.user
+        form.save()
+        print("SAVED ......")
+        return HttpResponseRedirect(reverse('my-videos'))
+
+
+class VideoListView(TemplateView):
+    template_name = 'core/video_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        video_list = Video.objects.order_by('-updated_date')
+        most_viewed_video_list = Video.objects.order_by('?')[:4]
+        context.update(video_list=video_list,
+                       most_viewed_video_list=most_viewed_video_list)
+        print(context, "context")
+        return context

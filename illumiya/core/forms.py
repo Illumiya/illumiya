@@ -9,7 +9,7 @@ from django_comments_xtd.forms import XtdCommentForm
 from django_comments_xtd.models import TmpXtdComment
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
-from .models import Blog
+from .models import Blog, Video
 
 class BlogAdminForm(forms.ModelForm):
     content = forms.CharField(widget=CKEditorUploadingWidget())
@@ -32,3 +32,16 @@ class CommentCustomForm(XtdCommentForm):
         data = super(CommentCustomForm, self).get_comment_create_data(site_id)
         #data.update({'title': self.cleaned_data['title']})
         return data
+
+class VideoUploadForm(forms.ModelForm):
+    url = forms.URLField(widget=forms.TextInput(attrs={'placeholder': '(Paste your video link here )'}))
+    description = forms.CharField(widget=forms.Textarea(attrs={'rows': 6}))
+
+    class Meta:
+        model = Video
+        exclude = ('user', )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for _, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'

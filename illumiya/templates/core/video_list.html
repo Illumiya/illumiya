@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block extra-css %}
+    <link rel="stylesheet" href="{% static 'css/nestable.css' %}">
+    <link rel="stylesheet" href="{% static 'css/youtube.css' %}">
+{% endblock extra-css %}
+
+{% block nav-style %}
+style="background: -webkit-linear-gradient(top,#8066dc 0%,#5040a0 100%);"
+{% endblock nav-style %}
+
+{% block content %}
+
+         <div id="mList">
+        <!-- ========== Start Slider ========== -->
+        <section class="slider d-flex align-items-center" id="slider" style="background: #fff;">
+            <div class="container">
+                <div class="row d-flex align-items-center mt-60">
+                    <div class="col-lg-6">
+                            <div class="image d-flex ">
+                                <img src="{% static 'img/videos-page/video-slider.png' %}" alt="slider-phone" class="img-fluid upDown">
+                            </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="text">
+                            <h2 class="h2-b mb-20">Videos</h2>
+                            <h6 class="mb-30">It is a long established fact that a reader will be distracted by the readable
+                                    content of a page when looking at its layout.</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- ========== End Slider ========== -->
+
+        <!-- ==========  start Lat-videos ========== -->
+        <section class="Lat-videos mb-60" id="lat-videos">
+            <div class="container text-center">
+                <h2 class="h2 mb-15 txt-r">Latest Videos</h2>
+                <p class="p-bk mb-60">It is a long established fact that a reader will be distracted
+                    by the readable content of a page when <br> looking at its layout.
+                </p>
+            </div>
+        </section>
+        <!-- ========== End Lat-videos ========== -->
+
+        <!-- ========== Start videos========== -->
+        <section class="videos mb-60" id="videos">
+                <div class="container">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-lg-12">
+                            <div class="row mb-30">
+                                {% for video in video_list %}
+                                <div class="col-lg-4 col-md-4">
+                                    <div class="card bx-shw bor-0">
+                                            <a href="{{ video.url }}">
+                                                <img class="card-img-top" src="{{ video.get_video_thumbnail }}" alt="{{ video.title }}">
+                                            </a>
+                                            <div class="card-body">
+                                                    <h4 class="card-title">{{ video.title }}</h4>
+                                                    <p class="p-new card-text">{{ video.description|truncatewords:"10" }}</p>
+                                                    <div class="pt-20 float-right">
+                                                            <p class="p-new card-text pb-0">{{ video.updated_date|date:"d M, Y" }}</p>
+                                                    </div>
+                                            </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </section>
+        <!-- ========== End videos========== -->
+
+        <!-- ==========  start most viewed ========== -->
+        <section class="Lat-videos mb-60" id="lat-videos">
+                <div class="container text-center">
+                    <h2 class="h2 mb-15 txt-r">Most Viewed</h2>
+                    <p class="p-bk mb-60">It is a long established fact that a reader will be distracted by
+                         the readable content of a page when <br> looking at its layout.
+                    </p>
+                </div>
+            </section>
+        <!-- ========== End viewed ========== -->
+
+        <!-- ========== Start last videos========== -->
+        <section class="last-videos mb-60" id="last-videos">
+                <div class="container">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-lg-12">
+                            <div class="row mb-30">
+                                {% for video in most_viewed_video_list %}
+                                    <div class="col-lg-3 col-md-3">
+                                        <div class="card">
+                                            <a href="{{ video.url }}">
+                                                <img class="card-img-top" src="{{ video.get_video_thumbnail }}" alt="{{ video.title }}">
+                                            </a>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </section>
+        <!-- ========== End last videos========== -->
+                 <!-- Youtupe popup player -->
+    <div id="mPlayer">
+      <div> </div>
+    </div>
+
+         </div>
+
+{% endblock content %}
+
+{% block extra-js %}
+    <script src="{% static 'js/youtube.js' %}"></script>
+{% endblock extra-js %}
