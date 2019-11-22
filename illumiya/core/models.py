@@ -8,6 +8,12 @@ from django.db.models import Avg
 
 from ckeditor.fields import RichTextField
 
+class VideoCategory(models.Model):
+    name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return "%s" % self.name
+
 class BlogTopic(models.Model):
     name = models.CharField(max_length=30)
 
@@ -72,3 +78,23 @@ class BlogLikeIntermediate(models.Model):
     blog = models.ForeignKey(Blog, on_delete=True)
     like = models.ForeignKey(Like, on_delete=True)
     #ranking = models.IntegerField(default=100)
+
+class Video(models.Model):
+    user = models.ForeignKey(User, on_delete=True)
+    title = models.CharField(max_length=200, unique=True)
+    url = models.URLField(null=True, blank=True)
+    description = models.TextField()
+    category = models.ForeignKey(VideoCategory, on_delete=False)
+    updated_date = models.DateTimeField(auto_now=True)
+    created_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return "%s" % self.title
+
+    @property
+    def get_video_thumbnail(self):
+        video_id = self.url.split('?v=')[1]
+        print(self.url, "self.url")
+        print(video_id, "video_id")
+        image = "https://img.youtube.com/vi/{}/0.jpg".format(video_id)
+        return image

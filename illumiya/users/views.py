@@ -36,7 +36,8 @@ class CustomRegitrationView(RegistrationView):
                             password=data['password1'])
         login(self.request, user)
         profile = Profile(user=user,
-                          user_type=data['user_type'])
+                          user_type=data['user_type'],
+                          mobile_number=data['mobile_number'])
         profile.save()
         return HttpResponseRedirect(reverse('profile'))
 
@@ -63,6 +64,7 @@ class ProfileView(FormView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
+        context.update(page='profile')
         return context
 
     def form_valid(self, form):

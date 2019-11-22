@@ -29,6 +29,7 @@ class Profile(models.Model):
                                choices=COUNTRY_CHOICES,
                                null=True,
                                blank=True)
+    mobile_number = models.CharField(max_length=14)
     updated_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):

@@ -10,4 +10,6 @@ urlpatterns = [
     path('create/comment/', views.CreateCommentView.as_view(), name='create-comment'),
     path('sub-comment/<int:pk>/', views.AjaxCommentDetailView.as_view(), name='sub-comment-detail'),
     path('main-comment/<int:object_pk>/', views.AjaxCommentDetailView.as_view(), name='main-comment-detail'),
+    path('videos/', views.VideoListView.as_view(), name='video-list'),
+    path('my-videos/', views.MyVideosView.as_view(), name='my-videos'),
 ]

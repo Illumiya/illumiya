@@ -8,7 +8,9 @@ from .models import Profile, USER_TYPE_CHOICES
 class CustomRegistrationForm(RegistrationForm):
     username = forms.CharField(required=False)
     name = forms.CharField(max_length=50)
+    mobile_number = forms.CharField(max_length=14)
     user_type = forms.ChoiceField(choices=USER_TYPE_CHOICES)
+
 
     def clean_email(self):
         if User.objects.filter(email__iexact=self.cleaned_data['email'].strip()).exists():
