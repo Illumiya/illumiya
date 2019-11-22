@@ -93,7 +93,10 @@ class Video(models.Model):
 
     @property
     def get_video_thumbnail(self):
-        video_id = self.url.split('?v=')[1]
+        if self.url.find('?v=') >= 0:
+            video_id = self.url.split('?v=')[1]
+        else:
+            video_id = self.url.rsplit('/', 1)[1]
         print(self.url, "self.url")
         print(video_id, "video_id")
         image = "https://img.youtube.com/vi/{}/0.jpg".format(video_id)
