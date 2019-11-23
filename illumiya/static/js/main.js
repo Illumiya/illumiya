@@ -53,3 +53,21 @@ $('.schools_btn').on('click', function(){
 });
 // Account switcher end
 
+$( '.navbar-nav a' ).on( 'click', function () {
+	$( '.navbar-nav' ).find( 'li.active' ).removeClass( 'active' );
+	$( this ).parent( 'li' ).addClass( 'active' );
+});
+
+$(document).ready(function() {
+    $('.more').shorten({
+        showChars: 500,
+        moreText: 'Read more',
+        lessText: 'Less'
+    });
+
+    $('.review-more').shorten({
+        showChars: 200,
+        moreText: 'Read more',
+        lessText: 'Less'
+    });
+});

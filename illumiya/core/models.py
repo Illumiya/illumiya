@@ -67,6 +67,10 @@ class Blog(models.Model):
         average_rating = result['average_rating'] if result['average_rating'] else 0
         return average_rating
 
+    @property
+    def liked_count(self):
+        return self.likes.filter(liked=True).count()
+
     def get_absolute_url(self):
         return "/blog/detail/{0}/".format(self.id)
 

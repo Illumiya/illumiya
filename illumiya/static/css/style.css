@@ -199,7 +199,7 @@ h2 {
 
 .main {
   background: #f8f8f8;
-  padding: 5% 0;}
+  padding: 3% 0;}
 
 .signup_main{
     background: #f8f8f8;
@@ -310,7 +310,18 @@ figure {
     background: #4292dc; }
 
 #signin {
-  margin-top: 16px; }
+  margin-top: 16px;
+    background: #815ee8;
+    box-shadow: 1px 1px 25px 0px rgba(182,147,199,0.17);
+    padding: 12px 50px;
+    border-radius: 100px;
+    font-size: 15px;
+    font-weight: 400;
+    color: #ffffff;
+    text-decoration: none;
+    transition: all .4s ease-in-out;
+    font-weight: 500; 
+  }
 
 .signup-image-link {
   font-size: 14px;
@@ -471,8 +482,8 @@ label.valid {
   font-size: 18px; }
 
 .signin-content {
-  padding-top: 67px;
-  padding-bottom: 87px; }
+  padding-top: 50px;
+  padding-bottom: 50px; }
 
 .social-login {
   align-items: center;

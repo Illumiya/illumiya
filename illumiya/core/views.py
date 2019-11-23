@@ -19,7 +19,7 @@ from django_comments_xtd.models import XtdComment
 
 
 from django.conf import settings
-from .models import Blog, Video
+from .models import Blog, Video, Like, VideoCategory, BlogLikeIntermediate
 from .utils import send_email
 from .forms import VideoUploadForm
 
@@ -95,7 +95,10 @@ class BlogDetailView(TemplateView):
         comment_form = get_form()(blog, data)"""
         recommended_blogs = Blog.objects.all().exclude(id=blog.id).order_by('?')[:10]
         context.update(blog=blog,
-                       recommended_blogs=recommended_blogs)
+                       recommended_blogs=recommended_blogs,
+                       like_counter=blog.liked_count,
+                       liked=True if blog.likes.filter(user=self.request.user,
+                                                       liked=True).exists() else False)
                        #comment_form=comment_form)
         return context
 
@@ -239,7 +242,39 @@ class VideoListView(TemplateView):
         context = super().get_context_data(**kwargs)
         video_list = Video.objects.order_by('-updated_date')
         most_viewed_video_list = Video.objects.order_by('?')[:4]
+        data = self.request.GET
+        if data.get('category', ''):
+            context.update(filtered_category=data['category'])
+            video_list = video_list.filter(category__name__istartswith=data['category']).order_by('-updated_date')
         context.update(video_list=video_list,
-                       most_viewed_video_list=most_viewed_video_list)
+                       most_viewed_video_list=most_viewed_video_list,
+                       categories=VideoCategory.objects.all().values_list('name', flat=True))
         print(context, "context")
         return context
+
+class BlogManageLikeView(View):
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
+    def post(self, request, **kwargs):
+        result = {}
+        blog = Blog.objects.get(id=kwargs['blog_id'])
+        like_obj = blog.likes.filter(user=request.user)
+        if like_obj.exists():
+            like_obj = like_obj[0]
+            new_action = False if like_obj.liked else True
+            like_obj.liked = new_action
+            like_obj.save()
+            #result.update(liked=new_action)
+        else:
+            like_obj = Like(user=self.request.user,
+                            liked=True)
+            #result.update(liked=True)
+            like_obj.save()
+            BlogLikeIntermediate(blog=blog, like=like_obj).save()
+        result.update(status='success',
+                      like_counter=blog.liked_count,
+                      liked=like_obj.liked)
+        return JsonResponse(result)

@@ -12,4 +12,5 @@ urlpatterns = [
     path('main-comment/<int:object_pk>/', views.AjaxCommentDetailView.as_view(), name='main-comment-detail'),
     path('videos/', views.VideoListView.as_view(), name='video-list'),
     path('my-videos/', views.MyVideosView.as_view(), name='my-videos'),
+    path('blog/manage-like/<int:blog_id>/', views.BlogManageLikeView.as_view(), name='blog-manage-like'),
 ]

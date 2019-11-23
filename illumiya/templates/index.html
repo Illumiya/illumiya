@@ -6,6 +6,42 @@
 
 {% block extra-css %}
     <link rel="stylesheet" href="{% static 'css/parsley.css' %}">
+    <style type="text/css">
+
+        .ribbon2 {
+            background: #a69f9f !important;
+        }
+        .ribbon2::after {
+            border-left: 25px solid #a69f9f !important;
+            border-right: 25px solid #a69f9f !important;
+        }
+        .ribbon2::before {
+            border-bottom: 10px solid #a69f9f !important;
+        }
+        .silver {
+            color: #a69f9f !important;
+            font-weight: 600 !important;
+        }
+
+        .ribbon4 {
+            background: #6f6161 !important;
+        }
+        .ribbon4::after {
+            border-left: 25px solid #6f6161 !important;
+            border-right: 25px solid #6f6161 !important;
+        }
+        .ribbon4::before {
+            border-bottom: 10px solid #6f6161 !important;
+        }
+        .platinum {
+            color: #6f6161 !important;
+            font-weight: 600 !important;
+        }
+
+        .gold {
+            font-weight: 600 !important;
+        }
+    </style>
 {% endblock extra-css %}
 
 {% block content %}
@@ -21,7 +57,7 @@
                             </p>
                            <span class="mb-30"> <p class="t-w">Get started with our free info pack</p></span>
                             <div class="mt-15">
-                                <a href="#" class="btn-white d-inline-block">Discover More</a>
+                                <a href="#" class="btn-white d-inline-block"  data-toggle="modal" data-target="#subscribeModal">Discover More</a>
                             </div>
                         </div>
                     </div>
@@ -35,8 +71,9 @@
         </section>
         <!-- ========== End Slider ========== -->
 
+        {% comment %}
         <!-- ========== Clients Logo's ========== -->
-        <section class="clients_logos mb-120 mt-100" id="clients_logos">
+        <section class="clients_logos mb-80 mt-100" id="clients_logos">
             <div class="client-logos">
                 <div class="container text-center">
                     <img src="{% static 'img/client-logos.PNG' %}" alt="client logos" class="img-fluid">
@@ -44,9 +81,10 @@
             </div>
         </section>
          <!-- ==========End Clients Logo's ========== -->
+        {% endcomment %}
 
         <!-- ========== High quality education ========== -->
-        <section class="benefits mb-120" id="benefits">
+        <section class="benefits mb-80 mt-100" id="benefits">
             <div class="container text-center">
                 <!-- <h4 class="h4">High Quality Education</h4 -->
                 <h2 class="h2 mb-15">Open The Doorway To Success</h2>
@@ -71,7 +109,7 @@
                         <h2 class="h2 mb-20">
                             Illumiya Believes
                         </h2>
-                        <p class="p-bk mb-30">At Illumiya, we believe in the power of training to unlock 
+                        <p class="p-bk mb-30 more" style="text-align: justify;text-justify: inter-character;">At Illumiya, we believe in the power of training to unlock
                             each individual’s talents. That’s why our education programs and apps
                             deliver everything you need to secure your place in the world. Our carefully
                             researched and inspiring programs deliver key knowledge and skills, sharpen
@@ -85,7 +123,7 @@
                         <h2 class="h2 mb-20">
                                 Illumiya Knows
                         </h2>
-                        <p class="p-bk mb-30">Our comprehensive life skills training packages are backed
+                        <p class="p-bk mb-30 more" style="text-align: justify;text-justify: inter-character;">Our comprehensive life skills training packages are backed
                             by a combined 150 years of expertise from top educators, neuroscientists, psychologists,
                             pedagogical experts and artificial intelligence specialists. All our programs are designed
                             to bring out the best you have to offer.
@@ -93,7 +131,7 @@
                         <h2 class="h2 mb-20">
                                 Illumiya Delivers
                         </h2>
-                        <p class="p-bk mb-30">We’ve helped 50,000+ learners discover success ... and now
+                        <p class="p-bk mb-30 more" style="text-align: justify;text-justify: inter-character;">We’ve helped 50,000+ learners discover success ... and now
                             it’s your chance to reap the benefits. The valuable practical knowledge you
                              gain from our carefully crafted training programs will transform the way you work,
                               develop your IQ and EQ, and help you stand out from the crowd.
@@ -106,12 +144,12 @@
         <!-- ========== End About ========== -->
 
          <!-- ========== Start Participating ========== -->
-        <section class="Participating mb-120" id="Participating">
+        <section class="Participating mb-80" id="Participating">
                 <div class="container text-center">
-                        <h3 class="h3-bk mb-120 mt-15">
-                                “Our mission is to create a better future for our students with life skills learning solutions”
-                        </h3>
-                            <div class="row mb-120">
+                        <h2 class="h3-bk mb-80 mt-15" style="font-weight: 600;">
+                            “Our mission is to create a better future for our students with life skills learning solutions”
+                        </h2>
+                            <div class="row mb-80">
                                 <!-- Box-1 -->
                                 <div class="offset-lg-3 col-lg-6">
                                     <div class="row">
@@ -135,13 +173,13 @@
 
         
     <!-- ========== Start discover illumiya ========== -->
-    <section class="disc_illumiya mb-120" id="disc_illumiya">
+    <section class="disc_illumiya mb-80" id="disc_illumiya">
             <div class="container text-center">
                     <h2 class="h2">DISCOVER ILLUMIYA</h2>
                     <h3 class="h3-bk mb-60">Interactive Learning Materials, News & Fun</h3>
 
                     <h3 class="h3-bk mt-15"> Getting Started with Illumiya is easy.</h3>
-                    <p class="p-bk mb-60">Discover more about our apps, keep up with the latest news and announcements, and <br>
+                    <p class="p-bk mb-60 more">Discover more about our apps, keep up with the latest news and announcements, and <br>
                          check out our bonus features here.</p>
 
                         <div class="row bx-shw">
@@ -217,7 +255,7 @@
         <!-- ========== End Discover illumiya ========== -->
 
         <!-- ========== Start illumiya for  ========== -->
-        <section class="benefits mb-120" id="benefits">
+        <section class="benefits mb-80" id="benefits">
             <div class="container text-center">
                 <h2 class="h2 mb-15">Illumiya For</h2>
                 <div class="btn-group">
@@ -228,13 +266,12 @@
                         <h2 class="h2 mb-15">Learn Different, Learn Better</h2>
                         <p class="p-bk mb-20">It’s time to take your next steps forward with an effective training program tailored to your individual needs. All Illumiya resources are <br>
                             delivered stage by stage in ways that make it easy for you to learn and progress.
-                        </p>
                         <p class="p-bk mb-20">As you develop your knowledge and skills, you’ll have access to your own Personal Skills Trainer who will guide you through each step of the way. <br>
                             Stuck on a problem? Here’s expert help and guidance. Have an idea or suggestion? Here’s someone who’ll listen.
-                        </p>
-                        <p class="p-bk mb-20">Illumiya’s powerful Quizflix and Linguify apps underpin every life skills program. Fun and easy to use, these powerful learning tools aid your <br>
-                            development, improve mental agility and focus, and help you tap valuable knowledge and skills quickly and effectively. <br>
-                            Use Illumiya coins to unlock services and personalise options.
+                            <br> <br>Illumiya’s powerful Quizflix and Linguify apps underpin every life skills program. Fun and easy to use, these powerful learning tools aid your <br>
+                            development, improve mental agility and focus, and help you tap valuable knowledge and skills quickly and effectively.
+                            Use Illumiya coins to unlock <br>
+                            services and personalise options.
                         </p>
                 </div>
                 <div class="school_text">
@@ -243,14 +280,12 @@
                             classes, Illumiya’s education programs are designed to fit easily into your timetable and deliver fresh and diverse learning opportunities to <br>
                             everyone you teach.
                         </p>
-                        <p class="p-bk mb-20">Our intuitive apps are ready to make learning truly inspirational and fun, and our expert trainers are on hand to provide an exciting new <br>
+                        <p class="p-bk mb-20 more">Our intuitive apps are ready to make learning truly inspirational and fun, and our expert trainers are on hand to provide an exciting new <br>
                             dimension to your education program. Illumiya's valuable psychologist input will help develop your students’ full potential and help them grow as individuals as <br>
                             they learn.
-                        </p>
-                        <p class="p-bk mb-20">Together, we can turn your students’ weaknesses into strengths as we transform them into rounded and capable people ready to embrace life <br>
+                            <br><br>Together, we can turn your students’ weaknesses into strengths as we transform them into rounded and capable people ready to embrace life <br>
                             to the full.
-                        </p>
-                        <p class="p-bk mb-20">Make Illumiya your own with school-specific branding on our apps and curriculum content. For language schools, our Linguify app can be <br>
+                            <br><br>Make Illumiya your own with school-specific branding on our apps and curriculum content. For language schools, our Linguify app can be <br>
                             tailored to suit your specific needs. It’s time for the young adults in your care to discover new ways to flourish as your school grows its <br>
                             reputation for success.
                         </p>
@@ -261,7 +296,7 @@
 
         
         <!-- ========== Start Account type ========== -->
-        <section class="price mb-120" id="price">
+        <section class="price mb-80" id="price">
             <div class="container text-center">
                 <div class="row student_account">
                     <!-- Box-1 -->
@@ -478,7 +513,7 @@
 
 
     <!-- ========== Start boost your learning  ========== -->
-    <section class="boost_section mb-120" id="boost_section">
+    <section class="boost_section mb-80" id="boost_section">
             <div class="container text-center">
                 <div class="text-center">
                     <img src="{% static 'img/illumiya_black.png' %}" alt="" class="mb-30 img-fluid w-80">
@@ -525,7 +560,7 @@
     <section class="philosophy" id="philosophy">
             <div class="container">
                 <div class="row d-flex align-items-center philo-padding">
-                    <div class="col-lg-6  pt-180">
+                    <div class="col-lg-6" style="padding-top: 50px;">
                         <h2 class="h2 mb-20">
                             OUR PHILOSOPHY, OUR PEOPLE
                         </h2>
@@ -554,7 +589,7 @@
                                                Namit Kapur
                                         </h2>
                                         <h3>Visionary Founder and Director</h3>
-                                        <p>Namit’s deep understanding of human potential and intelligence 
+                                        <p class="p-bk mb-30 more">Namit’s deep understanding of human potential and intelligence
                                             has led him all over the globe, and now his educational experience
                                             informs and drives the Illumiya initiative. He’s delivered over
                                             4000 hours of professional maths and English tutoring at top
@@ -571,11 +606,11 @@
                                                 Arun Kumar
                                          </h2>
                                          <h3>Senior Coach & Motivator</h3>
-                                         <p>As an NLP certified Master Trainer, Arun’s expert input informs all aspects 
+                                         <p class="p-bk mb-30 more">As an NLP certified Master Trainer, Arun’s expert input informs all aspects
                                                 of the Illumya experience. His 13+ years of educational training
                                                 expertise in soft skills and personal development ensure our programs 
                                                 put people first and always deliver on detail and effectiveness.                                               
-                                            </p>
+                                         </p>
                                     </div>
                                     <!-- Item-3 -->
                                     <div class="carousel-item">
@@ -583,12 +618,12 @@
                                                 Suneet Shivaprasad
                                         </h2>
                                         <h3>Project Developer</h3>
-                                        <p>Every business needs a trailblazer to keep things moving and seek out new 
-                                                ways to expand. Suneet’s social entrepreneur expertise has helped grow  
-                                                and scale countless successful startups, and his initiatives have reached  
-                                                out to 112 countries. Backed by his Oxford education, he’s a big player in 
-                                                Illumiya’s success story. 
-                                            </p>
+                                        <p class="p-bk mb-30 more">Every business needs a trailblazer to keep things moving and seek out new
+                                            ways to expand. Suneet’s social entrepreneur expertise has helped grow
+                                            and scale countless successful startups, and his initiatives have reached
+                                            out to 112 countries. Backed by his Oxford education, he’s a big player in
+                                            Illumiya’s success story.
+                                        </p>
                                     </div>
 									<!-- Item-4 -->
                                     <div class="carousel-item">
@@ -596,18 +631,18 @@
                                                 Lori Figueiredo
                                          </h2>
                                          <h3>Special Advisor</h3>
-                                         <p>Illumiya benefits greatly from Lori’s informed and illuminating input as a   
+                                         <p class="p-bk mb-30 review-more">Illumiya benefits greatly from Lori’s informed and illuminating input as a
                                                 global learning strategist. Her custom designed solutions have enhanced  
                                                 the prospects of individuals and organisations worldwide, and her passion 
                                                 for smart technology helps to drive us forward.                                              
-                                            </p>
+                                         </p>
                                     </div>
     
                                 </div>
                         </div>
                     </div>
                 </div>
-                <h3 class="h3-bk philo-padding text-center">
+                <h3 class="h3-bk philo-padding text-center" style="font-weight: bold;">
                         “Education is not just about going to school and getting a degree. <br>
                         It's about widening your knowledge and absorbing the truth about life.”
                      </h3>
@@ -660,7 +695,8 @@
                 </div>
             </section>
             <!-- ========== End Testimonials ========== -->
-    
+
+            {% comment %}
             <!-- ========== Start Contact ========== -->
             <section class="contact" id="contact">
                     <div class="container text-center">
@@ -698,11 +734,45 @@
                     </div>
                 </section>
             <!-- ========== End Contact ========== -->
+            {% endcomment %}
+
+            <!-- Modal -->
+            <div class="modal fade text-center py-5 subscribeModal-lg"  id="subscribeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" style="border-bottom: none;">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="top-strip"></div>
+                                {% comment %}
+                                <div class="text-center">
+                                    <img src="img/illumiya_black.png" alt="" class="img-fluid w-80">
+                                </div>
+                                {% endcomment %}
+                            <h3 class="pt-4 mb-0 text-secondary">Newsletter</h3>
+                            <p class="pb-1 text-muted"><small>Sign up to update with our latest news and products.</small></p>
+                            <form>
+                                <div class="input-group mb-3 w-75 mx-auto">
+                                  <input type="email" class="form-control" placeholder="Illumiya@gmail.com" aria-label="Recipient's username" aria-describedby="button-addon2" required>
+                                  <div class="input-group-append">
+                                    <button class="btn btn-primary" type="button" id="button-addon2"><i class="fa fa-paper-plane"></i></button>
+                                  </div>
+                                </div>
+                            </form>
+                            <p class="pb-1 text-muted"><small>Your email is safe with us. We won't spam.</small></p>
+                            <div class="bottom-strip"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ./subscribe Modal -->
 
         {% endblock content %}
 
 {% block extra-js %}
     <script src="{% static 'js/parsley-2.9.1.min.js' %}"></script>
+    <script src="{% static 'js/shorten.js' %}"></script>
 
     <script type="text/javascript">
         function contact_submit() {
@@ -720,4 +790,5 @@
             }
         }
     </script>
+
 {% endblock extra-js %}

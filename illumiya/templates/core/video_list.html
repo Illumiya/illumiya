@@ -45,6 +45,28 @@ style="background: -webkit-linear-gradient(top,#8066dc 0%,#5040a0 100%);"
         </section>
         <!-- ========== End Lat-videos ========== -->
 
+        <section class="Lat-videos mb-60" id="id-filter-block">
+            <div class="container">
+                <div class="row d-flex align-items-center">
+                    <form role="form" method="get" action="." id="id-search-video-form" style="width: 100%;">
+                    <div class="col-lg-12">
+                        <div class="form-group row" style="float: right;">
+                            <label class="col-lg-3 col-form-label form-control-label">Filter</label>
+                            <div class="col-lg-9">
+                                <select name="category" id="id_category">
+                                    <option value="">--------------------</option>
+                                    {% for category in categories %}
+                                        <option value="{{ category }}"{% if filtered_category == category %} selected{% endif %}>{{ category|title }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
         <!-- ========== Start videos========== -->
         <section class="videos mb-60" id="videos">
                 <div class="container">
@@ -118,4 +140,12 @@ style="background: -webkit-linear-gradient(top,#8066dc 0%,#5040a0 100%);"
 
 {% block extra-js %}
     <script src="{% static 'js/youtube.js' %}"></script>
+    <script type="text/javascript">
+        $(function() {
+            window.scrollTo(1, 600);
+            $('#id-search-video-form #id_category').on('change', function() {
+                $('#id-search-video-form').trigger('submit');
+            });
+        });
+    </script>
 {% endblock extra-js %}
