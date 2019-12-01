@@ -26,6 +26,7 @@ Table of contents
 body {
     font-family: "Gotham Rounded";
     background: #fff;
+    overflow-x: hidden;
 }
 
 /*--------------------------------------------------
@@ -163,7 +164,19 @@ body {
     transition: all .4s ease-in-out;
 }
 .btn-green{
-    background: #70cc06;
+    background: #00b712;
+    box-shadow: 1px 1px 25px 0px rgba(182,147,199,0.17);
+    padding: 12px 35px;
+    border-radius: 3px;
+    font-size: 15px;
+    font-weight: 400;
+    color: #ffffff;
+    text-decoration: none;
+    transition: all .4s ease-in-out;
+}
+.btn-green:hover{
+    background-color: #00b712;
+    background-image: linear-gradient(315deg, #00b712 10%, #18c829 74%);
     box-shadow: 1px 1px 25px 0px rgba(182,147,199,0.17);
     padding: 12px 35px;
     border-radius: 3px;
@@ -244,7 +257,7 @@ body {
 }
 .btn-white:hover {
     transform: translateY(-10px);
-    color: #222d39;
+    color: #ffffff;
 }
 a {
     text-decoration: none !important;
@@ -284,7 +297,6 @@ a {
 [1. Start Navbar]
 --------------------------------------------------*/
 .navbar {
-    padding: 8px 15px; 
     background: linear-gradient(135deg, rgba(22, 37, 43, 0) 0%, rgba(22, 37, 43, 0) 100%);
 }
 .navbar .nav-item {
@@ -295,16 +307,16 @@ a {
     color: #ffffff;
     font-size: 16px;
     font-weight: 400;
-    margin-left: 30px;
+    margin-left: 20px;
     position:relative;
     z-index: 1;
-    padding: 8px 15px; 
+    padding: 6px 10px;
 }
 .navbar .nav-item .nav-link:hover {
     color:#654ac7;
   }
   .navbar .nav-item .nav-link:after {
-    padding: 8px 15px; 
+    padding: 6px 10px;
     display: block;
     position: absolute;
     top: 0;
@@ -327,23 +339,24 @@ a {
     opacity: 1;
     visibility: visible;
     height: 100%;
-    padding: 8px 15px; 
+    padding: 6px 10px;
   }
   .navbar .nav-item.active >.nav-link{
 	background-color:transparent;
     border: 1.5px solid #fff;
     border-radius: 25px;
-    padding: 8px 15px;
+    padding: 6px 10px;
 }
-.navbar .nav-item>.signin{
+.signin{
     background-color: #ffa707;
-    color: #ffffff;
+    color: #ffffff !important;
     border-radius: 25px;
-    padding: 8px 15px;
+    margin-left: 20px;
+    padding: 6px 10px !important;
 }
 .navbar .nav-item .signin:hover{
     background-color: #ffe484 !important;
-    color: #5141a1;
+    color: #5141a1 !important;
    
 }
 .footer-nav >.navbar {
@@ -742,6 +755,15 @@ opacity: .99;
     border: 1px solid #5040a0;
     margin-bottom: 15px;
 }
+.disc_btn:hover{
+    background:linear-gradient(135deg, rgb(128, 102, 220) 0%, rgb(80, 64, 160) 100%);
+    color: #fff;
+}
+.raise:hover,
+.raise:focus {
+  box-shadow: 0 5em 5em -1em #ddd;
+  transform: translateY(-0.25em);
+}
 .active_btn{
     padding: 20px 70px;
     border-radius: 100px;
@@ -799,6 +821,7 @@ opacity: .99;
 .price .box {
     border-radius: 15px;
     padding: 50px 25px;
+    border: 1px solid #ddd;
 }
 
 .price .box h4 {
@@ -840,6 +863,19 @@ opacity: .99;
     margin-bottom: 10px;
 }
 
+.price_content{
+    display: none;
+    }
+    
+.price-box :hover .price_content{
+    display: block;
+    cursor: pointer;
+}
+.price-box >.box:hover{
+    box-shadow: 0px 2px 25px 0px rgba(0,0,0,0.15);
+    border: none;
+   
+}
 /*--------------------------------------------------
 [10. Start Contact]
 --------------------------------------------------*/
@@ -921,7 +957,7 @@ opacity: .99;
     position: absolute;
     height: 0;
     width: 0;
-    bottom: -29.5px;
+    bottom: -29px;
     left: 0;
     border-left: 25px solid #7d64d8;
     border-right: 25px solid #7d64d8;
@@ -942,7 +978,7 @@ opacity: .99;
     position: absolute;
     height: 0;
     width: 0;
-    bottom: -29.5px;
+    bottom: -29px;
     left: 0;
     border-left: 25px solid #FFC107;
     border-right: 25px solid #FFC107;
@@ -963,7 +999,7 @@ opacity: .99;
     position: absolute;
     height: 0;
     width: 0;
-    bottom: -29.5px;
+    bottom: -29px;
     left: 0;
     border-left: 25px solid #5242a2;
     border-right: 25px solid #5242a2;
@@ -1558,3 +1594,4 @@ a.morelink {
 	display: none;
 
 }
+

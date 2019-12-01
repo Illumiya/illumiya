@@ -71,3 +71,53 @@ $(document).ready(function() {
         lessText: 'Less'
     });
 });
+
+$(document).ready(function() {
+    $('.price-box-1').hover(function(){
+        $('.price_content_1').stop(true,true).slideDown("slow");
+    }, // <-- this comma is important.
+//the anonymous function after this will run on mouse out
+    function(){
+        $('.price_content_1').stop(true,true).slideUp("slow");
+    });
+
+    $('.price-box-2').hover(function(){
+        $('.price_content_2').stop(true,true).slideDown("slow");
+    }, // <-- this comma is important.
+//the anonymous function after this will run on mouse out
+    function(){
+        $('.price_content_2').stop(true,true).slideUp("slow");
+    });
+
+    $('.price-box-3').hover(function(){
+        $('.price_content_3').stop(true,true).slideDown("slow");
+    }, // <-- this comma is important.
+//the anonymous function after this will run on mouse out
+    function(){
+        $('.price_content_3').stop(true,true).slideUp("slow");
+    });
+
+    $('.price-box-4').hover(function(){
+        $('.price_content_4').stop(true,true).slideDown("slow");
+    }, // <-- this comma is important.
+//the anonymous function after this will run on mouse out
+    function(){
+        $('.price_content_4').stop(true,true).slideUp("slow");
+    });
+
+    $('.price-box-5').hover(function(){
+        $('.price_content_5').stop(true,true).slideDown("slow");
+    }, // <-- this comma is important.
+//the anonymous function after this will run on mouse out
+    function(){
+        $('.price_content_5').stop(true,true).slideUp("slow");
+    });
+
+    $('.price-box-6').hover(function(){
+        $('.price_content_6').stop(true,true).slideDown("slow");
+    }, // <-- this comma is important.
+//the anonymous function after this will run on mouse out
+    function(){
+        $('.price_content_6').stop(true,true).slideUp("slow");
+    });
+});

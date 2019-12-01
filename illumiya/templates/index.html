@@ -174,7 +174,7 @@
         
     <!-- ========== Start discover illumiya ========== -->
     <section class="disc_illumiya mb-80" id="disc_illumiya">
-            <div class="container text-center">
+            <div class="container-fluid text-center">
                     <h2 class="h2">DISCOVER ILLUMIYA</h2>
                     <h3 class="h3-bk mb-60">Interactive Learning Materials, News & Fun</h3>
 
@@ -182,10 +182,10 @@
                     <p class="p-bk mb-60 more">Discover more about our apps, keep up with the latest news and announcements, and <br>
                          check out our bonus features here.</p>
 
-                        <div class="row bx-shw">
+                        <div class="row">
                             <!-- Box-1 -->
-                            <div class="col pl-0 pr-0">
-                                <div class="box">
+                            <div class="offset-md-1 col-md-2  col-xs-12 pl-0 pr-0">
+                                <div class="box raise">
                                     <img src="{% static 'img/01.png' %}" alt="icon-1">
                                     <h3 class="h3-bk mt-30 mb-30">INTERACTIVE</h3>
                                     <ul>
@@ -193,25 +193,25 @@
                                         <li>check our fun</li>
                                         <li>apps!</li>
                                     </ul>
-                                    <a href="#" class="disc_btn d-inline-block">Sign Up Here</a>
+                                    <a href="{% url 'register' %}" class="disc_btn d-inline-block">Sign Up Here</a>
                                 </div>
                             </div>
                             <!-- Box-2 -->
-                            <div class="col p-0">
-                                    <div class="box">
-                                        <img src="{% static 'img/02.png' %}" alt="icon-1">
-                                        <h3 class="h3-bk mt-30 mb-30">VIDEO</h3>
-                                        <ul>     
-                                            <li>Smart vids</li>
-                                            <li>to watch and</li>
-                                            <li>enjoy.</li>
-                                        </ul>
-                                        <a href="#" class="disc_btn d-inline-block">Sign Up Here</a>
-                                    </div>
+                            <div class="col-md-2  col-xs-12 p-0">
+                                <div class="box raise">
+                                    <img src="{% static 'img/02.png' %}" alt="icon-1">
+                                    <h3 class="h3-bk mt-30 mb-30">VIDEO</h3>
+                                    <ul>
+                                        <li>Smart vids</li>
+                                        <li>to watch and</li>
+                                        <li>enjoy.</li>
+                                    </ul>
+                                    <a href="{% url 'register' %}" class="disc_btn d-inline-block">Sign Up Here</a>
                                 </div>
+                            </div>
                                 <!-- Box-3 -->
-                            <div class="col p-0">
-                                    <div class="box">
+                            <div class="col-md-2  col-xs-12 p-0">
+                                    <div class="box raise">
                                         <img src="{% static 'img/03.png' %}" alt="icon-1">
                                         <h3 class="h3-bk mt-30 mb-30">READ</h3>
                                         <ul>
@@ -219,12 +219,12 @@
                                             <li>downloadable</li>
                                             <li>ebooks are here.</li>
                                         </ul>
-                                        <a href="#" class="disc_btn d-inline-block">Sign Up Here</a>
+                                        <a href="{% url 'register' %}" class="disc_btn d-inline-block">Sign Up Here</a>
                                     </div>
                             </div>
                                 <!-- Box-4 -->
-                            <div class="col p-0">
-                                    <div class="box">
+                            <div class="col-md-2 col-xs-12 p-0">
+                                    <div class="box raise">
                                         <img src="{% static 'img/04.png' %}" alt="icon-1">
                                         <h3 class="h3-bk mt-30 mb-30">NEWS</h3>
                                         <ul>
@@ -232,12 +232,12 @@
                                             <li>all the info,</li>
                                             <li>all the prizes.</li>
                                         </ul>
-                                        <a href="#" class="disc_btn d-inline-block">Sign Up Here</a>
+                                        <a href="{% url 'register' %}" class="disc_btn d-inline-block">Sign Up Here</a>
                                     </div>
                             </div>
                               <!-- Box-5 -->
-                            <div class="col pr-0 pl-0">
-                                    <div class="box">
+                            <div class="col-md-2  col-xs-12 pr-0 pl-0">
+                                    <div class="box raise">
                                         <img src="{% static 'img/05.png' %}" alt="icon-1">
                                         <h3 class="h3-bk mt-30 mb-30">BLOG</h3>
                                         <ul>      
@@ -245,7 +245,7 @@
                                             <li>stories for the</li>
                                             <li>bigger picture.</li>
                                         </ul>
-                                        <a href="#" class="disc_btn d-inline-block">Sign Up Here</a>
+                                        <a href="{% url 'register' %}" class="disc_btn d-inline-block">Sign Up Here</a>
                                     </div>
                             </div>
                         </div>
@@ -300,101 +300,108 @@
             <div class="container text-center">
                 <div class="row student_account">
                     <!-- Box-1 -->
-                    <div class="col-lg-4 box-padding">
+                    <div class="col-lg-4 box-padding price-box price-box-1">
                         <div class="ribbon">
                                 <span class="silver ribbon2">А<br>К</span>
                         </div>
-                        <div class="box bx-shw">
+                        <div class="box">
                             <h3 class=" mb-10">Student</h3>
                             <h5 class="mb-30 silver">Silver Packages</h5>
                             <!-- <img src="img/price/1.svg" alt="" class="img-fluid w-80"> -->
                             <h5>Essential</h5>
                             <h4>1 Month </h4>
-                            <p class="p-bk mb-30 mt-25"> Learning program delivers core<br>
-                                skills & training and gets you <br>
-                                started on the path to success.
-                            </p>
-                            <p class="p-bk mb-30 mt-25">5 hours personal <br>
-                                consultation with an expert <br> 
-                                Skills Trainer
-                            </p>
-                            <ul>
-                                <li>Free Quizflix App</li>
-                                <li>500 Illumiya Coins</li>
-                                <li class="t-w">---</li>
-                                <li class="t-w">---</li>
-                            </ul>
-                            <p class="p-bk mb-30 mt-25">
+                            <div class="price_content price_content_1">
+                                <p class="p-bk mb-30 mt-25"> Learning program delivers core<br>
+                                    skills & training and gets you <br>
+                                    started on the path to success.
+                                </p>
+                                <p class="p-bk mb-30 mt-25">5 hours personal <br>
+                                    consultation with an expert <br>
+                                    Skills Trainer
+                                </p>
+                                <ul>
+                                    <li>Free Quizflix App</li>
+                                    <li>500 Illumiya Coins</li>
+                                    <li class="t-w">---</li>
+                                    <li class="t-w">---</li>
+                                </ul>
+                                <p class="p-bk mb-30 mt-25">
                                     Free ebook <br> <br>
-                            </p>
-                            <a href="#" class="btn-green d-inline-block">Sign Up Here</a>
+                                </p>
+                            </div>
+                            <a href="{% url 'register' %}" class="btn-green d-inline-block mt-25">Sign Up Here</a>
                         </div>
                     </div>
                     <!-- Box-2 -->
-                    <div class="col-lg-4 box-padding">
+                    <div class="col-lg-4 box-padding price-box price-box-2">
                             <div class="ribbon">
                                     <span class="ribbon3 gold">А<br>К</span>
                             </div>
-                            <div class="box bx-shw">
+                            <div class="box">
                                 <h3 class=" mb-10">Student</h3>
                                 <h5 class="mb-30  gold">Gold Packages</h5>
                                 <!-- <img src="img/price/2.svg" alt="" class="img-fluid w-80"> -->
                                 <h5>Rigorous</h5>
                                 <h4>3 Month</h4>
-                                <p class="p-bk mb-30 mt-25">Learning program builds <br>
-                                    expertise & knowledge and <br>
-                                    helps you plan your next move
-                                </p>
-                                <p class="p-bk mb-30 mt-25">20 hours personal <br>
-                                    consultation with an expert <br>
-                                    Skills Trainer
-                                </p>
-                                <ul>
-                                    <li>Free Quizflix App</li>
-                                    <li>1000 Illumiya Coins</li>
-                                    <li>Free Quizflix App School subscription</li>
-                                    <li>for 3 months</li>
-                                </ul>
-                                <p class="p-bk mb-30 mt-25">
-                                        Free ebook <br> <br>
-                                       
-                                </p>
-                                <a href="#" class="btn-green d-inline-block">Sign Up Here</a>
+                                <div class="price_content price_content_2">
+                                    <p class="p-bk mb-30 mt-25">Learning program builds <br>
+                                        expertise & knowledge and <br>
+                                        helps you plan your next move
+                                    </p>
+                                    <p class="p-bk mb-30 mt-25">20 hours personal <br>
+                                        consultation with an expert <br>
+                                        Skills Trainer
+                                    </p>
+                                    <ul>
+                                        <li>Free Quizflix App</li>
+                                        <li>1000 Illumiya Coins</li>
+                                        <li>Free Quizflix App School subscription</li>
+                                        <li>for 3 months</li>
+                                    </ul>
+                                    <p class="p-bk mt-25">
+                                            Free ebook <br> <br>
+
+                                    </p>
+                                </div>
+                                <a href="{% url 'register' %}" class="btn-green d-inline-block mt-25">Sign Up Here</a>
                             </div>
                         </div>
                         <!-- Box-3 -->
-                    <div class="col-lg-4 box-padding">
+                    <div class="col-lg-4 box-padding price-box price-box-3">
                             <div class="ribbon">
                                     <span class="ribbon4 platinum">А<br>К</span>
                             </div>
-                            <div class="box bx-shw">
-                                <h3 class=" mb-10 ">Student</h3>
+                            <div class="box">
+                                <h3 class="mb-10 ">Student</h3>
                                 <h5 class="mb-30  platinum">Platinum Packages</h5>
                                 <!-- <img src="img/price/3.svg" alt="" class="img-fluid w-80"> -->
                                 <h5>Comprehensive</h5>
                                 <h4>6 Months</h4>
-                                <p class="p-bk mb-30 mt-25">Learning program delivers <br>
-                                    everything you need <br>
-                                    to transform your opportunities
-                                </p>
-                                <p class="p-bk mb-30 mt-25">60 hours personal <br>
-                                    consultation with an expert <br>
-                                    Skills Trainer
-                                </p>
-                                <ul>
-                                    <li>Free Quizflix App</li>
-                                    <li>2000 Illumiya Coins</li>
-                                    <li>Free 6 month subscription </li>
-                                    <li>to Quizflix School </li>
-                                </ul>
-                                <p class="p-bk mb-30 mt-25">
-                                        Free ebook <br>
-                                        Free branded T-shirt and pen
-                                </p>
-                                <a href="#" class="btn-green d-inline-block">Sign Up Here</a>
+                                <div class="price_content price_content_3">
+                                    <p class="p-bk mb-30 mt-25">Learning program delivers <br>
+                                        everything you need <br>
+                                        to transform your opportunities
+                                    </p>
+                                    <p class="p-bk mb-30 mt-25">60 hours personal <br>
+                                        consultation with an expert <br>
+                                        Skills Trainer
+                                    </p>
+                                    <ul>
+                                        <li>Free Quizflix App</li>
+                                        <li>2000 Illumiya Coins</li>
+                                        <li>Free 6 month subscription </li>
+                                        <li>to Quizflix School </li>
+                                    </ul>
+                                    <p class="p-bk mt-25">
+                                            Free ebook <br>
+                                            Free branded T-shirt and pen
+                                    </p>
+                                </div>
+                                <a href="{% url 'register' %}" class="btn-green d-inline-block mt-25">Sign Up Here</a>
                             </div>
                         </div>
                 </div>
+                {% comment %}
                 <div class="row school_account">
                         <!-- Box-1 -->
                         <div class="col-lg-4 box-padding">
@@ -423,7 +430,7 @@
                                         Core Skills Trainer  <br>
                                         min. 1-2 years experience
                                 </p>
-                                <a href="#" class="btn-green d-inline-block">Sign Up Here</a>
+                                <a href="{% url 'register' %}" class="btn-green d-inline-block">Sign Up Here</a>
                             </div>
                         </div>
                         <!-- Box-2 -->
@@ -454,7 +461,7 @@
                                             Educational Psychologist <br>
                                             xx hours 
                                     </p>
-                                    <a href="#" class="btn-green d-inline-block">Sign Up Here</a>
+                                    <a href="{% url 'register' %}" class="btn-green d-inline-block">Sign Up Here</a>
                                 </div>
                             </div>
                             <!-- Box-3 -->
@@ -485,10 +492,11 @@
                                             Educational Psychologist <br>
                                             xx hours 
                                     </p>
-                                    <a href="#" class="btn-green d-inline-block">Sign Up Here</a>
+                                    <a href="{% url 'register' %}" class="btn-green d-inline-block">Sign Up Here</a>
                                 </div>
                             </div>
                 </div>
+                {% endcomment %}
                 <p class="p-bk mb-30 mt-25"> All packages feature a free educational sci fi ebook and come with permission to use our UK brand logo.</p>
             </div>
 
