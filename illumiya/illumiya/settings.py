@@ -150,8 +150,23 @@ CKEDITOR_ALLOW_NONIMAGE_FILES = False
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'full',
-    
-    },
+        'extraPlugins': ','.join([
+                    'uploadimage', # the upload image feature
+                    # your extra plugins here
+                    'autolink',
+                    'autoembed',
+                    'image',
+                    'image2',
+                    'pastefromword',
+                    'preview',
+                    'smiley',
+                    # 'devtools',
+                    'clipboard',
+                    'dialog',
+                    'dialogui',
+                    'elementspath'
+                ]),
+    }
 }
 
 # we whitelist localhost:3000 because that's where frontend will be served
