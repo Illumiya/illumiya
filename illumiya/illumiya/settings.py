@@ -147,6 +147,12 @@ LOGOUT_REDIRECT_URL = '/users/login/'
 # Ckeditor settings
 CKEDITOR_UPLOAD_PATH = "editor/uploads/"
 CKEDITOR_ALLOW_NONIMAGE_FILES = False
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+    
+    },
+}
 
 # we whitelist localhost:3000 because that's where frontend will be served
 #CORS_ORIGIN_WHITELIST = (
