@@ -94,11 +94,13 @@ class BlogDetailView(TemplateView):
                 'object': blog}
         comment_form = get_form()(blog, data)"""
         recommended_blogs = Blog.objects.all().exclude(id=blog.id).order_by('?')[:10]
+        liked = True if self.request.user.is_authenticated and \
+                        blog.likes.filter(user=self.request.user,
+                                          liked=True).exists() else False
         context.update(blog=blog,
                        recommended_blogs=recommended_blogs,
                        like_counter=blog.liked_count,
-                       liked=True if blog.likes.filter(user=self.request.user,
-                                                       liked=True).exists() else False)
+                       liked=liked)
                        #comment_form=comment_form)
         return context
 

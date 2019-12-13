@@ -73,7 +73,7 @@ style="background: -webkit-linear-gradient(top,#8066dc 0%,#5040a0 100%);"
                         <div class="text-center">
                                 <p class="p-bk">
                                    <a href="#comment-form" target="_blank" rel="noopener noreferrer"><i class='far fa-comment-alt p-2'></i> Comments &nbsp; |</a>
-                                   <a href="javascript:void(0);"><i class='fa fa-heart-o p-2 like-heart{% if liked %} liked{% endif %}' title="{% if liked %}Unlike{% else %}like{% endif %}"></i></a><span class="like-counter">{% if like_counter %}{{ like_counter }}{% endif %}</span>| &nbsp;
+                                   <a href="{% if user.is_authenticated %}javascript:void(0);{% else %}{% url 'login' %}?next={% url 'blog-detail' blog.id %}{% endif %}"><i class='fa fa-heart-o p-2 like-heart{% if liked %} liked{% endif %}' title="{% if liked %}Unlike{% else %}like{% endif %}"></i></a><span class="like-counter">{% if like_counter %}{{ like_counter }}{% endif %}</span>| &nbsp;
                                    <a href="#" target="_blank" rel="noopener noreferrer"><i class="fa fa-facebook" aria-hidden="true"></i>&nbsp;</a>
                                    <a href="#" target="_blank" rel="noopener noreferrer"><i class="fa fa-twitter" aria-hidden="true"></i>&nbsp;</a>
                                    <a href="#" target="_blank" rel="noopener noreferrer"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
@@ -334,23 +334,25 @@ style="background: -webkit-linear-gradient(top,#8066dc 0%,#5040a0 100%);"
 
             // Manage Like blog
             $('body').on('click', '.like-heart', function() {
-                $.post(
-                    "{% url 'blog-manage-like' blog.id %}",
-                    "csrfmiddlewaretoken=" + $('input[name=csrfmiddlewaretoken]').val(),
-                    function(output) {
-                        console.log(output);
-                        if(output['status'] == 'success') {
-                            if(output['liked'] == 1) {
-                                $('.like-heart').addClass('liked');
-                                $('.like-heart').attr('title', 'Unlike');
-                            } else {
-                                $('.like-heart').removeClass('liked');
-                                $('.like-heart').attr('title', 'Like');
+                {% if user.is_authenticated %}
+                    $.post(
+                        "{% url 'blog-manage-like' blog.id %}",
+                        "csrfmiddlewaretoken=" + $('input[name=csrfmiddlewaretoken]').val(),
+                        function(output) {
+                            console.log(output);
+                            if(output['status'] == 'success') {
+                                if(output['liked'] == 1) {
+                                    $('.like-heart').addClass('liked');
+                                    $('.like-heart').attr('title', 'Unlike');
+                                } else {
+                                    $('.like-heart').removeClass('liked');
+                                    $('.like-heart').attr('title', 'Like');
+                                }
+                                $('.like-counter').text(output['like_counter']);
                             }
-                            $('.like-counter').text(output['like_counter']);
                         }
-                    }
-                )
+                    )
+                {% endif %}
             });
 
             $(document).on('submit', '.comment_reply_form', function(e) {
