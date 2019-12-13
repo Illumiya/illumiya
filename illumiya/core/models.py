@@ -41,7 +41,7 @@ class Gallery(models.Model):
         return "%s" % self.image
 
 class Blog(models.Model):
-    user = models.ForeignKey(User, on_delete=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=300)
     topic = models.ForeignKey(BlogTopic,
                               on_delete=False,
@@ -75,16 +75,16 @@ class Blog(models.Model):
         return "/blog/detail/{0}/".format(self.id)
 
 class BlogRatingIntermediate(models.Model):
-    blog = models.ForeignKey(Blog, on_delete=True)
-    rating = models.ForeignKey(Rating, on_delete=True)
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    rating = models.ForeignKey(Rating, on_delete=models.CASCADE)
 
 class BlogLikeIntermediate(models.Model):
-    blog = models.ForeignKey(Blog, on_delete=True)
-    like = models.ForeignKey(Like, on_delete=True)
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    like = models.ForeignKey(Like, on_delete=models.CASCADE)
     #ranking = models.IntegerField(default=100)
 
 class Video(models.Model):
-    user = models.ForeignKey(User, on_delete=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=200, unique=True)
     url = models.URLField(null=True, blank=True)
     description = models.TextField()
