@@ -1,0 +1,516 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load comments %}
+{% load comments_xtd %}
+
+{% block extra-css %}
+     <!-- Timeline CSS -->
+     <link href="{% static 'course_detail_plugins/horizontal-timeline/css/horizontal-timeline.css' %}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{% static 'course_detail_css/style.css' %}" rel="stylesheet">
+    <!-- You can change the theme colors from here -->
+    <link href="{% static 'course_detail_css/colors/blue.css' %}" id="theme" rel="stylesheet">
+{% endblock extra-css %}
+
+{% block body_class %} class="fix-header fix-sidebar card-no-border"{% endblock body_class %}
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    {% block main-content %}
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper">
+        <!-- ========== Start Navbar ========== -->
+
+            <!-- ========== End Navbar ========== -->
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <header class="topbar">
+            <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: -webkit-linear-gradient(top,#8066dc 0%,#5040a0 100%);">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'img/logo.png' %}" alt=""></a>
+                    <button
+                        class="navbar-toggler"
+                        type="button"
+                        data-toggle="collapse"
+                        data-target="#navbarNav"
+                        aria-controls="navbarNav"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'home' %}">Home
+                                    <span class="sr-only">(current)</span></a>
+                            </li>
+                            {% if home_page %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#about">About</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#features">Features</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#benefits">Benefits</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#team">Team</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#price">Price</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#contact">Contact</a>
+                                </li>
+                            {% else %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'blog-list' %}">Blogs</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'video-list' %}">Videos</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#benefits">Books</a>
+                                </li>
+                            {% endif %}
+                            <li class="nav-item">
+                                {% if user.is_authenticated %}
+                                    <a class="nav-link signin" href="{% url 'profile' %}">{{ user.first_name|title }}</a>
+                                {% else %}
+                                    <a class="nav-link signin" href="{% url 'login' %}">Sign in</a>
+                                {% endif %}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- ========== End Navbar ========== -->
+        </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+
+                    <ul id="sidebarnav">
+                        <li class="hidden-sm-down">
+                                <form class="app-search">
+                                    <a class="srh-btn"><input type="text" class="form-control" placeholder="Search for...">
+                                    </a>
+                                </form>
+                        </li>
+                        <li>
+                            <a href="#" aria-expanded="false"><span class="hide-menu">Home</span></a>
+                        </li>
+
+                        <li>
+                            <a href="#" aria-expanded="false"><span class="hide-menu">Course Schedule</span></a>
+                        </li>
+                        {% for section in course_sections %}
+                            {% for parent, sub_section in section.items %}
+                            <li class="nav-devider"></li>
+                            <!--<li class="nav-small-cap">WEEK 1</li>-->
+                            <li class="active">
+                                <a class="has-arrow" href="#" aria-expanded="false">
+                                    <span class="hide-menu">{{ parent }}</span>
+                                </a>
+                                {% for i in sub_section %}
+                                    <ul aria-expanded="false" class="collapse">
+                                        <li>
+                                            <a href="#">
+                                                <!--<i class="mdi mdi-play-circle-outline"></i>--> Your policy <!--<span class="video-time">12.00</span>--></a></li>
+                                    </ul>
+                                {% endfor %}
+                            </li>
+                        {% endfor %}
+                        <li class="nav-devider"></li>
+                        <li class="nav-small-cap">WEEK 2</li>
+                        <li>
+                            <a class="has-arrow" href="#" aria-expanded="false"><span class="hide-menu">2.Collaboration</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                    <li><a href="#"><i class="mdi mdi-play-circle-outline"></i> Your policy <span class="video-time">12.00</span></a></li>
+                                    <li><a href="#"><i class="mdi mdi-play-circle-outline"></i> Quizzes<span class="video-time">08.00</span></a></li>
+                                    <li><a href="#"> <i class="mdi mdi-play-circle-outline"></i> Learning Management <span class="video-time">04.00</span></a></li>
+                                    <li><a href="#"><i class="mdi mdi-play-circle-outline"></i> Channels <span class="video-time">07.00</span></a></li>
+                                    <li><a href="#"> <i class="mdi mdi-play-circle-outline"></i>  Announcements <span class="video-time">05.30</span></a></li>
+                                </ul>
+                        </li>
+                        <li>
+                                <a class="has-arrow " href="#" aria-expanded="false"><span class="hide-menu">3.Management</span></a>
+                                <ul aria-expanded="false" class="collapse">
+                                    <li><a href="#"><i class="mdi mdi-play-circle-outline"></i> Your policy <span class="video-time">12.00</span></a></li>
+                                    <li><a href="#"><i class="mdi mdi-play-circle-outline"></i> Quizzes<span class="video-time">08.00</span></a></li>
+                                    <li><a href="#"> <i class="mdi mdi-play-circle-outline"></i> Learning Management <span class="video-time">04.00</span></a></li>
+                                    <li><a href="#"><i class="mdi mdi-play-circle-outline"></i> Channels <span class="video-time">07.00</span></a></li>
+                                    <li><a href="#"> <i class="mdi mdi-play-circle-outline"></i>  Announcements <span class="video-time">05.30</span></a></li>
+                                </ul>
+                            </li>
+                        <li class="nav-devider"></li>
+                        <li class="nav-small-cap">WEEK 3</li>
+                        <li>
+                            <a class="has-arrow " href="#" aria-expanded="false"><span class="hide-menu">4.Assignments and Assessment</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="#"><i class="mdi mdi-play-circle-outline"></i> Your policy <span class="video-time">12.00</span></a></li>
+                                <li><a href="#"><i class="mdi mdi-play-circle-outline"></i> Quizzes<span class="video-time">08.00</span></a></li>
+                                <li><a href="#"> <i class="mdi mdi-play-circle-outline"></i> Learning Management <span class="video-time">04.00</span></a></li>
+                                <li><a href="#"><i class="mdi mdi-play-circle-outline"></i> Channels <span class="video-time">07.00</span></a></li>
+                                <li><a href="#"> <i class="mdi mdi-play-circle-outline"></i>  Announcements <span class="video-time">05.30</span></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+
+        </aside>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                  <!-- Row -->
+                  <div class="row">
+                        <!-- Column -->
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <section class="cd-horizontal-timeline">
+                                        <div class="timeline">
+                                            <div class="events-wrapper">
+                                                <div class="events">
+                                                    <ol>
+                                                        <li>
+                                                            <a href="#0" data-date="16/01/2014" class="selected"><span class=""><i class="icon-lock-open"></i><i class="icon-lock"></i></span>
+                                                            <span class="timeline-title">Week 01</span>
+                                                           </a>
+                                                        </li>
+                                                        <li><a href="#0" data-date="28/02/2014"><span class=""><i class="icon-lock"></i><i class="icon-lock"></i></span>
+                                                            <span class="timeline-title">Week 02</span>
+                                                        </a></li>
+                                                        <li><a href="#0" data-date="20/04/2014"><span class=""><i class="icon-lock"></i></span>
+                                                            <span class="timeline-title">Week 03</span>
+                                                        </a></li>
+                                                        <li><a href="#0" data-date="20/05/2014"><span class=""><i class="icon-lock"></i><i class="icon-lock"></i><i class="icon-lock"></i></span>
+                                                            <span class="timeline-title">Week 04</span>
+                                                        </a></li>
+                                                        <li><a href="#0" data-date="09/07/2014"><span class=""><i class="icon-lock"></i></span>
+                                                            <span class="timeline-title">Week 05</span>
+                                                        </a></li>
+                                                        <li><a href="#0" data-date="30/08/2014"><span class=""><i class="icon-lock"></i><i class="icon-lock"></i></span>
+                                                            <span class="timeline-title">Week 06</span>
+                                                        </a></li>
+
+                                                    </ol>
+                                                    <span class="filling-line" aria-hidden="true"></span>
+                                                </div>
+                                                <!-- .events -->
+                                            </div>
+                                            <!-- .events-wrapper -->
+                                            <ul class="cd-timeline-navigation">
+                                                <li><a href="#0" class="prev inactive">Prev</a></li>
+                                                <li><a href="#0" class="next">Next</a></li>
+                                            </ul>
+                                            <!-- .cd-timeline-navigation -->
+                                        </div>
+                                        <!-- .timeline -->
+                                        <!-- .events-content -->
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Row -->
+            </div>
+
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <!-- Row -->
+                <div class="row">
+                    <!-- Column -->
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="video-notes">
+                                <i class="icon-notebook foo" data-remarkDisplayed="false" data-toggle="tooltip" data-placement="top" title="Add Note" style="font-size: 21px; color: #fff;"></i>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="d-flex flex-wrap">
+                                              <div class="embed-responsive embed-responsive-16by9">
+                                                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen></iframe>
+                                              </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Row -->
+                <!-- Row -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                    {% comment %}
+                                    <button class="float-right btn  btn-outline btn-light">
+                                            <i class="icon-printer"></i>
+                                    </button>
+                                    <button class="float-right btn  btn-outline btn-light">
+                                            <i class="icon-share"></i>
+                                    </button>
+                                    {% endcomment %}
+
+                                <h3 class="font-normal">About Instructional Methods</h3>
+                                <ul class="list-inline font-14">
+                                        <li class="pl-0">20 May 2016</li>
+                                        <li><a href="javascript:void(0)" class="link">3 Comment</a></li>
+                                </ul>
+                                    <div class="container">
+                                       <span class="post">
+                                            <h4> Communication Protocols:</h4>
+                                            <p>Specify how often and through what channels students should be accessing course information, looking for updates and announcements, and contacting you. Because we have so many different means of communicating (online bulletin and discussion boards, social media, email and texting), it’s important to tell students exactly which channels they should be on for your course and how often you expect them to check those channels. For example, if you plan to post new information on a learning management system every Sunday night, tell students they should be checking the platform every Sunday night.</p>
+
+                                            <h4>Electronic Device Policy:</h4>
+                                            <p> Explain your policy on the use of cell phones, laptops, and other electronic devices in class, including any information about whether exceptions are made for students with accommodations.</p>
+
+                                            <h4>Food & Drink Policy:</h4>
+                                            <p>Are food and drinks permitted in class? Explain your policy here.</p>
+
+                                            <h4>Accommodations Statement:</h4>
+                                            <p>If you are teaching at the college level, find out what you are required to include on your syllabus about accommodating individuals with disabilities.</p>
+                                       </span>
+                                       <span class="post">
+                                            <h4> Communication Protocols:</h4>
+                                            <p>Specify how often and through what channels students should be accessing course information, looking for updates and announcements, and contacting you. Because we have so many different means of communicating (online bulletin and discussion boards, social media, email and texting), it’s important to tell students exactly which channels they should be on for your course and how often you expect them to check those channels. For example, if you plan to post new information on a learning management system every Sunday night, tell students they should be checking the platform every Sunday night.</p>
+
+                                            <h4>Electronic Device Policy:</h4>
+                                            <p> Explain your policy on the use of cell phones, laptops, and other electronic devices in class, including any information about whether exceptions are made for students with accommodations.</p>
+
+                                            <h4>Food & Drink Policy:</h4>
+                                            <p>Are food and drinks permitted in class? Explain your policy here.</p>
+
+                                            <h4>Accommodations Statement:</h4>
+                                            <p>If you are teaching at the college level, find out what you are required to include on your syllabus about accommodating individuals with disabilities.</p>
+                                       </span>
+                                       <span class="post">
+                                            <h4> Communication Protocols:</h4>
+                                            <p>Specify how often and through what channels students should be accessing course information, looking for updates and announcements, and contacting you. Because we have so many different means of communicating (online bulletin and discussion boards, social media, email and texting), it’s important to tell students exactly which channels they should be on for your course and how often you expect them to check those channels. For example, if you plan to post new information on a learning management system every Sunday night, tell students they should be checking the platform every Sunday night.</p>
+
+                                            <h4>Electronic Device Policy:</h4>
+                                            <p> Explain your policy on the use of cell phones, laptops, and other electronic devices in class, including any information about whether exceptions are made for students with accommodations.</p>
+
+                                            <h4>Food & Drink Policy:</h4>
+                                            <p>Are food and drinks permitted in class? Explain your policy here.</p>
+
+                                            <h4>Accommodations Statement:</h4>
+                                            <p>If you are teaching at the college level, find out what you are required to include on your syllabus about accommodating individuals with disabilities.</p>
+                                       </span>
+                                       <span class="post">
+                                            <h4> Communication Protocols:</h4>
+                                            <p>Specify how often and through what channels students should be accessing course information, looking for updates and announcements, and contacting you. Because we have so many different means of communicating (online bulletin and discussion boards, social media, email and texting), it’s important to tell students exactly which channels they should be on for your course and how often you expect them to check those channels. For example, if you plan to post new information on a learning management system every Sunday night, tell students they should be checking the platform every Sunday night.</p>
+
+                                            <h4>Electronic Device Policy:</h4>
+                                            <p> Explain your policy on the use of cell phones, laptops, and other electronic devices in class, including any information about whether exceptions are made for students with accommodations.</p>
+
+                                            <h4>Food & Drink Policy:</h4>
+                                            <p>Are food and drinks permitted in class? Explain your policy here.</p>
+
+                                            <h4>Accommodations Statement:</h4>
+                                            <p>If you are teaching at the college level, find out what you are required to include on your syllabus about accommodating individuals with disabilities.</p>
+                                       </span>
+                                       <span class="post">
+                                            <h4> Communication Protocols:</h4>
+                                            <p>Specify how often and through what channels students should be accessing course information, looking for updates and announcements, and contacting you. Because we have so many different means of communicating (online bulletin and discussion boards, social media, email and texting), it’s important to tell students exactly which channels they should be on for your course and how often you expect them to check those channels. For example, if you plan to post new information on a learning management system every Sunday night, tell students they should be checking the platform every Sunday night.</p>
+
+                                            <h4>Electronic Device Policy:</h4>
+                                            <p> Explain your policy on the use of cell phones, laptops, and other electronic devices in class, including any information about whether exceptions are made for students with accommodations.</p>
+
+                                            <h4>Food & Drink Policy:</h4>
+                                            <p>Are food and drinks permitted in class? Explain your policy here.</p>
+
+                                            <h4>Accommodations Statement:</h4>
+                                            <p>If you are teaching at the college level, find out what you are required to include on your syllabus about accommodating individuals with disabilities.</p>
+                                       </span>
+                                       <span class="post">
+                                            <h4> Communication Protocols:</h4>
+                                            <p>Specify how often and through what channels students should be accessing course information, looking for updates and announcements, and contacting you. Because we have so many different means of communicating (online bulletin and discussion boards, social media, email and texting), it’s important to tell students exactly which channels they should be on for your course and how often you expect them to check those channels. For example, if you plan to post new information on a learning management system every Sunday night, tell students they should be checking the platform every Sunday night.</p>
+
+                                            <h4>Electronic Device Policy:</h4>
+                                            <p> Explain your policy on the use of cell phones, laptops, and other electronic devices in class, including any information about whether exceptions are made for students with accommodations.</p>
+
+                                            <h4>Food & Drink Policy:</h4>
+                                            <p>Are food and drinks permitted in class? Explain your policy here.</p>
+
+                                            <h4>Accommodations Statement:</h4>
+                                            <p>If you are teaching at the college level, find out what you are required to include on your syllabus about accommodating individuals with disabilities.</p>
+                                       </span>
+                                       <span class="post">
+                                            <h4> Communication Protocols:</h4>
+                                            <p>Specify how often and through what channels students should be accessing course information, looking for updates and announcements, and contacting you. Because we have so many different means of communicating (online bulletin and discussion boards, social media, email and texting), it’s important to tell students exactly which channels they should be on for your course and how often you expect them to check those channels. For example, if you plan to post new information on a learning management system every Sunday night, tell students they should be checking the platform every Sunday night.</p>
+
+                                            <h4>Electronic Device Policy:</h4>
+                                            <p> Explain your policy on the use of cell phones, laptops, and other electronic devices in class, including any information about whether exceptions are made for students with accommodations.</p>
+
+                                            <h4>Food & Drink Policy:</h4>
+                                            <p>Are food and drinks permitted in class? Explain your policy here.</p>
+
+                                            <h4>Accommodations Statement:</h4>
+                                            <p>If you are teaching at the college level, find out what you are required to include on your syllabus about accommodating individuals with disabilities.</p>
+                                       </span>
+                                       <span class="post">
+                                            <h4> Communication Protocols:</h4>
+                                            <p>Specify how often and through what channels students should be accessing course information, looking for updates and announcements, and contacting you. Because we have so many different means of communicating (online bulletin and discussion boards, social media, email and texting), it’s important to tell students exactly which channels they should be on for your course and how often you expect them to check those channels. For example, if you plan to post new information on a learning management system every Sunday night, tell students they should be checking the platform every Sunday night.</p>
+
+                                            <h4>Electronic Device Policy:</h4>
+                                            <p> Explain your policy on the use of cell phones, laptops, and other electronic devices in class, including any information about whether exceptions are made for students with accommodations.</p>
+
+                                            <h4>Food & Drink Policy:</h4>
+                                            <p>Are food and drinks permitted in class? Explain your policy here.</p>
+
+                                            <h4>Accommodations Statement:</h4>
+                                            <p>If you are teaching at the college level, find out what you are required to include on your syllabus about accommodating individuals with disabilities.</p>
+                                       </span>
+
+                                    </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Row -->
+
+
+                <!-- Row -->
+                <div class="row">
+                    <!-- Column -->
+                    <!-- <div class="col-lg-4">
+                        <div class="card">
+                            <div class="d-flex flex-wrap">
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen></iframe>
+                                    </div>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-inline font-14">
+                                    <li class="pl-0">20 May 2016</li>
+                                    <li><a href="javascript:void(0)" class="link">3 Comment</a></li>
+                                </ul>
+                                <h3 class="font-normal">Featured Hydroflora Pots Garden &amp; Outdoors</h3>
+                            </div>
+                        </div>
+                    </div> -->
+                    <!-- Column -->
+                    <!-- Column -->
+                    <!-- <div class="col-lg-4">
+                        <div class="card">
+                            <div class="d-flex flex-wrap">
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen></iframe>
+                                    </div>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-inline font-14">
+                                    <li class="pl-0">20 May 2016</li>
+                                    <li><a href="javascript:void(0)" class="link">3 Comment</a></li>
+                                </ul>
+                                <h3 class="font-normal">Featured Hydroflora Pots Garden &amp; Outdoors</h3>
+                            </div>
+                        </div>
+                    </div> -->
+                    <!-- Column -->
+                    <!-- Column -->
+                    <!-- <div class="col-lg-4">
+                        <div class="card">
+                            <div class="d-flex flex-wrap">
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen></iframe>
+                                    </div>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-inline font-14">
+                                    <li class="pl-0">20 May 2016</li>
+                                    <li><a href="javascript:void(0)" class="link">3 Comment</a></li>
+                                </ul>
+                                <h3 class="font-normal">Featured Hydroflora Pots Garden &amp; Outdoors</h3>
+                            </div>
+                        </div>
+                    </div> -->
+                    <!-- Column -->
+                </div>
+                <!-- Row -->
+
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+            <footer class="footer">
+                © 2019 illumiya  by illumiya
+            </footer>
+            <!-- ============================================================== -->
+            <!-- End footer -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+    {% endblock main-content %}
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+
+{% block extra-js %}
+    <script src="{% static 'course_detail_plugins/bootstrap/js/popper.min.js' %}"></script>
+    <script src="{% static 'course_detail_plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="{% static 'course_detail_js/jquery.slimscroll.js' %}"></script>
+    <!--Menu sidebar -->
+    <script src="{% static 'course_detail_js/sidebarmenu.js' %}"></script>
+     <!--course detail -->
+     <script src="{% static 'course_detail_js/course_detail.js' %}"></script>
+    <!--stickey kit -->
+    <script src="{% static 'course_detail_plugins/sticky-kit-master/dist/sticky-kit.min.js' %}"></script>
+    <!--Custom JavaScript -->
+    <script src="{% static 'course_detail_js/custom.min.js' %}"></script>
+    <!-- Horizontal-timeline JavaScript -->
+    <script src="{% static 'course_detail_plugins/horizontal-timeline/js/horizontal-timeline.js' %}"></script>
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- This page plugins -->
+    <!-- ============================================================== -->
+    <!-- chartist chart -->
+{% endblock extra-js %}

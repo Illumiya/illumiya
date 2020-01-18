@@ -9,7 +9,7 @@ from django_comments_xtd.forms import XtdCommentForm
 from django_comments_xtd.models import TmpXtdComment
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
-from .models import Blog, Video
+from .models import Blog, Video, Section
 
 class BlogAdminForm(forms.ModelForm):
     content = forms.CharField(widget=CKEditorUploadingWidget())
@@ -18,6 +18,12 @@ class BlogAdminForm(forms.ModelForm):
         model = Blog
         exclude = ('created_date',)
 
+class CourseSectionAdminForm(forms.ModelForm):
+    content = forms.CharField(widget=CKEditorUploadingWidget())
+
+    class Meta:
+        model = Section
+        fields = '__all__'
 
 class CommentCustomForm(XtdCommentForm):
     name = forms.CharField(max_length=100,

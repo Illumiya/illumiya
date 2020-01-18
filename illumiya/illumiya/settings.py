@@ -142,7 +142,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_REDIRECT_URL = '/users/profile/'
-LOGOUT_REDIRECT_URL = '/users/login/'
+LOGIN_URL = LOGOUT_REDIRECT_URL = '/users/login/'
 
 # Ckeditor settings
 CKEDITOR_UPLOAD_PATH = "editor/uploads/"
@@ -194,6 +194,8 @@ COMMENTS_XTD_LIST_ORDER = ('-thread_id', 'order')
 COMMENTS_XTD_CONFIRM_EMAIL = False
 COMMENTS_XTD_THREADED_EMAILS = False
 
+RAZOR_PAY_KEY = ''
+RAZOR_PAY_SECRET = ''
 #
 try:
     from .local_settings import *

@@ -24,7 +24,8 @@
             a.morelink {color: #e61d1d;}
         </style>
     </head>
-    <body>
+    <body{% block body_class %}{% endblock body_class %}>
+        {% block main-content %}
         <!-- Page Loading -->
         <div class="se-pre-con"></div>
 
@@ -134,7 +135,7 @@
                 </div>
             </nav>
         </div>
-
+        {% endblock main-content %}
         <!-- ========== End Navbar ========== -->
 
         <!-- ========== JS ========== -->

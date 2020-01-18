@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block extra-css %}
+    <link rel="stylesheet" href="{% static 'css/nestable.css' %}">
+{% endblock extra-css %}
+
+{% block nav-style %}
+style="background: -webkit-linear-gradient(top,#8066dc 0%,#5040a0 100%);"
+{% endblock nav-style %}
+
+{% block content %}
+
+<!-- ========== blogslider ========== -->
+    <section class="blogslider m-section-120 pt-20 mb-60" id="blogslider">
+        <div class="container text-center">
+            <h2 class="">Pay order</h2>
+        </div>
+    </section>
+<!-- ========== End blogslider ========== -->
+
+    <!-- ========== Start paragraph========== -->
+    <section class="paragraph mb-60" id="paragraph" style="margin-left: 500px;">
+        <div class="container">
+            <div class="row d-flex align-items-center">
+                {% if plan == 'Silver'%}
+                    <div class="box">
+                        <h3 class=" mb-10">Silver Packages</h3>
+                        <h5 class="mb-30 silver">Silver Packages</h5>
+                        <!-- <img src="img/price/1.svg" alt="" class="img-fluid w-80"> -->
+                        <h5>Essential</h5>
+                        <h4>1 Month </h4>
+                        <div class="price_content_1">
+                            <p class="p-bk mb-30 mt-25"> Learning program delivers core<br>
+                                skills & training and gets you <br>
+                                started on the path to success.
+                            </p>
+                            <p class="p-bk mb-30 mt-25">5 hours personal <br>
+                                consultation with an expert <br>
+                                Skills Trainer
+                            </p>
+                            <ul>
+                                <li>Free Quizflix App</li>
+                                <li>500 Illumiya Coins</li>
+                                <li class="t-w">---</li>
+                                <li class="t-w">---</li>
+                            </ul>
+                            <p class="p-bk mb-30 mt-25">
+                                Free ebook <br> <br>
+                            </p>
+                        </div>
+                        {% if paid %}
+                            <a href="javascript:void(0);" class="btn btn-primary">Already paid</a>
+                        {% else %}
+                            <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+                            <a href="javascript:void(0);" class="btn btn-primary" id="rzp-button1">Pay</a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+                {% if plan == 'Gold' %}
+                    <div class="box">
+                        <h3 class=" mb-10">Gold Packages</h3>
+                        <!-- <img src="img/price/2.svg" alt="" class="img-fluid w-80"> -->
+                        <h5>Rigorous</h5>
+                        <h4>3 Month</h4>
+                        <div class="price_content_2">
+                            <p class="p-bk mb-30 mt-25">Learning program builds <br>
+                                expertise & knowledge and <br>
+                                helps you plan your next move
+                            </p>
+                            <p class="p-bk mb-30 mt-25">20 hours personal <br>
+                                consultation with an expert <br>
+                                Skills Trainer
+                            </p>
+                            <ul>
+                                <li>Free Quizflix App</li>
+                                <li>1000 Illumiya Coins</li>
+                                <li>Free Quizflix App School subscription</li>
+                                <li>for 3 months</li>
+                            </ul>
+                            <p class="p-bk mt-25">
+                                    Free ebook <br> <br>
+
+                            </p>
+                        </div>
+                        {% if paid %}
+                            <a href="javascript:void(0);" class="btn btn-primary">Already paid</a>
+                        {% else %}
+                            <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+                            <a href="javascript:void(0);" class="btn btn-primary" id="rzp-button1">Pay</a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+                {% if plan == 'Platinum' %}
+                    <div class="box">
+                        <h3 class="mb-10 ">Platinum Packages</h3>
+                        <!-- <img src="img/price/3.svg" alt="" class="img-fluid w-80"> -->
+                        <h5>Comprehensive</h5>
+                        <h4>6 Months</h4>
+                        <div class="price_content_3">
+                            <p class="p-bk mb-30 mt-25">Learning program delivers <br>
+                                everything you need <br>
+                                to transform your opportunities
+                            </p>
+                            <p class="p-bk mb-30 mt-25">60 hours personal <br>
+                                consultation with an expert <br>
+                                Skills Trainer
+                            </p>
+                            <ul>
+                                <li>Free Quizflix App</li>
+                                <li>2000 Illumiya Coins</li>
+                                <li>Free 6 month subscription </li>
+                                <li>to Quizflix School </li>
+                            </ul>
+                            <p class="p-bk mt-25">
+                                    Free ebook <br>
+                                    Free branded T-shirt and pen
+                            </p>
+                        </div>
+                        {% if paid %}
+                            <a href="javascript:void(0);" class="btn btn-primary">Already paid</a>
+                        {% else %}
+                            <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+                            <a href="javascript:void(0);" class="btn btn-primary" id="rzp-button1">Pay</a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        {% csrf_token %}
+    </section>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    var options = {
+        "key": "rzp_test_ivNff8SWluqtfF", // Enter the Key ID generated from the Dashboard
+        "amount": "{{ plan_amount }}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise or INR 500.
+        "currency": "INR",
+        "name": "{{ plan }}",
+        //"description": "",
+        "image": "http://illumiya.in/static/img/logo.png",
+        "order_id": "{{ order_id }}",//This is a sample Order ID. Create an Order using Orders API. (https://razorpay.com/docs/payment-gateway/orders/integration/#step-1-create-an-order). Refer the Checkout form table given below
+        "handler": function (response){
+            console.log(response);
+            console.log(response.razorpay_payment_id);
+            $.post(
+                "{% url 'pay-order' %}",
+                "payment_id=" + response.razorpay_payment_id + "&order_id=" + response.razorpay_order_id + "&payment_signature=" + response.razorpay_signature + "&csrfmiddlewaretoken=" + $("input[name=csrfmiddlewaretoken]").val(),
+                function(output) {
+                    window.location.href = "{% url 'payment-status' %}?status=" + output['status']
+                },
+                'json'
+            );
+        },
+        "prefill": {
+            "name": "{{ customer_name }}",
+            "email": "{{ customer_email }}",
+            //"contact": "9999999999"
+        },
+        "notes": {
+            "plan": "{{ plan_id }}"
+        },
+        "theme": {
+            "color": "#F37254"
+        }
+    };
+    var rzp1 = new Razorpay(options);
+    document.getElementById('rzp-button1').onclick = function(e){
+        rzp1.open();
+        e.preventDefault();
+    }
+</script>
+<hr>
+{% endblock content %}

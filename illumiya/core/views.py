@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.shortcuts import render
 from django.urls import reverse
+from django.db.models import Count
 
 from django_comments_xtd.api.views import CommentCreate
 from rest_framework.response import Response
@@ -17,10 +18,14 @@ from django_comments_xtd import django_comments
 from django_comments import get_form
 from django_comments_xtd.models import XtdComment
 
+import razorpay
+from razorpay.errors import SignatureVerificationError
 
 from django.conf import settings
-from .models import Blog, Video, Like, VideoCategory, BlogLikeIntermediate
-from .utils import send_email
+from .models import (Blog, Video, Like, VideoCategory,
+                     BlogLikeIntermediate, Course, Section,
+                     PaymentCustomer, PaymentDetail)
+from .utils import send_email, get_object_or_none
 from .forms import VideoUploadForm
 
 class HomeView(TemplateView):
@@ -280,3 +285,137 @@ class BlogManageLikeView(View):
                       like_counter=blog.liked_count,
                       liked=like_obj.liked)
         return JsonResponse(result)
+
+class CourseDetailView(TemplateView):
+    template_name = 'core/course_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        course = get_object_or_none(Course, id=kwargs['pk'])
+        course_sections = []
+        parent_sections = course.section.filter(parent__isnull=True)
+        #sections = course.section.filter(parent__isnull=False).order_by('id', 'order')
+        print(parent_sections, "parent_sections")
+        for i in parent_sections:
+            #parent = get_object_or_none(Section, id=i['parent'])
+            #print(parent, i['parent'])
+            course_sections.append({i: i.section_set.all()})
+        print(course_sections, "course_sections")
+        context.update(course=course,
+                       course_sections=course_sections)
+        return context
+
+
+class PayOrderView(View):
+    template_name = 'payment/pay_order.html'
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        #context = super().get_context_data(**kwargs)
+        context = {}
+        data = self.request.GET
+        client = razorpay.Client(auth=('%s' % settings.RAZOR_PAY_KEY, '%s' % settings.RAZOR_PAY_SECRET))
+        plans = client.plan.all()
+        #plan_amount =
+        plan = data.get('plan', 'Silver')
+
+        payment_detail = PaymentDetail.objects.filter(payment_customer__user__email=self.request.user.email).order_by('-id')
+
+        if payment_detail.exists():
+            payment_detail = payment_detail[0]
+            subscription_res = client.subscription.fetch(payment_detail.subscription_id)
+            if 'status' in subscription_res:
+                status = subscription_res['status']
+                if status not in ['created', 'authenticated', 'active']:
+                    payment_detail.status = False
+                    payment_detail.save()
+                    context.update(paid=False)
+
+        for i in plans['items']:
+            plan_name = i['item']['name']
+            if plan_name == plan:
+                plan_amount = i['item']['amount']
+                order_data = {'amount': plan_amount,
+                              'currency': 'INR',
+                              'payment_capture': 1,
+                              'notes': {'plan': i['id']}}
+                order_id = client.order.create(data=order_data)['id']
+                context.update(plan=plan,
+                               plan_id=i['id'],
+                               plan_amount=plan_amount,
+                               order_id=order_id,
+                               customer_name=self.request.user.get_full_name().title(),
+                               #customer_email='ugk@gmail.com')
+                               customer_email=self.request.user.email)
+        return context
+
+    def get(self, request, **kwargs):
+        return render(request, self.template_name, self.get_context_data(**kwargs))
+
+    def post(self, request, **kwargs):
+        result = {'status': 'success'}
+        #print(request.POST, "post_Data")
+        data = request.POST
+        if (data and
+            'order_id' in data and
+            'payment_id' in data and
+            'payment_signature' in data):
+            client = razorpay.Client(auth=('%s' % settings.RAZOR_PAY_KEY, '%s' % settings.RAZOR_PAY_SECRET))
+
+            try:
+                signature_data = {'razorpay_order_id': data['order_id'],
+                                  'razorpay_payment_id': data['payment_id'],
+                                  'razorpay_signature': data['payment_signature']}
+                signature_res = client.utility.verify_payment_signature(signature_data)
+                #print(signature_res, "signature_res signature_res")
+                payment_res = client.payment.fetch(data['payment_id'])
+                #print(payment_res, "PAYMNENT RESP!")
+                payment_customer = get_object_or_none(PaymentCustomer, user__id=self.request.user.id)
+
+                if not payment_customer:
+                    customer_data = {'name': self.request.user.get_full_name().title(),
+                                     'email': self.request.user.email,
+                                     'fail_existing': '0'}
+                    res = client.customer.create(customer_data)
+                    #print(res, "RESP!")
+                    payment_customer = PaymentCustomer(user=self.request.user,
+                                                       customer_id=res['id'])
+                    payment_customer.save()
+
+                subscription_data = {'plan_id': payment_res['notes']['plan'],
+                                     'customer_id': res['id'],
+                                     'total_count': 1}
+                subscription_res = client.subscription.create(data=subscription_data)
+                print(subscription_res, "RES!")
+                payment_detail = PaymentDetail(payment_customer=payment_customer,
+                                               plan_id=payment_res['notes']['plan'],
+                                               order_id=data['order_id'],
+                                               payment_id=data['payment_id'],
+                                               payment_signature=data['payment_signature'],
+                                               subscription_id=subscription_res['id'],
+                                               status=True)
+                payment_detail.save()
+
+            except SignatureVerificationError:
+                #logger.error("The payment signature is not verified!")
+                print("SIGNATURE ERROR!")
+                result.update(status='error')
+        else:
+            result.update(status='error')
+        return JsonResponse(result)
+
+class PaymentStatusView(TemplateView):
+    template_name = 'payment/payment_status.html'
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        print(self.request.GET)
+        context.update(status=self.request.GET.get('status', 'error'))
+        return context

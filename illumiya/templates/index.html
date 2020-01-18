@@ -329,7 +329,11 @@
                                     Free ebook <br> <br>
                                 </p>
                             </div>
-                            <a href="{% url 'register' %}" class="btn-green d-inline-block mt-25">Sign Up Here</a>
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'pay-order' %}" class="btn-green d-inline-block mt-25">Pay</a>
+                            {% else %}
+                                <a href="{% url 'register' %}" class="btn-green d-inline-block mt-25">Sign Up Here</a>
+                            {% endif %}
                         </div>
                     </div>
                     <!-- Box-2 -->
@@ -363,7 +367,11 @@
 
                                     </p>
                                 </div>
-                                <a href="{% url 'register' %}" class="btn-green d-inline-block mt-25">Sign Up Here</a>
+                                {% if user.is_authenticated %}
+                                    <a href="{% url 'pay-order' %}" class="btn-green d-inline-block mt-25">Pay</a>
+                                {% else %}
+                                    <a href="{% url 'register' %}" class="btn-green d-inline-block mt-25">Sign Up Here</a>
+                                {% endif %}
                             </div>
                         </div>
                         <!-- Box-3 -->
@@ -397,7 +405,11 @@
                                             Free branded T-shirt and pen
                                     </p>
                                 </div>
-                                <a href="{% url 'register' %}" class="btn-green d-inline-block mt-25">Sign Up Here</a>
+                                {% if user.is_authenticated %}
+                                    <a href="{% url 'pay-order' %}" class="btn-green d-inline-block mt-25">Pay</a>
+                                {% else %}
+                                    <a href="{% url 'register' %}" class="btn-green d-inline-block mt-25">Sign Up Here</a>
+                                {% endif %}
                             </div>
                         </div>
                 </div>

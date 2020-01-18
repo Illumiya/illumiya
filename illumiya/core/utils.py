@@ -4,6 +4,7 @@ All core utils here!
 
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
+from django.shortcuts import _get_queryset
 
 from django.conf import settings
 
@@ -27,3 +28,18 @@ def send_email(subject,
     msg.content_subtype = "html"  # Main content is now text/html
     msg.send()
 
+
+def get_object_or_none(klass,
+                       *ar,
+                       **kw):
+    """
+    Returns object if it exists or None.
+
+    kclass may be Model, Manager, Object.
+    """
+    queryset = _get_queryset(klass)
+    try:
+        return queryset.get(*ar,
+                            **kw)
+    except queryset.model.DoesNotExist:
+        return None

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block extra-css %}
+    <link rel="stylesheet" href="{% static 'css/nestable.css' %}">
+{% endblock extra-css %}
+
+{% block nav-style %}
+style="background: -webkit-linear-gradient(top,#8066dc 0%,#5040a0 100%);"
+{% endblock nav-style %}
+
+{% block content %}
+
+    <!-- ========== Start paragraph========== -->
+    <section class="paragraph mb-60" id="paragraph" style="margin-top: 150px; min-height: 200px;">
+        <div class="container">
+            <div class="row d-flex align-items-center">
+                {% if status == 'success'%}
+                    <h5 class="text-success">The payment is successfully paid!</h5>
+                {% else %}
+                    <h5 class="text-danger">The payment is not successfully paid!</h5>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+<hr>
+{% endblock content %}
