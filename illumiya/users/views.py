@@ -51,15 +51,19 @@ class ProfileView(FormView):
 
     def get_initial(self):
         initial = super().get_initial()
-        profile = self.request.user.profile
-        initial['instance'] = profile
+        try:
+            profile = self.request.user.profile
+            initial['instance'] = profile
+            initial['street'] = profile.street
+            initial['city'] = profile.city
+            initial['state'] = profile.state
+            initial['country'] = profile.country
+        except Profile.DoesNotExist:
+            pass
+
         initial['first_name'] = self.request.user.first_name
         initial['last_name'] = self.request.user.last_name
         initial['email'] = self.request.user.email
-        initial['street'] = profile.street
-        initial['city'] = profile.city
-        initial['state'] = profile.state
-        initial['country'] = profile.country
         return initial
 
     def get_context_data(self, *args, **kwargs):

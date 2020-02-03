@@ -293,9 +293,11 @@ class CourseDetailView(TemplateView):
         context = super().get_context_data(**kwargs)
         course = get_object_or_none(Course, id=kwargs['pk'])
         course_sections = []
-        parent_sections = course.section.filter(parent__isnull=True)
-        #sections = course.section.filter(parent__isnull=False).order_by('id', 'order')
-        print(parent_sections, "parent_sections")
+        parent_sections = []
+        if course:
+            parent_sections = course.section.filter(parent__isnull=True)
+            #sections = course.section.filter(parent__isnull=False).order_by('id', 'order')
+            print(parent_sections, "parent_sections")
         for i in parent_sections:
             #parent = get_object_or_none(Section, id=i['parent'])
             #print(parent, i['parent'])
