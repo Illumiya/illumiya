@@ -11,6 +11,11 @@
     <link href="{% static 'course_detail_css/style.css' %}" rel="stylesheet">
     <!-- You can change the theme colors from here -->
     <link href="{% static 'course_detail_css/colors/blue.css' %}" id="theme" rel="stylesheet">
+    <style>
+        .remarkContainer {
+            left: 906px !important;
+        }
+    </style>
 {% endblock extra-css %}
 
 {% block body_class %} class="fix-header fix-sidebar card-no-border"{% endblock body_class %}
@@ -104,6 +109,7 @@
                 <nav class="sidebar-nav">
 
                     <ul id="sidebarnav">
+                        {% comment %}
                         <li class="hidden-sm-down">
                                 <form class="app-search">
                                     <a class="srh-btn"><input type="text" class="form-control" placeholder="Search for...">
@@ -117,58 +123,26 @@
                         <li>
                             <a href="#" aria-expanded="false"><span class="hide-menu">Course Schedule</span></a>
                         </li>
+                        {% endcomment %}
+
                         {% for section in course_sections %}
                             {% for parent, sub_section in section.items %}
                             <li class="nav-devider"></li>
                             <!--<li class="nav-small-cap">WEEK 1</li>-->
-                            <li class="active">
-                                <a class="has-arrow" href="#" aria-expanded="false">
+                            <li{% if not sub_section and parent.id == section_detail.id or sub_section and parent.id == section_detail.parent.id %} class="active"{% endif %}>
+                                <a class="has-arrow" href="{% url 'course-detail-main-topic' pk=course.id topic=parent.id %}" aria-expanded="false">
                                     <span class="hide-menu">{{ parent }}</span>
                                 </a>
                                 {% for i in sub_section %}
                                     <ul aria-expanded="false" class="collapse">
                                         <li>
-                                            <a href="#">
-                                                <!--<i class="mdi mdi-play-circle-outline"></i>--> Your policy <!--<span class="video-time">12.00</span>--></a></li>
+                                            <a href="{% url 'course-detail-sub-topic' pk=course.id topic=parent.id subtopic=i.id %}">
+                                                <!--<i class="mdi mdi-play-circle-outline"></i>--> {{ i.title }} <!--<span class="video-time">12.00</span>--></a></li>
                                     </ul>
                                 {% endfor %}
                             </li>
                             {% endfor %}
                         {% endfor %}
-                        <li class="nav-devider"></li>
-                        <li class="nav-small-cap">WEEK 2</li>
-                        <li>
-                            <a class="has-arrow" href="#" aria-expanded="false"><span class="hide-menu">2.Collaboration</span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                    <li><a href="#"><i class="mdi mdi-play-circle-outline"></i> Your policy <span class="video-time">12.00</span></a></li>
-                                    <li><a href="#"><i class="mdi mdi-play-circle-outline"></i> Quizzes<span class="video-time">08.00</span></a></li>
-                                    <li><a href="#"> <i class="mdi mdi-play-circle-outline"></i> Learning Management <span class="video-time">04.00</span></a></li>
-                                    <li><a href="#"><i class="mdi mdi-play-circle-outline"></i> Channels <span class="video-time">07.00</span></a></li>
-                                    <li><a href="#"> <i class="mdi mdi-play-circle-outline"></i>  Announcements <span class="video-time">05.30</span></a></li>
-                                </ul>
-                        </li>
-                        <li>
-                                <a class="has-arrow " href="#" aria-expanded="false"><span class="hide-menu">3.Management</span></a>
-                                <ul aria-expanded="false" class="collapse">
-                                    <li><a href="#"><i class="mdi mdi-play-circle-outline"></i> Your policy <span class="video-time">12.00</span></a></li>
-                                    <li><a href="#"><i class="mdi mdi-play-circle-outline"></i> Quizzes<span class="video-time">08.00</span></a></li>
-                                    <li><a href="#"> <i class="mdi mdi-play-circle-outline"></i> Learning Management <span class="video-time">04.00</span></a></li>
-                                    <li><a href="#"><i class="mdi mdi-play-circle-outline"></i> Channels <span class="video-time">07.00</span></a></li>
-                                    <li><a href="#"> <i class="mdi mdi-play-circle-outline"></i>  Announcements <span class="video-time">05.30</span></a></li>
-                                </ul>
-                            </li>
-                        <li class="nav-devider"></li>
-                        <li class="nav-small-cap">WEEK 3</li>
-                        <li>
-                            <a class="has-arrow " href="#" aria-expanded="false"><span class="hide-menu">4.Assignments and Assessment</span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a href="#"><i class="mdi mdi-play-circle-outline"></i> Your policy <span class="video-time">12.00</span></a></li>
-                                <li><a href="#"><i class="mdi mdi-play-circle-outline"></i> Quizzes<span class="video-time">08.00</span></a></li>
-                                <li><a href="#"> <i class="mdi mdi-play-circle-outline"></i> Learning Management <span class="video-time">04.00</span></a></li>
-                                <li><a href="#"><i class="mdi mdi-play-circle-outline"></i> Channels <span class="video-time">07.00</span></a></li>
-                                <li><a href="#"> <i class="mdi mdi-play-circle-outline"></i>  Announcements <span class="video-time">05.30</span></a></li>
-                            </ul>
-                        </li>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -281,120 +255,7 @@
                                             <i class="icon-share"></i>
                                     </button>
                                     {% endcomment %}
-
-                                <h3 class="font-normal">About Instructional Methods</h3>
-                                <ul class="list-inline font-14">
-                                        <li class="pl-0">20 May 2016</li>
-                                        <li><a href="javascript:void(0)" class="link">3 Comment</a></li>
-                                </ul>
-                                    <div class="container">
-                                       <span class="post">
-                                            <h4> Communication Protocols:</h4>
-                                            <p>Specify how often and through what channels students should be accessing course information, looking for updates and announcements, and contacting you. Because we have so many different means of communicating (online bulletin and discussion boards, social media, email and texting), it’s important to tell students exactly which channels they should be on for your course and how often you expect them to check those channels. For example, if you plan to post new information on a learning management system every Sunday night, tell students they should be checking the platform every Sunday night.</p>
-
-                                            <h4>Electronic Device Policy:</h4>
-                                            <p> Explain your policy on the use of cell phones, laptops, and other electronic devices in class, including any information about whether exceptions are made for students with accommodations.</p>
-
-                                            <h4>Food & Drink Policy:</h4>
-                                            <p>Are food and drinks permitted in class? Explain your policy here.</p>
-
-                                            <h4>Accommodations Statement:</h4>
-                                            <p>If you are teaching at the college level, find out what you are required to include on your syllabus about accommodating individuals with disabilities.</p>
-                                       </span>
-                                       <span class="post">
-                                            <h4> Communication Protocols:</h4>
-                                            <p>Specify how often and through what channels students should be accessing course information, looking for updates and announcements, and contacting you. Because we have so many different means of communicating (online bulletin and discussion boards, social media, email and texting), it’s important to tell students exactly which channels they should be on for your course and how often you expect them to check those channels. For example, if you plan to post new information on a learning management system every Sunday night, tell students they should be checking the platform every Sunday night.</p>
-
-                                            <h4>Electronic Device Policy:</h4>
-                                            <p> Explain your policy on the use of cell phones, laptops, and other electronic devices in class, including any information about whether exceptions are made for students with accommodations.</p>
-
-                                            <h4>Food & Drink Policy:</h4>
-                                            <p>Are food and drinks permitted in class? Explain your policy here.</p>
-
-                                            <h4>Accommodations Statement:</h4>
-                                            <p>If you are teaching at the college level, find out what you are required to include on your syllabus about accommodating individuals with disabilities.</p>
-                                       </span>
-                                       <span class="post">
-                                            <h4> Communication Protocols:</h4>
-                                            <p>Specify how often and through what channels students should be accessing course information, looking for updates and announcements, and contacting you. Because we have so many different means of communicating (online bulletin and discussion boards, social media, email and texting), it’s important to tell students exactly which channels they should be on for your course and how often you expect them to check those channels. For example, if you plan to post new information on a learning management system every Sunday night, tell students they should be checking the platform every Sunday night.</p>
-
-                                            <h4>Electronic Device Policy:</h4>
-                                            <p> Explain your policy on the use of cell phones, laptops, and other electronic devices in class, including any information about whether exceptions are made for students with accommodations.</p>
-
-                                            <h4>Food & Drink Policy:</h4>
-                                            <p>Are food and drinks permitted in class? Explain your policy here.</p>
-
-                                            <h4>Accommodations Statement:</h4>
-                                            <p>If you are teaching at the college level, find out what you are required to include on your syllabus about accommodating individuals with disabilities.</p>
-                                       </span>
-                                       <span class="post">
-                                            <h4> Communication Protocols:</h4>
-                                            <p>Specify how often and through what channels students should be accessing course information, looking for updates and announcements, and contacting you. Because we have so many different means of communicating (online bulletin and discussion boards, social media, email and texting), it’s important to tell students exactly which channels they should be on for your course and how often you expect them to check those channels. For example, if you plan to post new information on a learning management system every Sunday night, tell students they should be checking the platform every Sunday night.</p>
-
-                                            <h4>Electronic Device Policy:</h4>
-                                            <p> Explain your policy on the use of cell phones, laptops, and other electronic devices in class, including any information about whether exceptions are made for students with accommodations.</p>
-
-                                            <h4>Food & Drink Policy:</h4>
-                                            <p>Are food and drinks permitted in class? Explain your policy here.</p>
-
-                                            <h4>Accommodations Statement:</h4>
-                                            <p>If you are teaching at the college level, find out what you are required to include on your syllabus about accommodating individuals with disabilities.</p>
-                                       </span>
-                                       <span class="post">
-                                            <h4> Communication Protocols:</h4>
-                                            <p>Specify how often and through what channels students should be accessing course information, looking for updates and announcements, and contacting you. Because we have so many different means of communicating (online bulletin and discussion boards, social media, email and texting), it’s important to tell students exactly which channels they should be on for your course and how often you expect them to check those channels. For example, if you plan to post new information on a learning management system every Sunday night, tell students they should be checking the platform every Sunday night.</p>
-
-                                            <h4>Electronic Device Policy:</h4>
-                                            <p> Explain your policy on the use of cell phones, laptops, and other electronic devices in class, including any information about whether exceptions are made for students with accommodations.</p>
-
-                                            <h4>Food & Drink Policy:</h4>
-                                            <p>Are food and drinks permitted in class? Explain your policy here.</p>
-
-                                            <h4>Accommodations Statement:</h4>
-                                            <p>If you are teaching at the college level, find out what you are required to include on your syllabus about accommodating individuals with disabilities.</p>
-                                       </span>
-                                       <span class="post">
-                                            <h4> Communication Protocols:</h4>
-                                            <p>Specify how often and through what channels students should be accessing course information, looking for updates and announcements, and contacting you. Because we have so many different means of communicating (online bulletin and discussion boards, social media, email and texting), it’s important to tell students exactly which channels they should be on for your course and how often you expect them to check those channels. For example, if you plan to post new information on a learning management system every Sunday night, tell students they should be checking the platform every Sunday night.</p>
-
-                                            <h4>Electronic Device Policy:</h4>
-                                            <p> Explain your policy on the use of cell phones, laptops, and other electronic devices in class, including any information about whether exceptions are made for students with accommodations.</p>
-
-                                            <h4>Food & Drink Policy:</h4>
-                                            <p>Are food and drinks permitted in class? Explain your policy here.</p>
-
-                                            <h4>Accommodations Statement:</h4>
-                                            <p>If you are teaching at the college level, find out what you are required to include on your syllabus about accommodating individuals with disabilities.</p>
-                                       </span>
-                                       <span class="post">
-                                            <h4> Communication Protocols:</h4>
-                                            <p>Specify how often and through what channels students should be accessing course information, looking for updates and announcements, and contacting you. Because we have so many different means of communicating (online bulletin and discussion boards, social media, email and texting), it’s important to tell students exactly which channels they should be on for your course and how often you expect them to check those channels. For example, if you plan to post new information on a learning management system every Sunday night, tell students they should be checking the platform every Sunday night.</p>
-
-                                            <h4>Electronic Device Policy:</h4>
-                                            <p> Explain your policy on the use of cell phones, laptops, and other electronic devices in class, including any information about whether exceptions are made for students with accommodations.</p>
-
-                                            <h4>Food & Drink Policy:</h4>
-                                            <p>Are food and drinks permitted in class? Explain your policy here.</p>
-
-                                            <h4>Accommodations Statement:</h4>
-                                            <p>If you are teaching at the college level, find out what you are required to include on your syllabus about accommodating individuals with disabilities.</p>
-                                       </span>
-                                       <span class="post">
-                                            <h4> Communication Protocols:</h4>
-                                            <p>Specify how often and through what channels students should be accessing course information, looking for updates and announcements, and contacting you. Because we have so many different means of communicating (online bulletin and discussion boards, social media, email and texting), it’s important to tell students exactly which channels they should be on for your course and how often you expect them to check those channels. For example, if you plan to post new information on a learning management system every Sunday night, tell students they should be checking the platform every Sunday night.</p>
-
-                                            <h4>Electronic Device Policy:</h4>
-                                            <p> Explain your policy on the use of cell phones, laptops, and other electronic devices in class, including any information about whether exceptions are made for students with accommodations.</p>
-
-                                            <h4>Food & Drink Policy:</h4>
-                                            <p>Are food and drinks permitted in class? Explain your policy here.</p>
-
-                                            <h4>Accommodations Statement:</h4>
-                                            <p>If you are teaching at the college level, find out what you are required to include on your syllabus about accommodating individuals with disabilities.</p>
-                                       </span>
-
-                                    </div>
-
+                                {{ section_detail.content|safe }}
                             </div>
                         </div>
                     </div>

@@ -292,6 +292,18 @@ class CourseDetailView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         course = get_object_or_none(Course, id=kwargs['pk'])
+        section_detail = None
+
+        if 'topic' in kwargs:
+            section_detail = get_object_or_none(Section, pk=kwargs['topic'], parent__isnull=True)
+        elif course:
+            parent_sections = course.section.filter(parent__isnull=True).order_by('id')
+            if parent_sections.exists():
+                section_detail = parent_sections[0]
+        if 'topic' in kwargs and 'subtopic' in kwargs:
+            section_detail = get_object_or_none(Section, pk=kwargs['subtopic'],
+                                                parent__pk=kwargs['topic'],
+                                                parent__isnull=False)
         course_sections = []
         parent_sections = []
         if course:
@@ -304,7 +316,8 @@ class CourseDetailView(TemplateView):
             course_sections.append({i: i.section_set.all()})
         print(course_sections, "course_sections")
         context.update(course=course,
-                       course_sections=course_sections)
+                       course_sections=course_sections,
+                       section_detail=section_detail)
         return context
 
 
