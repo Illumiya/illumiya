@@ -1,3 +1,9 @@
+"""
+All core views here
+"""
+
+from datetime import date, timedelta
+
 from django.views.generic.base import TemplateView, View
 from django.views.generic.edit import FormView
 from django.core.paginator import Paginator
@@ -306,17 +312,29 @@ class CourseDetailView(TemplateView):
                                                 parent__isnull=False)
         course_sections = []
         parent_sections = []
+        lock_sections = []
+
         if course:
-            parent_sections = course.section.filter(parent__isnull=True)
+            sections = course.section.all()
+            parent_sections = sections.filter(parent__isnull=True)
+            # For the lock horizontal timeline events
+            timeline_start_date = date(2010, 1, 1)
+            for i, section in enumerate(parent_sections.filter(lock=True).order_by('id', 'order')):
+                tmp = {}
+                tmp.update(section_id=section.id,
+                           timeline_date=(timeline_start_date + timedelta(days=i * 31)).strftime("%m/%m/%Y"))
+                lock_sections.append(tmp)
             #sections = course.section.filter(parent__isnull=False).order_by('id', 'order')
-            print(parent_sections, "parent_sections")
+            #print(parent_sections, "parent_sections")
         for i in parent_sections:
             #parent = get_object_or_none(Section, id=i['parent'])
             #print(parent, i['parent'])
             course_sections.append({i: i.section_set.all()})
-        print(course_sections, "course_sections")
+        #print(course_sections, "course_sections")
+        print(lock_sections, "LO")
         context.update(course=course,
                        course_sections=course_sections,
+                       lock_sections=lock_sections,
                        section_detail=section_detail)
         return context
 

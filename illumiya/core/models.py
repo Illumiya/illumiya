@@ -121,6 +121,10 @@ class CourseCategory(models.Model):
         else:
             return "{}".format(self.name)
 
+
+#class Game(models.Model):
+#    name = models.CharField()
+
 class Section(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
@@ -135,9 +139,11 @@ class Section(models.Model):
                                null=True,
                                blank=True,
                                on_delete=models.SET_NULL)
+    lock = models.BooleanField(default=False)
 
     def __str__(self):
         return "%s" % self.title
+
 
 class Course(models.Model):
     name = models.CharField(max_length=200)

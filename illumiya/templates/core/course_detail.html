@@ -161,6 +161,8 @@
             <!-- Container fluid  -->
             <!-- ============================================================== -->
             <div class="container-fluid">
+
+                  {% if lock_sections %}
                   <!-- Row -->
                   <div class="row">
                         <!-- Column -->
@@ -172,27 +174,13 @@
                                             <div class="events-wrapper">
                                                 <div class="events">
                                                     <ol>
-                                                        <li>
-                                                            <a href="#0" data-date="16/01/2014" class="selected"><span class=""><i class="icon-lock-open"></i><i class="icon-lock"></i></span>
-                                                            <span class="timeline-title">Week 01</span>
-                                                           </a>
-                                                        </li>
-                                                        <li><a href="#0" data-date="28/02/2014"><span class=""><i class="icon-lock"></i><i class="icon-lock"></i></span>
-                                                            <span class="timeline-title">Week 02</span>
-                                                        </a></li>
-                                                        <li><a href="#0" data-date="20/04/2014"><span class=""><i class="icon-lock"></i></span>
-                                                            <span class="timeline-title">Week 03</span>
-                                                        </a></li>
-                                                        <li><a href="#0" data-date="20/05/2014"><span class=""><i class="icon-lock"></i><i class="icon-lock"></i><i class="icon-lock"></i></span>
-                                                            <span class="timeline-title">Week 04</span>
-                                                        </a></li>
-                                                        <li><a href="#0" data-date="09/07/2014"><span class=""><i class="icon-lock"></i></span>
-                                                            <span class="timeline-title">Week 05</span>
-                                                        </a></li>
-                                                        <li><a href="#0" data-date="30/08/2014"><span class=""><i class="icon-lock"></i><i class="icon-lock"></i></span>
-                                                            <span class="timeline-title">Week 06</span>
-                                                        </a></li>
-
+                                                        {% for i in lock_sections %}
+                                                            <li>
+                                                                <a href="#{{ i.section_id }}" data-date="{{ i.timeline_date }}" class="selected"><i class="icon-lock"></i></span>
+                                                                <!--<span class="timeline-title">Week 01</span>-->
+                                                               </a>
+                                                            </li>
+                                                        {% endfor %}
                                                     </ol>
                                                     <span class="filling-line" aria-hidden="true"></span>
                                                 </div>
@@ -213,7 +201,9 @@
                         </div>
                     </div>
                     <!-- Row -->
+                    {% endif %}
             </div>
+
 
             <div class="container-fluid">
                 <!-- ============================================================== -->
